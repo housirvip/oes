@@ -2,7 +2,6 @@ package vip.housir.user.mapper;
 
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
-import vip.housir.base.request.AuthRequest;
 import vip.housir.user.entity.User;
 
 import java.util.Map;

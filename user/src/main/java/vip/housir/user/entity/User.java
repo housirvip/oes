@@ -29,6 +29,10 @@ public class User implements Serializable {
 
     private Boolean enable;
 
+    private Integer level;
+
+    private String group;
+
     private UserInfo userInfo;
 
     private static final long serialVersionUID = 1L;
