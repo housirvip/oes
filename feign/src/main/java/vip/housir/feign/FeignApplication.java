@@ -10,8 +10,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * @author housirvip
  */
-@EnableDiscoveryClient
 @EnableFeignClients
+@EnableDiscoveryClient
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class FeignApplication {
 
