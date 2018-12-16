@@ -52,7 +52,6 @@ spring:
     time-zone: GMT+8
 
 mybatis:
-  #  config-location: classpath:mybatis.config.xml
   mapper-locations: classpath:mapper/*.xml
 
 pagehelper:
