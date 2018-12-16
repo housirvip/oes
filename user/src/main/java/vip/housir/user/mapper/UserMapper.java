@@ -45,7 +45,8 @@ public interface UserMapper {
     User selectByPrimaryKey(Integer id);
 
     /**
-     * 根据主键更新记录，返回受影响的记录数，对象中属性值为null，则不赋值
+     * 根据主键更新记录，返回受影响的记录数
+     * 对象中属性值为null，则不赋值
      *
      * @param record User
      * @return int
@@ -53,7 +54,8 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     /**
-     * 根据主键更新记录，返回受影响的记录数，对象中属性值为null，则数据库赋值为null
+     * 根据主键更新记录，返回受影响的记录数
+     * 对象中属性值为null，则数据库赋值为null
      *
      * @param record User
      * @return int
@@ -61,36 +63,45 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     /**
-     * 根据 key 判断是否存在这个账户为手机、用户名或者邮箱，并返回 id
+     * 根据主键更新记录，返回受影响的记录数
+     * 对象中属性值为null，则数据库赋值为null
+     *
+     * @param record User
+     * @return int
+     */
+    int updateByPrimaryKeyWithBLOBs(User record);
+
+    /**
+     * 根据 account 查找账户
      *
      * @param account String
-     * @return int
+     * @return User
      */
     User selectByAccount(String account);
 
     /**
-     * 判断 username 是否已存在，存在返回 1，不存在返回 null
+     * 判断 username 是否已存在
      *
-     * @param authRequest AuthRequest
-     * @return int
+     * @param username String
+     * @return 1 or null
      */
-    Integer existUsername(AuthRequest authRequest);
+    Integer existUsername(String username);
 
     /**
-     * 判断 email 是否已存在，存在返回 1，不存在返回 null
+     * 判断 email 是否已存在
      *
-     * @param authRequest AuthRequest
-     * @return int
+     * @param email String
+     * @return 1 or null
      */
-    Integer existEmail(AuthRequest authRequest);
+    Integer existEmail(String email);
 
     /**
-     * 判断 phone 是否已存在，存在返回 1，不存在返回 null
+     * 判断 phone 是否已存在
      *
-     * @param authRequest AuthRequest
-     * @return int
+     * @param phone String
+     * @return 1 or null
      */
-    Integer existPhone(AuthRequest authRequest);
+    Integer existPhone(String phone);
 
     /**
      * 根据参数查询，支持分页
@@ -98,5 +109,5 @@ public interface UserMapper {
      * @param param Map<String,Object>
      * @return Page<User>
      */
-    Page<User> selectByParam(Map<String, Object> param);
+    Page<User> listByParam(Map<String, Object> param);
 }

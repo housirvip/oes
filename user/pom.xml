@@ -47,8 +47,8 @@
 
         <dependency>
             <groupId>vip.housir</groupId>
-            <artifactId>cloud-base</artifactId>
-            <version>1.0-DEV</version>
+            <artifactId>base</artifactId>
+            <version>1.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

@@ -20,9 +20,6 @@ public class AuthRequest implements Serializable {
     @NotBlank(groups = {Register.class})
     private String username;
 
-    @NotBlank(groups = {Register.class})
-    private String nickname;
-
     @NotBlank(groups = {Login.class, Register.class})
     private String password;
 
