@@ -13,8 +13,8 @@ import vip.housir.base.response.ErrorResponse;
 @RestControllerAdvice
 public class MyExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler(IllegalArgumentException.class)
     public BaseResponse handlerIllegalArgumentException(IllegalArgumentException ex) {
 
         return new ErrorResponse(ex.getMessage());

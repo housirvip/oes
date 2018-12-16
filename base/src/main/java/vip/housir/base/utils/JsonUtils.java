@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.Contract;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,7 @@ public class JsonUtils {
         try {
             result = mapper.writeValueAsString(object);
         } catch (IOException e) {
-            log.error("json convert to string failed", e);
+            log.error("Json: from " + object.getClass().getSimpleName() + " to String failed", e);
         }
 
         return result;
@@ -47,7 +48,24 @@ public class JsonUtils {
         try {
             result = mapper.readValue(json, c);
         } catch (IOException e) {
-            log.error("json convert to obj failed", e);
+            log.error("Json: from String to " + c.getSimpleName() + " failed", e);
+        }
+
+        return result;
+    }
+
+    @Contract(value = "null, _ -> null", pure = true)
+    public static <T> T convertToObj(InputStream src, Class<T> c) {
+
+        if (src == null) {
+            return null;
+        }
+
+        T result = null;
+        try {
+            result = mapper.readValue(src, c);
+        } catch (IOException e) {
+            log.error("Json: from InputStream to " + c.getSimpleName() + " failed", e);
         }
 
         return result;
@@ -66,7 +84,7 @@ public class JsonUtils {
         try {
             result = mapper.readValue(json, javaType);
         } catch (IOException e) {
-            log.error("json convert to list failed", e);
+            log.error("Json: from String to List of " + t.getSimpleName() + " failed", e);
         }
 
         return result;
@@ -85,7 +103,7 @@ public class JsonUtils {
         try {
             result = mapper.readValue(json, javaType);
         } catch (IOException e) {
-            log.error("json convert to map failed", e);
+            log.error("Json: from String to Map of " + k.getSimpleName() + ":" + v.getSimpleName() + " failed", e);
         }
 
         return result;
