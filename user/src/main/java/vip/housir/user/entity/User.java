@@ -25,7 +25,9 @@ public class User implements Serializable {
 
     private Date updateTime;
 
-    private List role;
+    private List<String> role;
+
+    private Boolean enable;
 
     private static final long serialVersionUID = 1L;
 }

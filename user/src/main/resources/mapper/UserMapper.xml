@@ -9,12 +9,13 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="enable" jdbcType="BIT" property="enable" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="vip.housir.user.entity.User">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="vip.housir.user.entity1.User">
     <result column="role" jdbcType="LONGVARCHAR" property="role" typeHandler="vip.housir.base.typehandler.ListTypeHandler" />
   </resultMap>
   <sql id="Base_Column_List">
-    `id`, `username`, `email`, `phone`, `password`, `create_time`, `update_time`
+    `id`, `username`, `email`, `phone`, `password`, `create_time`, `update_time`, `enable`
   </sql>
   <sql id="Blob_Column_List">
     `role`
@@ -31,20 +32,20 @@
     delete from `user`
     where `id` = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="vip.housir.user.entity.User">
+  <insert id="insert" parameterType="vip.housir.user.entity1.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into `user` (`username`, `email`, `phone`, 
       `password`, `create_time`, `update_time`, 
-      `role`
+      `enable`, `role`
       )
     values (#{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{role,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
+      #{enable,jdbcType=BIT}, #{role,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
       )
   </insert>
-  <insert id="insertSelective" parameterType="vip.housir.user.entity.User">
+  <insert id="insertSelective" parameterType="vip.housir.user.entity1.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -67,6 +68,9 @@
       </if>
       <if test="updateTime != null">
         `update_time`,
+      </if>
+      <if test="enable != null">
+        `enable`,
       </if>
       <if test="role != null">
         `role`,
@@ -91,12 +95,15 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="enable != null">
+        #{enable,jdbcType=BIT},
+      </if>
       <if test="role != null">
         #{role,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="vip.housir.user.entity.User">
+  <update id="updateByPrimaryKeySelective" parameterType="vip.housir.user.entity1.User">
     update `user`
     <set>
       <if test="username != null">
@@ -117,13 +124,16 @@
       <if test="updateTime != null">
         `update_time` = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="enable != null">
+        `enable` = #{enable,jdbcType=BIT},
+      </if>
       <if test="role != null">
         `role` = #{role,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler},
       </if>
     </set>
     where `id` = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="vip.housir.user.entity.User">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="vip.housir.user.entity1.User">
     update `user`
     set `username` = #{username,jdbcType=VARCHAR},
       `email` = #{email,jdbcType=VARCHAR},
@@ -131,17 +141,19 @@
       `password` = #{password,jdbcType=VARCHAR},
       `create_time` = #{createTime,jdbcType=TIMESTAMP},
       `update_time` = #{updateTime,jdbcType=TIMESTAMP},
+      `enable` = #{enable,jdbcType=BIT},
       `role` = #{role,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
     where `id` = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="vip.housir.user.entity.User">
+  <update id="updateByPrimaryKey" parameterType="vip.housir.user.entity1.User">
     update `user`
     set `username` = #{username,jdbcType=VARCHAR},
       `email` = #{email,jdbcType=VARCHAR},
       `phone` = #{phone,jdbcType=VARCHAR},
       `password` = #{password,jdbcType=VARCHAR},
       `create_time` = #{createTime,jdbcType=TIMESTAMP},
-      `update_time` = #{updateTime,jdbcType=TIMESTAMP}
+      `update_time` = #{updateTime,jdbcType=TIMESTAMP},
+      `enable` = #{enable,jdbcType=BIT}
     where `id` = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
