@@ -65,7 +65,7 @@
         where phone = #{phone,jdbcType=VARCHAR}
         limit 1
     </select>
-    <select id="listByParam" parameterType="map" resultMap="BaseResultMap">
+    <select id="listByParam" parameterType="map" resultMap="ResultMapWithBLOBs">
         select
         <include refid="Base_Column_List"/>
         ,

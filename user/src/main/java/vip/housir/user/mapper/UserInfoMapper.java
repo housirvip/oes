@@ -55,4 +55,12 @@ public interface UserInfoMapper {
      * @return int
      */
     int updateByPrimaryKey(UserInfo record);
+
+    /**
+     * 根据 uid 查询 UserInfo
+     *
+     * @param uid Integer
+     * @return User
+     */
+    UserInfo selectByUid(Integer uid);
 }

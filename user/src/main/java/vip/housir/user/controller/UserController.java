@@ -28,4 +28,10 @@ public class UserController {
 
         return new PageResponse<>(userPage, userPage.getTotal());
     }
+
+    @RequestMapping("/detail")
+    public BaseResponse<User> detail() {
+
+        return new ResultResponse<>(userService.detail(3));
+    }
 }

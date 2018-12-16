@@ -29,5 +29,7 @@ public class User implements Serializable {
 
     private Boolean enable;
 
+    private UserInfo userInfo;
+
     private static final long serialVersionUID = 1L;
 }

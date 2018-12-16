@@ -28,6 +28,14 @@ public interface UserService {
     User register(AuthRequest authRequest);
 
     /**
+     * 根据 uid 获取 User 包含 UserInfo
+     *
+     * @param uid int
+     * @return User
+     */
+    User detail(int uid);
+
+    /**
      * 根据参数查询，支持分页
      * pageSize,PageNum
      *
