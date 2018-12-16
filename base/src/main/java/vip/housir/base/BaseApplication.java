@@ -1,4 +1,4 @@
-package vip.housir.base.base;
+package vip.housir.base;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

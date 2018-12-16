@@ -1,4 +1,4 @@
-package vip.housir.base.base.aop;
+package vip.housir.base.aop;
 
 import com.github.pagehelper.PageHelper;
 import org.aspectj.lang.JoinPoint;

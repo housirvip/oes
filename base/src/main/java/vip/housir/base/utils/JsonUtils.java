@@ -1,4 +1,4 @@
-package vip.housir.base.base.utils;
+package vip.housir.base.utils;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;

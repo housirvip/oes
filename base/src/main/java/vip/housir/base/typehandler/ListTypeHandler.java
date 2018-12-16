@@ -1,4 +1,4 @@
-package vip.housir.base.base.typehandler;
+package vip.housir.base.typehandler;
 
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;

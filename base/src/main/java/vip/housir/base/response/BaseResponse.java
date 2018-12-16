@@ -1,4 +1,4 @@
-package vip.housir.base.base.response;
+package vip.housir.base.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

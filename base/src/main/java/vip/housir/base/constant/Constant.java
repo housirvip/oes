@@ -1,4 +1,4 @@
-package vip.housir.base.base.constant;
+package vip.housir.base.constant;
 
 /**
  * @author housirvip
