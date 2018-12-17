@@ -22,7 +22,7 @@ public class TestController {
 
     private final UserClient userClient;
 
-    @RequestMapping("/one")
+    @RequestMapping(value = "/one")
     public BaseResponse list(@RequestBody AuthRequest authRequest) {
 
         log.info(authRequest.toString());

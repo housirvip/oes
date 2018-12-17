@@ -21,7 +21,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @RequestMapping("/list")
+    @RequestMapping(value = "/list")
     public BaseResponse<Page> list(@RequestParam Map<String, Object> param) {
 
         Page<User> userPage = userService.pageByParam(param);
@@ -29,7 +29,7 @@ public class UserController {
         return new PageResponse<>(userPage, userPage.getTotal());
     }
 
-    @RequestMapping("/detail")
+    @RequestMapping(value = "/detail")
     public BaseResponse<User> detail() {
 
         return new ResultResponse<>(userService.detail(3));
