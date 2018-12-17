@@ -27,7 +27,7 @@
         update_time,
         enable,
         level,
-        group
+        `group`
     </sql>
     <sql id="Blob_Column_List">
         role
@@ -89,7 +89,7 @@
         </selectKey>
         insert into user (username, email, phone,
         password, create_time, update_time,
-        enable, level, group, role
+        enable, level, `group`, role
         )
         values (#{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
         #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
@@ -128,7 +128,7 @@
                 level,
             </if>
             <if test="group != null">
-                group,
+                `group`,
             </if>
             <if test="role != null">
                 role,
@@ -195,7 +195,7 @@
                 level = #{level,jdbcType=INTEGER},
             </if>
             <if test="group != null">
-                group = #{group,jdbcType=VARCHAR},
+                `group` = #{group,jdbcType=VARCHAR},
             </if>
             <if test="role != null">
                 role = #{role,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler},
@@ -213,7 +213,7 @@
             update_time = #{updateTime,jdbcType=TIMESTAMP},
             enable      = #{enable,jdbcType=BIT},
             level       = #{level,jdbcType=INTEGER},
-            group       = #{group,jdbcType=VARCHAR},
+            `group`       = #{group,jdbcType=VARCHAR},
             role        = #{role,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -227,7 +227,7 @@
             update_time = #{updateTime,jdbcType=TIMESTAMP},
             enable      = #{enable,jdbcType=BIT},
             level       = #{level,jdbcType=INTEGER},
-            group       = #{group,jdbcType=VARCHAR}
+            `group`       = #{group,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
     <sql id="filter">

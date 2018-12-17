@@ -1,4 +1,4 @@
-package vip.housir.feign.config;
+package vip.housir.base.config;
 
 import feign.Feign;
 import okhttp3.ConnectionPool;

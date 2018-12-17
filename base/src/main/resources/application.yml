@@ -3,10 +3,10 @@ server:
 
 spring:
   application:
-    name: oes-feign
+    name: oes-base
   cloud:
     consul:
-      host: consul
+      host: localhost
       port: 8500
       discovery:
         register: false

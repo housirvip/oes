@@ -1,10 +1,9 @@
-package vip.housir.feign.client;
+package vip.housir.base.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import vip.housir.base.request.AuthRequest;
 import vip.housir.base.response.BaseResponse;
 
@@ -21,7 +20,7 @@ public interface UserClient {
      * @param authRequest AuthRequest
      * @return BaseResponse
      */
-    @GetMapping(value = "/login")
+    @PostMapping(value = "/login")
     BaseResponse login(@RequestBody AuthRequest authRequest);
 
     /**
@@ -30,6 +29,6 @@ public interface UserClient {
      * @param authRequest AuthRequest
      * @return BaseResponse
      */
-    @GetMapping(value = "/register")
+    @PostMapping(value = "/register")
     BaseResponse register(@RequestBody AuthRequest authRequest);
 }
