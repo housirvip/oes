@@ -20,7 +20,7 @@ public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
     /**
-     * 插入一条记录返回值为ID，对象中属性值为null，则数据库赋值为null
+     * 插入一条记录返回值为 ID，对象中属性值为 null，则数据库赋值为 null
      *
      * @param record User
      * @return int
@@ -28,7 +28,7 @@ public interface UserMapper {
     int insert(User record);
 
     /**
-     * 插入一条记录返回值为ID，对象中属性值为null则不赋值，取数据库默认值
+     * 插入一条记录返回值为 ID，对象中属性值为 null 则不赋值，取数据库默认值
      *
      * @param record User
      * @return int
@@ -36,7 +36,7 @@ public interface UserMapper {
     int insertSelective(User record);
 
     /**
-     * 根据主键查询记录，返回一条记录或者null
+     * 根据主键查询记录，返回一条记录或者 null
      *
      * @param id Integer
      * @return User
@@ -45,7 +45,7 @@ public interface UserMapper {
 
     /**
      * 根据主键更新记录，返回受影响的记录数
-     * 对象中属性值为null，则不赋值
+     * 对象中属性值为 null，则不赋值
      *
      * @param record User
      * @return int
@@ -54,7 +54,7 @@ public interface UserMapper {
 
     /**
      * 根据主键更新记录，返回受影响的记录数
-     * 对象中属性值为null，则数据库赋值为null
+     * 对象中属性值为 null，则数据库赋值为 null
      *
      * @param record User
      * @return int
@@ -63,7 +63,7 @@ public interface UserMapper {
 
     /**
      * 根据主键更新记录，返回受影响的记录数
-     * 对象中属性值为null，则数据库赋值为null
+     * 对象中属性值为 null，则数据库赋值为 null
      *
      * @param record User
      * @return int

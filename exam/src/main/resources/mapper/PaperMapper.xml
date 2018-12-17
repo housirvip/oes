@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.housir.exam.mapper.PaperMapper">
+    <resultMap id="BaseResultMap" type="vip.housir.exam.entity.Paper">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="group" jdbcType="VARCHAR" property="group"/>
+        <result column="enable" jdbcType="BIT" property="enable"/>
+        <result column="min_level" jdbcType="INTEGER" property="minLevel"/>
+        <result column="total_score" jdbcType="REAL" property="totalScore"/>
+        <result column="pass_score" jdbcType="REAL" property="passScore"/>
+        <result column="avg_score" jdbcType="REAL" property="avgScore"/>
+        <result column="duration" jdbcType="INTEGER" property="duration"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="vip.housir.exam.entity.Paper">
+        <result column="sids" jdbcType="LONGVARCHAR" property="sids"
+                typeHandler="vip.housir.base.typehandler.ListTypeHandler"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        name,
+        type,
+        `group`,
+        enable,
+        min_level,
+        total_score,
+        pass_score,
+        avg_score,
+        duration,
+        description,
+        create_time,
+        update_time
+    </sql>
+    <sql id="Blob_Column_List">
+        sids
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from paper
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from paper
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="vip.housir.exam.entity.Paper">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into paper (name, type, `group`,
+        enable, min_level, total_score,
+        pass_score, avg_score, duration,
+        description, create_time, update_time,
+        sids
+        )
+        values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{group,jdbcType=VARCHAR},
+        #{enable,jdbcType=BIT}, #{minLevel,jdbcType=INTEGER}, #{totalScore,jdbcType=REAL},
+        #{passScore,jdbcType=REAL}, #{avgScore,jdbcType=REAL}, #{duration,jdbcType=INTEGER},
+        #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+        #{sids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="vip.housir.exam.entity.Paper">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into paper
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="group != null">
+                `group`,
+            </if>
+            <if test="enable != null">
+                enable,
+            </if>
+            <if test="minLevel != null">
+                min_level,
+            </if>
+            <if test="totalScore != null">
+                total_score,
+            </if>
+            <if test="passScore != null">
+                pass_score,
+            </if>
+            <if test="avgScore != null">
+                avg_score,
+            </if>
+            <if test="duration != null">
+                duration,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="sids != null">
+                sids,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="group != null">
+                #{group,jdbcType=VARCHAR},
+            </if>
+            <if test="enable != null">
+                #{enable,jdbcType=BIT},
+            </if>
+            <if test="minLevel != null">
+                #{minLevel,jdbcType=INTEGER},
+            </if>
+            <if test="totalScore != null">
+                #{totalScore,jdbcType=REAL},
+            </if>
+            <if test="passScore != null">
+                #{passScore,jdbcType=REAL},
+            </if>
+            <if test="avgScore != null">
+                #{avgScore,jdbcType=REAL},
+            </if>
+            <if test="duration != null">
+                #{duration,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sids != null">
+                #{sids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="vip.housir.exam.entity.Paper">
+        update paper
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="group != null">
+                `group` = #{group,jdbcType=VARCHAR},
+            </if>
+            <if test="enable != null">
+                enable = #{enable,jdbcType=BIT},
+            </if>
+            <if test="minLevel != null">
+                min_level = #{minLevel,jdbcType=INTEGER},
+            </if>
+            <if test="totalScore != null">
+                total_score = #{totalScore,jdbcType=REAL},
+            </if>
+            <if test="passScore != null">
+                pass_score = #{passScore,jdbcType=REAL},
+            </if>
+            <if test="avgScore != null">
+                avg_score = #{avgScore,jdbcType=REAL},
+            </if>
+            <if test="duration != null">
+                duration = #{duration,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sids != null">
+                sids = #{sids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="vip.housir.exam.entity.Paper">
+        update paper
+        set name        = #{name,jdbcType=VARCHAR},
+            type        = #{type,jdbcType=VARCHAR},
+            `group`       = #{group,jdbcType=VARCHAR},
+            enable      = #{enable,jdbcType=BIT},
+            min_level   = #{minLevel,jdbcType=INTEGER},
+            total_score = #{totalScore,jdbcType=REAL},
+            pass_score  = #{passScore,jdbcType=REAL},
+            avg_score   = #{avgScore,jdbcType=REAL},
+            duration    = #{duration,jdbcType=INTEGER},
+            description = #{description,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+            sids        = #{sids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="vip.housir.exam.entity.Paper">
+        update paper
+        set name        = #{name,jdbcType=VARCHAR},
+            type        = #{type,jdbcType=VARCHAR},
+            `group`       = #{group,jdbcType=VARCHAR},
+            enable      = #{enable,jdbcType=BIT},
+            min_level   = #{minLevel,jdbcType=INTEGER},
+            total_score = #{totalScore,jdbcType=REAL},
+            pass_score  = #{passScore,jdbcType=REAL},
+            avg_score   = #{avgScore,jdbcType=REAL},
+            duration    = #{duration,jdbcType=INTEGER},
+            description = #{description,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.housir.exam.mapper.SectionMapper">
+  <resultMap id="BaseResultMap" type="vip.housir.exam.entity.Section">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="duration" jdbcType="INTEGER" property="duration" />
+    <result column="total_score" jdbcType="REAL" property="totalScore" />
+    <result column="every_score" jdbcType="REAL" property="everyScore" />
+    <result column="deduct" jdbcType="BIT" property="deduct" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="group" jdbcType="INTEGER" property="group" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="vip.housir.exam.entity.Section">
+    <result column="qids" jdbcType="LONGVARCHAR" property="qids" typeHandler="vip.housir.base.typehandler.ListTypeHandler" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, duration, total_score, every_score, deduct, type, `group`, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    qids
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from section
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from section
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="vip.housir.exam.entity.Section">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into section (name, duration, total_score, 
+      every_score, deduct, type, 
+      `group`, create_time, update_time,
+      qids
+      )
+    values (#{name,jdbcType=VARCHAR}, #{duration,jdbcType=INTEGER}, #{totalScore,jdbcType=REAL}, 
+      #{everyScore,jdbcType=REAL}, #{deduct,jdbcType=BIT}, #{type,jdbcType=VARCHAR}, 
+      #{group,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{qids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="vip.housir.exam.entity.Section">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into section
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="totalScore != null">
+        total_score,
+      </if>
+      <if test="everyScore != null">
+        every_score,
+      </if>
+      <if test="deduct != null">
+        deduct,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="group != null">
+        `group`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="qids != null">
+        qids,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null">
+        #{totalScore,jdbcType=REAL},
+      </if>
+      <if test="everyScore != null">
+        #{everyScore,jdbcType=REAL},
+      </if>
+      <if test="deduct != null">
+        #{deduct,jdbcType=BIT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null">
+        #{group,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qids != null">
+        #{qids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="vip.housir.exam.entity.Section">
+    update section
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null">
+        total_score = #{totalScore,jdbcType=REAL},
+      </if>
+      <if test="everyScore != null">
+        every_score = #{everyScore,jdbcType=REAL},
+      </if>
+      <if test="deduct != null">
+        deduct = #{deduct,jdbcType=BIT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null">
+        `group` = #{group,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qids != null">
+        qids = #{qids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="vip.housir.exam.entity.Section">
+    update section
+    set name = #{name,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=INTEGER},
+      total_score = #{totalScore,jdbcType=REAL},
+      every_score = #{everyScore,jdbcType=REAL},
+      deduct = #{deduct,jdbcType=BIT},
+      type = #{type,jdbcType=VARCHAR},
+      `group` = #{group,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      qids = #{qids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="vip.housir.exam.entity.Section">
+    update section
+    set name = #{name,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=INTEGER},
+      total_score = #{totalScore,jdbcType=REAL},
+      every_score = #{everyScore,jdbcType=REAL},
+      deduct = #{deduct,jdbcType=BIT},
+      type = #{type,jdbcType=VARCHAR},
+      `group` = #{group,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

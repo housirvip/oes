@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.housir.exam.mapper.QuestionMapper">
+  <resultMap id="BaseResultMap" type="vip.housir.exam.entity.Question">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
+    <result column="exp_pic" jdbcType="VARCHAR" property="expPic" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="vip.housir.exam.entity.Question">
+    <result column="stem" jdbcType="LONGVARCHAR" property="stem" />
+    <result column="answer_full" jdbcType="LONGVARCHAR" property="answerFull" />
+    <result column="selections" jdbcType="LONGVARCHAR" property="selections" typeHandler="vip.housir.base.typehandler.MapTypeHandler" />
+    <result column="explain" jdbcType="LONGVARCHAR" property="explain" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, pic, answer, exp_pic, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    stem, answer_full, selections, `explain`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from question
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from question
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="vip.housir.exam.entity.Question">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into question (type, pic, answer, 
+      exp_pic, create_time, update_time, 
+      stem, answer_full, selections, 
+      `explain`)
+    values (#{type,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
+      #{expPic,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{stem,jdbcType=LONGVARCHAR}, #{answerFull,jdbcType=LONGVARCHAR}, #{selections,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.MapTypeHandler}, 
+      #{explain,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="vip.housir.exam.entity.Question">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        type,
+      </if>
+      <if test="pic != null">
+        pic,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+      <if test="expPic != null">
+        exp_pic,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="stem != null">
+        stem,
+      </if>
+      <if test="answerFull != null">
+        answer_full,
+      </if>
+      <if test="selections != null">
+        selections,
+      </if>
+      <if test="explain != null">
+        `explain`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="expPic != null">
+        #{expPic,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stem != null">
+        #{stem,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerFull != null">
+        #{answerFull,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="selections != null">
+        #{selections,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.MapTypeHandler},
+      </if>
+      <if test="explain != null">
+        #{explain,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="vip.housir.exam.entity.Question">
+    update question
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="expPic != null">
+        exp_pic = #{expPic,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stem != null">
+        stem = #{stem,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerFull != null">
+        answer_full = #{answerFull,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="selections != null">
+        selections = #{selections,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.MapTypeHandler},
+      </if>
+      <if test="explain != null">
+        `explain` = #{explain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="vip.housir.exam.entity.Question">
+    update question
+    set type = #{type,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      exp_pic = #{expPic,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      stem = #{stem,jdbcType=LONGVARCHAR},
+      answer_full = #{answerFull,jdbcType=LONGVARCHAR},
+      selections = #{selections,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.MapTypeHandler},
+      `explain` = #{explain,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="vip.housir.exam.entity.Question">
+    update question
+    set type = #{type,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      exp_pic = #{expPic,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
