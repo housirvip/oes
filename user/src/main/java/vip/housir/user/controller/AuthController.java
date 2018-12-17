@@ -2,6 +2,7 @@ package vip.housir.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,13 +24,13 @@ public class AuthController {
 
     private final UserService userService;
 
-    @RequestMapping(value = "/login")
+    @PostMapping(value = "/login")
     public BaseResponse<User> login(@RequestBody @Validated(value = Login.class) AuthRequest form) {
 
         return new ResultResponse<>(userService.login(form));
     }
 
-    @RequestMapping(value = "/register")
+    @PostMapping(value = "/register")
     public BaseResponse<User> register(@RequestBody @Validated(value = Register.class) AuthRequest form) {
 
         return new ResultResponse<>(userService.register(form));

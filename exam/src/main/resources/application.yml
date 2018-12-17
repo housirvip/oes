@@ -1,5 +1,5 @@
 server:
-  port: 8510
+  port: 8520
   address:
 
 spring:
@@ -79,8 +79,3 @@ ribbon:
   max-auto-retries-next-server: 2
   # 对当前实例的重试次数
   max-auto-retries: 1
-
-user:
-  init-role: USER
-  init-group: Primary
-  init-level: 0

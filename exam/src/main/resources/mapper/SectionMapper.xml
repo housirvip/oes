@@ -23,12 +23,23 @@
     qids
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from section
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="listInIds" parameterType="java.util.List" resultMap="ResultMapWithBLOBs">
+      select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+      from section
+      where id in
+      <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+      </foreach>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from section
@@ -38,14 +49,14 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into section (name, duration, total_score, 
-      every_score, deduct, type, 
+    insert into section (name, duration, total_score,
+      every_score, deduct, type,
       `group`, create_time, update_time,
       qids
       )
-    values (#{name,jdbcType=VARCHAR}, #{duration,jdbcType=INTEGER}, #{totalScore,jdbcType=REAL}, 
-      #{everyScore,jdbcType=REAL}, #{deduct,jdbcType=BIT}, #{type,jdbcType=VARCHAR}, 
-      #{group,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{name,jdbcType=VARCHAR}, #{duration,jdbcType=INTEGER}, #{totalScore,jdbcType=REAL},
+      #{everyScore,jdbcType=REAL}, #{deduct,jdbcType=BIT}, #{type,jdbcType=VARCHAR},
+      #{group,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{qids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
       )
   </insert>

@@ -33,5 +33,7 @@ public class Section implements Serializable {
 
     private List<Integer> qids;
 
+    private List<Question> questions;
+
     private static final long serialVersionUID = 1L;
 }

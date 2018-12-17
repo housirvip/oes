@@ -2,6 +2,7 @@ package vip.housir.user.controller;
 
 import com.github.pagehelper.Page;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @RequestMapping(value = "/list")
+    @GetMapping(value = "/list")
     public BaseResponse<Page> list(@RequestParam Map<String, Object> param) {
 
         Page<User> userPage = userService.pageByParam(param);
@@ -29,7 +30,7 @@ public class UserController {
         return new PageResponse<>(userPage, userPage.getTotal());
     }
 
-    @RequestMapping(value = "/detail")
+    @GetMapping(value = "/detail")
     public BaseResponse<User> detail() {
 
         return new ResultResponse<>(userService.detail(3));

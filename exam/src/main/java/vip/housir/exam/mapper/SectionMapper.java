@@ -1,7 +1,11 @@
 package vip.housir.exam.mapper;
 
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import vip.housir.exam.entity.Section;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author housirvip
@@ -66,4 +70,14 @@ public interface SectionMapper {
      * @return int
      */
     int updateByPrimaryKey(Section record);
+
+    /**
+     * 获取 id 在 ids 列表中的 Section 列表
+     * Map 的 key 为 id，value 为 Section
+     *
+     * @param ids List<Integer>
+     * @return Map<Integer, Section>
+     */
+    @MapKey("id")
+    Map<Integer, Section> listInIds(List<Integer> ids);
 }
