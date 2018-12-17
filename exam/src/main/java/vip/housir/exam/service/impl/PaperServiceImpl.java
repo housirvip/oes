@@ -1,5 +1,6 @@
 package vip.housir.exam.service.impl;
 
+import com.github.pagehelper.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import vip.housir.exam.entity.Paper;
@@ -57,5 +58,10 @@ public class PaperServiceImpl implements PaperService {
         paper.setSections(sectionList);
 
         return paper;
+    }
+
+    @Override
+    public Page<Paper> pageByParam(Map<String, Object> param) {
+        return paperMapper.listByParam(param);
     }
 }

@@ -1,7 +1,10 @@
 package vip.housir.exam.mapper;
 
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import vip.housir.exam.entity.Paper;
+
+import java.util.Map;
 
 /**
  * @author housirvip
@@ -66,4 +69,12 @@ public interface PaperMapper {
      * @return int
      */
     int updateByPrimaryKey(Paper record);
+
+    /**
+     * 根据参数查询，支持分页
+     *
+     * @param param Map<String,Object>
+     * @return Page<Paper>
+     */
+    Page<Paper> listByParam(Map<String, Object> param);
 }
