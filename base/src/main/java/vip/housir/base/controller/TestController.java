@@ -14,10 +14,10 @@ import vip.housir.base.response.ResultResponse;
 /**
  * @author housirvip
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "/test")
 @RequiredArgsConstructor
-@Slf4j
 public class TestController {
 
     private final UserClient userClient;
