@@ -2,7 +2,6 @@ package vip.housir.user.service.impl;
 
 import com.github.pagehelper.Page;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,15 +24,20 @@ import java.util.Map;
  */
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
     private final UserInfoMapper userInfoMapper;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${my.init-role}")
+    @Value("${user.init-role}")
     private String[] initRole;
+
+    @Value("${user.init-group}")
+    private String initGroup;
+
+    @Value("${user.init-level}")
+    private Integer initLevel;
 
     @Override
     public User login(AuthRequest authRequest) {
@@ -59,11 +63,13 @@ public class UserServiceImpl implements UserService {
         Assert.isNull(userMapper.existPhone(authRequest.getPhone()), ErrorMessage.PHONE_EXIST);
 
         User user = new User();
-        user.setRole(Arrays.asList(initRole));
         user.setCreateTime(new Date());
         user.setEmail(authRequest.getEmail());
         user.setUsername(authRequest.getUsername());
         user.setPhone(authRequest.getPhone());
+        user.setGroup(initGroup);
+        user.setLevel(initLevel);
+        user.setRole(Arrays.asList(initRole));
         user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
 
         userMapper.insertSelective(user);
