@@ -40,6 +40,7 @@ public class PaperServiceImpl implements PaperService {
 
         //TODO 用户等级验证
 
+        //试卷中没有模块直接返回
         if (paper.getSids() == null || paper.getSids().size() == 0) {
             return paper;
         }
@@ -47,23 +48,25 @@ public class PaperServiceImpl implements PaperService {
         //装载模块
         Map<Integer, Section> sectionMap = sectionMapper.listInIds(paper.getSids());
         List<Section> sectionList = new ArrayList<>();
-        for (Integer sid : paper.getSids()) {
+        paper.getSids().forEach(sid -> {
+
             Section section = sectionMap.get(sid);
             sectionList.add(section);
 
+            //模块中没有题目，continue
             if (section.getQids() == null || section.getQids().size() == 0) {
-                continue;
+                return;
             }
 
             //装载题目
             List<Question> questionList = new ArrayList<>();
             Map<Integer, Question> questionMap = questionMapper.listInIds(section.getQids());
-            for (Integer qid : section.getQids()) {
-                questionList.add(questionMap.get(qid));
-            }
+
+            section.getQids().forEach(qid -> questionList.add(questionMap.get(qid)));
 
             section.setQuestions(questionList);
-        }
+        });
+
         paper.setSections(sectionList);
 
         return paper;
