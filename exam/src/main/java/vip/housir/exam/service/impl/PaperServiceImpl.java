@@ -1,9 +1,10 @@
 package vip.housir.exam.service.impl;
 
 import com.github.pagehelper.Page;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import vip.housir.base.response.ErrorMessage;
 import vip.housir.exam.entity.Paper;
 import vip.housir.exam.entity.Question;
@@ -15,7 +16,6 @@ import vip.housir.exam.mapper.SectionMapper;
 import vip.housir.exam.service.PaperService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public class PaperServiceImpl implements PaperService {
 
         //查找试卷
         Paper paper = paperMapper.selectByPrimaryKey(id);
-        Assert.notNull(paper, ErrorMessage.PAPER_NOT_FOUND);
+        Preconditions.checkNotNull(paper, ErrorMessage.PAPER_NOT_FOUND);
 
         //TODO 用户等级验证
 
@@ -80,14 +80,11 @@ public class PaperServiceImpl implements PaperService {
         List<Integer> pids = new ArrayList<>();
         paperPage.forEach(p -> pids.add(p.getId()));
 
-        Map<String, Object> countParam = new HashMap<>(2);
-        //TODO uid 设置
-        countParam.put("uid", null);
-        countParam.put("pids", pids);
-
-        Map<Integer, Map<String, Long>> countRes = examMapper.countTimesByPids(countParam);
+        //TODO user id
+        Map<String, Object> countParam = ImmutableMap.of("uid", 1, "pids", pids);
+        Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(countParam);
         paperPage.forEach(p -> {
-            Map<String, Long> map = countRes.get(p.getId());
+            Map<String, Long> map = countResult.get(p.getId());
             if (map != null) {
                 p.setTimes(map.get("times"));
             }

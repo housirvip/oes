@@ -14,8 +14,8 @@ import vip.housir.base.response.ErrorResponse;
 public class MyExceptionHandler {
 
     @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler(IllegalArgumentException.class)
-    public BaseResponse handlerIllegalArgumentException(IllegalArgumentException ex) {
+    @ExceptionHandler(RuntimeException.class)
+    public BaseResponse handlerIllegalArgumentException(RuntimeException ex) {
 
         return new ErrorResponse(ex.getMessage());
     }

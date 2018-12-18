@@ -1,9 +1,9 @@
 package vip.housir.exam.service.impl;
 
 import com.github.pagehelper.Page;
+import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import vip.housir.base.response.ErrorMessage;
 import vip.housir.exam.entity.Exam;
 import vip.housir.exam.mapper.ExamMapper;
@@ -25,7 +25,7 @@ public class ExamServiceImpl implements ExamService {
     public Exam one(Integer id) {
 
         Exam exam = examMapper.selectByPrimaryKey(id);
-        Assert.notNull(exam, ErrorMessage.EXAM_NOT_FOUND);
+        Preconditions.checkNotNull(exam, ErrorMessage.EXAM_NOT_FOUND);
 
         return exam;
     }

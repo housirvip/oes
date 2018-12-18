@@ -1,12 +1,13 @@
 package vip.housir.user.service.impl;
 
 import com.github.pagehelper.Page;
+import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang.BooleanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import vip.housir.base.request.AuthRequest;
 import vip.housir.base.response.ErrorMessage;
 import vip.housir.user.entity.User;
@@ -15,9 +16,7 @@ import vip.housir.user.mapper.UserInfoMapper;
 import vip.housir.user.mapper.UserMapper;
 import vip.housir.user.service.UserService;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author housirvip
@@ -44,11 +43,11 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.selectByAccount(authRequest.getAccount());
         //账户未找到
-        Assert.notNull(user, ErrorMessage.ACCOUNT_NOT_FOUND);
+        Preconditions.checkNotNull(user, ErrorMessage.ACCOUNT_NOT_FOUND);
         //账户被封禁
-        Assert.isTrue(user.getEnable(), ErrorMessage.ACCOUNT_DISABLED);
+        Preconditions.checkArgument(user.getEnable(), ErrorMessage.ACCOUNT_DISABLED);
         //验证密码
-        Assert.isTrue(passwordEncoder.matches(authRequest.getPassword(), user.getPassword()), ErrorMessage.ACCOUNT_PASSWORD_ERROR);
+        Preconditions.checkArgument(passwordEncoder.matches(authRequest.getPassword(), user.getPassword()), ErrorMessage.ACCOUNT_PASSWORD_ERROR);
 
         return user;
     }
@@ -58,9 +57,8 @@ public class UserServiceImpl implements UserService {
     public User register(AuthRequest authRequest) {
 
         // 判断账户是否已经存在
-        Assert.isNull(userMapper.existUsername(authRequest.getUsername()), ErrorMessage.USERNAME_EXIST);
-        Assert.isNull(userMapper.existEmail(authRequest.getEmail()), ErrorMessage.EMAIL_EXIST);
-        Assert.isNull(userMapper.existPhone(authRequest.getPhone()), ErrorMessage.PHONE_EXIST);
+        List<String> check = this.checkExist(authRequest);
+        Preconditions.checkState(check.size() == 0, check.toString());
 
         User user = new User();
         user.setCreateTime(new Date());
@@ -87,7 +85,7 @@ public class UserServiceImpl implements UserService {
     public User detail(Integer uid) {
 
         User user = userMapper.selectByPrimaryKey(uid);
-        Assert.notNull(user, ErrorMessage.USER_NOT_FOUND);
+        Preconditions.checkNotNull(user, ErrorMessage.USER_NOT_FOUND);
 
         UserInfo userInfo = userInfoMapper.selectByUid(uid);
         user.setUserInfo(userInfo);
@@ -99,5 +97,21 @@ public class UserServiceImpl implements UserService {
     public Page<User> pageByParam(Map<String, Object> param) {
 
         return userMapper.listByParam(param);
+    }
+
+    private List<String> checkExist(AuthRequest authRequest) {
+
+        List<String> result = new ArrayList<>();
+        if (BooleanUtils.isTrue(userMapper.existUsername(authRequest.getUsername()))) {
+            result.add(ErrorMessage.USERNAME_EXIST);
+        }
+        if (BooleanUtils.isTrue(userMapper.existEmail(authRequest.getEmail()))) {
+            result.add(ErrorMessage.EMAIL_EXIST);
+        }
+        if (BooleanUtils.isTrue(userMapper.existPhone(authRequest.getPhone()))) {
+            result.add(ErrorMessage.PHONE_EXIST);
+        }
+
+        return result;
     }
 }

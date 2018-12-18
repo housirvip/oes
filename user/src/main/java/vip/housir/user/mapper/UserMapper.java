@@ -82,25 +82,25 @@ public interface UserMapper {
      * 判断 username 是否已存在
      *
      * @param username String
-     * @return 1 or null
+     * @return Boolean
      */
-    Integer existUsername(String username);
+    Boolean existUsername(String username);
 
     /**
      * 判断 email 是否已存在
      *
      * @param email String
-     * @return 1 or null
+     * @return Boolean
      */
-    Integer existEmail(String email);
+    Boolean existEmail(String email);
 
     /**
      * 判断 phone 是否已存在
      *
      * @param phone String
-     * @return 1 or null
+     * @return Boolean
      */
-    Integer existPhone(String phone);
+    Boolean existPhone(String phone);
 
     /**
      * 根据参数查询，支持分页

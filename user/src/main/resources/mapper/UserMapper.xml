@@ -51,19 +51,19 @@
         or email = #{account,jdbcType=VARCHAR}
         limit 1
     </select>
-    <select id="existUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="existUsername" parameterType="java.lang.String" resultType="java.lang.Boolean">
         select 1
         from user
         where username = #{username,jdbcType=VARCHAR}
         limit 1
     </select>
-    <select id="existEmail" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="existEmail" parameterType="java.lang.String" resultType="java.lang.Boolean">
         select 1
         from user
         where email = #{email,jdbcType=VARCHAR}
         limit 1
     </select>
-    <select id="existPhone" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="existPhone" parameterType="java.lang.String" resultType="java.lang.Boolean">
         select 1
         from user
         where phone = #{phone,jdbcType=VARCHAR}
