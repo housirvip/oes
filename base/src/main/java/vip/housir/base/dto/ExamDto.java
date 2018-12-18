@@ -1,4 +1,4 @@
-package vip.housir.exam.entity;
+package vip.housir.base.dto;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.util.Map;
  * @author housirvip
  */
 @Data
-public class Exam implements Serializable {
+public class ExamDto implements Serializable {
     private Integer id;
 
     private Integer uid;
@@ -25,9 +25,9 @@ public class Exam implements Serializable {
 
     private Date createTime;
 
-    private Map<String, String> userAnswer;
+    private Map<Integer, String> userAnswer;
 
-    private Map<String, Double> sectionScore;
+    private Map<Integer, Float> sectionScore;
 
     private static final long serialVersionUID = 1L;
 }

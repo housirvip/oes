@@ -33,7 +33,7 @@ public interface UserService {
      * @param uid int
      * @return User
      */
-    User detail(int uid);
+    User detail(Integer uid);
 
     /**
      * 根据参数查询，支持分页

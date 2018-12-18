@@ -25,7 +25,7 @@ public class PaperController {
     private final PaperService paperService;
 
     @GetMapping(value = "/one")
-    public BaseResponse<Paper> list(@RequestParam Integer id) {
+    public BaseResponse<Paper> one(@RequestParam Integer id) {
 
         return new ResultResponse<>(paperService.render(id));
     }

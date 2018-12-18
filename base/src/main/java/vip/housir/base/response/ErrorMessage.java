@@ -14,4 +14,8 @@ public class ErrorMessage {
     public static final String PHONE_EXIST = "手机号码已存在";
 
     public static final String USER_NOT_FOUND = "用户未找到";
+
+    public static final String PAPER_NOT_FOUND = "试卷未找到";
+
+    public static final String EXAM_NOT_FOUND = "考试记录未找到";
 }

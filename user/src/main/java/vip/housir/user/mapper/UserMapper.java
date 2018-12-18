@@ -106,7 +106,7 @@ public interface UserMapper {
      * 根据参数查询，支持分页
      *
      * @param param Map<String,Object>
-     * @return Page<User>
+     * @return Page
      */
     Page<User> listByParam(Map<String, Object> param);
 }

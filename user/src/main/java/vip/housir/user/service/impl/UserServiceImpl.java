@@ -84,11 +84,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User detail(int uid) {
+    public User detail(Integer uid) {
 
         User user = userMapper.selectByPrimaryKey(uid);
-        UserInfo userInfo = userInfoMapper.selectByUid(uid);
+        Assert.notNull(user, ErrorMessage.USER_NOT_FOUND);
 
+        UserInfo userInfo = userInfoMapper.selectByUid(uid);
         user.setUserInfo(userInfo);
 
         return user;
@@ -96,6 +97,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> pageByParam(Map<String, Object> param) {
+
         return userMapper.listByParam(param);
     }
 }

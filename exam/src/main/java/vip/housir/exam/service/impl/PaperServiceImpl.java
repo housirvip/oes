@@ -3,6 +3,8 @@ package vip.housir.exam.service.impl;
 import com.github.pagehelper.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import vip.housir.base.response.ErrorMessage;
 import vip.housir.exam.entity.Paper;
 import vip.housir.exam.entity.Question;
 import vip.housir.exam.entity.Section;
@@ -31,7 +33,8 @@ public class PaperServiceImpl implements PaperService {
 
         //查找试卷
         Paper paper = paperMapper.selectByPrimaryKey(id);
-        if (paper == null || paper.getSids() == null || paper.getSids().size() == 0) {
+        Assert.notNull(paper, ErrorMessage.PAPER_NOT_FOUND);
+        if (paper.getSids() == null || paper.getSids().size() == 0) {
             return paper;
         }
 

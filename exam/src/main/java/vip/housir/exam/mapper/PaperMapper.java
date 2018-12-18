@@ -74,7 +74,7 @@ public interface PaperMapper {
      * 根据参数查询，支持分页
      *
      * @param param Map<String,Object>
-     * @return Page<Paper>
+     * @return Page
      */
     Page<Paper> listByParam(Map<String, Object> param);
 }

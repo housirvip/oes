@@ -22,17 +22,17 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping(value = "/detail")
+    public BaseResponse<User> detail() {
+
+        return new ResultResponse<>(userService.detail(3));
+    }
+
     @GetMapping(value = "/list")
     public BaseResponse<Page> list(@RequestParam Map<String, Object> param) {
 
         Page<User> userPage = userService.pageByParam(param);
 
         return new PageResponse<>(userPage, userPage.getTotal());
-    }
-
-    @GetMapping(value = "/detail")
-    public BaseResponse<User> detail() {
-
-        return new ResultResponse<>(userService.detail(3));
     }
 }
