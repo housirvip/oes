@@ -75,22 +75,20 @@ public class PaperServiceImpl implements PaperService {
         Page<Paper> paperPage = paperMapper.listByParam(param);
 
         List<Integer> pids = new ArrayList<>();
-        for (Paper p : paperPage) {
-            pids.add(p.getId());
-        }
+        paperPage.forEach(p -> pids.add(p.getId()));
 
         Map<String, Object> countParam = new HashMap<>(2);
         //TODO uid 设置
-        countParam.put("uid", 1);
+        countParam.put("uid", null);
         countParam.put("pids", pids);
 
         Map<Integer, Map<String, Long>> countRes = examMapper.countTimesByPids(countParam);
-        for (Paper p : paperPage) {
+        paperPage.forEach(p -> {
             Map<String, Long> map = countRes.get(p.getId());
             if (map != null) {
                 p.setTimes(map.get("times"));
             }
-        }
+        });
 
         return paperPage;
     }
