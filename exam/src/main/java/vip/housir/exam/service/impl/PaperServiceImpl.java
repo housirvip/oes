@@ -26,10 +26,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PaperServiceImpl implements PaperService {
 
+    private final ExamMapper examMapper;
     private final PaperMapper paperMapper;
     private final SectionMapper sectionMapper;
     private final QuestionMapper questionMapper;
-    private final ExamMapper examMapper;
 
     @Override
     public Paper render(Integer id) {
