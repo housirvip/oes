@@ -2,6 +2,7 @@ package vip.housir.user.service.impl;
 
 import com.github.pagehelper.Page;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.BooleanUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,7 +68,7 @@ public class UserServiceImpl implements UserService {
         user.setPhone(authRequest.getPhone());
         user.setGroup(initGroup);
         user.setLevel(initLevel);
-        user.setRole(Arrays.asList(initRole));
+        user.setRole(Lists.newArrayList(initRole));
         user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
 
         userMapper.insertSelective(user);
@@ -101,7 +102,7 @@ public class UserServiceImpl implements UserService {
 
     private List<String> checkExist(AuthRequest authRequest) {
 
-        List<String> result = new ArrayList<>();
+        List<String> result = Lists.newArrayList();
         if (BooleanUtils.isTrue(userMapper.existUsername(authRequest.getUsername()))) {
             result.add(ErrorMessage.USERNAME_EXIST);
         }

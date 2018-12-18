@@ -3,6 +3,7 @@ package vip.housir.exam.service.impl;
 import com.github.pagehelper.Page;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import vip.housir.base.response.ErrorMessage;
@@ -15,7 +16,6 @@ import vip.housir.exam.mapper.QuestionMapper;
 import vip.housir.exam.mapper.SectionMapper;
 import vip.housir.exam.service.PaperService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +47,7 @@ public class PaperServiceImpl implements PaperService {
 
         //装载模块
         Map<Integer, Section> sectionMap = sectionMapper.listInIds(paper.getSids());
-        List<Section> sectionList = new ArrayList<>();
+        List<Section> sectionList = Lists.newArrayList();
         paper.getSids().forEach(sid -> {
 
             Section section = sectionMap.get(sid);
@@ -59,7 +59,7 @@ public class PaperServiceImpl implements PaperService {
             }
 
             //装载题目
-            List<Question> questionList = new ArrayList<>();
+            List<Question> questionList = Lists.newArrayList();
             Map<Integer, Question> questionMap = questionMapper.listInIds(section.getQids());
 
             section.getQids().forEach(qid -> questionList.add(questionMap.get(qid)));
@@ -77,11 +77,11 @@ public class PaperServiceImpl implements PaperService {
 
         Page<Paper> paperPage = paperMapper.listByParam(param);
 
-        List<Integer> pids = new ArrayList<>();
+        List<Integer> pids = Lists.newArrayList();
         paperPage.forEach(p -> pids.add(p.getId()));
 
         //TODO user id
-        Map<String, Object> countParam = ImmutableMap.of("uid", 1, "pids", pids);
+        ImmutableMap<String, Object> countParam = ImmutableMap.of("uid", 1, "pids", pids);
         Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(countParam);
         paperPage.forEach(p -> {
             Map<String, Long> map = countResult.get(p.getId());
