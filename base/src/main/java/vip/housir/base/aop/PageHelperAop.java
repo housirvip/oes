@@ -29,8 +29,7 @@ public class PageHelperAop {
             return;
         }
 
-        @SuppressWarnings("unchecked")
-        Map<String, Object> map = (Map<String, Object>) args[0];
+        Map map = (Map) args[0];
 
         int pageNum = Constant.PAGE_NUM_VALUE;
         int pageSize = Constant.PAGE_SIZE_VALUE;
