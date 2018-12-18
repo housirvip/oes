@@ -31,7 +31,7 @@ public class PaperServiceImpl implements PaperService {
 
         //查找试卷
         Paper paper = paperMapper.selectByPrimaryKey(id);
-        if (paper.getSids() == null || paper.getSids().size() == 0) {
+        if (paper == null || paper.getSids() == null || paper.getSids().size() == 0) {
             return paper;
         }
 

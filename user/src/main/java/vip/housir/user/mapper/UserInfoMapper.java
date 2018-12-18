@@ -1,7 +1,11 @@
 package vip.housir.user.mapper;
 
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import vip.housir.user.entity.UserInfo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author housirvip
@@ -63,4 +67,14 @@ public interface UserInfoMapper {
      * @return User
      */
     UserInfo selectByUid(Integer uid);
+
+    /**
+     * 获取 id 在 ids 列表中的 UserInfo 列表
+     * Map 的 key 为 id，value 为 UserInfo
+     *
+     * @param uids List<Integer>
+     * @return Map
+     */
+    @MapKey("uid")
+    Map<Integer, UserInfo> listInUids(List<Integer> uids);
 }

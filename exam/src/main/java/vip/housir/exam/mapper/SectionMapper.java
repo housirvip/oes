@@ -76,7 +76,7 @@ public interface SectionMapper {
      * Map 的 key 为 id，value 为 Section
      *
      * @param ids List<Integer>
-     * @return Map<Integer, Section>
+     * @return Map
      */
     @MapKey("id")
     Map<Integer, Section> listInIds(List<Integer> ids);
