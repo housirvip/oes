@@ -31,7 +31,7 @@
         from section
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <select id="listInIds" parameterType="java.util.List" resultMap="ResultMapWithBLOBs">
+    <select id="listInIds" parameterType="list" resultMap="ResultMapWithBLOBs">
         select
         <include refid="Base_Column_List"/>
         ,
@@ -43,9 +43,9 @@
         </foreach>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from section
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from section
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="vip.housir.exam.entity.Section">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
@@ -168,30 +168,30 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKeyWithBLOBs" parameterType="vip.housir.exam.entity.Section">
-    update section
-    set name = #{name,jdbcType=VARCHAR},
-      duration = #{duration,jdbcType=INTEGER},
-      total_score = #{totalScore,jdbcType=REAL},
-      every_score = #{everyScore,jdbcType=REAL},
-      deduct = #{deduct,jdbcType=BIT},
-      type = #{type,jdbcType=VARCHAR},
-      `group` = #{group,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      qids = #{qids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update section
+        set name = #{name,jdbcType=VARCHAR},
+        duration = #{duration,jdbcType=INTEGER},
+        total_score = #{totalScore,jdbcType=REAL},
+        every_score = #{everyScore,jdbcType=REAL},
+        deduct = #{deduct,jdbcType=BIT},
+        type = #{type,jdbcType=VARCHAR},
+        `group` = #{group,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        qids = #{qids,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <update id="updateByPrimaryKey" parameterType="vip.housir.exam.entity.Section">
-    update section
-    set name = #{name,jdbcType=VARCHAR},
-      duration = #{duration,jdbcType=INTEGER},
-      total_score = #{totalScore,jdbcType=REAL},
-      every_score = #{everyScore,jdbcType=REAL},
-      deduct = #{deduct,jdbcType=BIT},
-      type = #{type,jdbcType=VARCHAR},
-      `group` = #{group,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update section
+        set name = #{name,jdbcType=VARCHAR},
+        duration = #{duration,jdbcType=INTEGER},
+        total_score = #{totalScore,jdbcType=REAL},
+        every_score = #{everyScore,jdbcType=REAL},
+        deduct = #{deduct,jdbcType=BIT},
+        type = #{type,jdbcType=VARCHAR},
+        `group` = #{group,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

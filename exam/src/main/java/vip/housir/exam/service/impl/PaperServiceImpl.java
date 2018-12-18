@@ -8,12 +8,14 @@ import vip.housir.base.response.ErrorMessage;
 import vip.housir.exam.entity.Paper;
 import vip.housir.exam.entity.Question;
 import vip.housir.exam.entity.Section;
+import vip.housir.exam.mapper.ExamMapper;
 import vip.housir.exam.mapper.PaperMapper;
 import vip.housir.exam.mapper.QuestionMapper;
 import vip.housir.exam.mapper.SectionMapper;
 import vip.housir.exam.service.PaperService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +29,7 @@ public class PaperServiceImpl implements PaperService {
     private final PaperMapper paperMapper;
     private final SectionMapper sectionMapper;
     private final QuestionMapper questionMapper;
+    private final ExamMapper examMapper;
 
     @Override
     public Paper render(Integer id) {
@@ -34,6 +37,9 @@ public class PaperServiceImpl implements PaperService {
         //查找试卷
         Paper paper = paperMapper.selectByPrimaryKey(id);
         Assert.notNull(paper, ErrorMessage.PAPER_NOT_FOUND);
+
+        //TODO 用户等级验证
+
         if (paper.getSids() == null || paper.getSids().size() == 0) {
             return paper;
         }
@@ -65,6 +71,27 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public Page<Paper> pageByParam(Map<String, Object> param) {
-        return paperMapper.listByParam(param);
+
+        Page<Paper> paperPage = paperMapper.listByParam(param);
+
+        List<Integer> pids = new ArrayList<>();
+        for (Paper p : paperPage) {
+            pids.add(p.getId());
+        }
+
+        Map<String, Object> countParam = new HashMap<>(2);
+        //TODO uid 设置
+        countParam.put("uid", 1);
+        countParam.put("pids", pids);
+
+        Map<Integer, Map<String, Long>> countRes = examMapper.countTimesByPids(countParam);
+        for (Paper p : paperPage) {
+            Map<String, Long> map = countRes.get(p.getId());
+            if (map != null) {
+                p.setTimes(map.get("times"));
+            }
+        }
+
+        return paperPage;
     }
 }

@@ -17,10 +17,17 @@
                 typeHandler="vip.housir.base.typehandler.MapTypeHandler"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, uid, pid, name, score, duration, create_time
+        id,
+        uid,
+        pid,
+        name,
+        score,
+        duration,
+        create_time
     </sql>
     <sql id="Blob_Column_List">
-        user_answer, section_score
+        user_answer,
+        section_score
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
         select
@@ -41,9 +48,20 @@
         <include refid="search"/>
         <include refid="order"/>
     </select>
+    <select id="countTimesByPids" parameterType="map" resultType="java.util.Map">
+        select pid, count(0) as times
+        from exam
+        where pid in
+        <foreach item="item" index="index" collection="pids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <include refid="filter"/>
+        group by pid
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from exam
-    where id = #{id,jdbcType=INTEGER}
+        delete
+        from exam
+        where id = #{id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="vip.housir.exam.entity.Exam">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -150,27 +168,27 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKeyWithBLOBs" parameterType="vip.housir.exam.entity.Exam">
-    update exam
-    set uid = #{uid,jdbcType=INTEGER},
-      pid = #{pid,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      score = #{score,jdbcType=REAL},
-      duration = #{duration,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      user_answer = #{userAnswer,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.MapTypeHandler},
-      section_score = #{sectionScore,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.MapTypeHandler}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update exam
+        set uid = #{uid,jdbcType=INTEGER},
+        pid = #{pid,jdbcType=INTEGER},
+        name = #{name,jdbcType=VARCHAR},
+        score = #{score,jdbcType=REAL},
+        duration = #{duration,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        user_answer = #{userAnswer,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.MapTypeHandler},
+        section_score = #{sectionScore,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.MapTypeHandler}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <update id="updateByPrimaryKey" parameterType="vip.housir.exam.entity.Exam">
-    update exam
-    set uid = #{uid,jdbcType=INTEGER},
-      pid = #{pid,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      score = #{score,jdbcType=REAL},
-      duration = #{duration,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update exam
+        set uid = #{uid,jdbcType=INTEGER},
+        pid = #{pid,jdbcType=INTEGER},
+        name = #{name,jdbcType=VARCHAR},
+        score = #{score,jdbcType=REAL},
+        duration = #{duration,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <sql id="filter">
         <if test="uid != null">
             and uid = #{uid,jdbcType=VARCHAR}

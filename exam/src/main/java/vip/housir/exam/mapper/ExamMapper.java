@@ -1,6 +1,7 @@
 package vip.housir.exam.mapper;
 
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import vip.housir.exam.entity.Exam;
 
@@ -77,4 +78,13 @@ public interface ExamMapper {
      * @return Page
      */
     Page<Exam> listByParam(Map<String, Object> param);
+
+    /**
+     * 根据 pids 和 uid 查询 exam 中考试记录数量
+     *
+     * @param param Map<String, Object>
+     * @return Map
+     */
+    @MapKey("pid")
+    Map<Integer, Map<String, Long>> countTimesByPids(Map<String, Object> param);
 }

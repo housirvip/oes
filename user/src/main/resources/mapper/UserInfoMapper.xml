@@ -151,14 +151,14 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="vip.housir.user.entity.UserInfo">
         update user_info
-        set uid         = #{uid,jdbcType=INTEGER},
-            nickname    = #{nickname,jdbcType=VARCHAR},
-            avatar      = #{avatar,jdbcType=VARCHAR},
-            gender      = #{gender,jdbcType=VARCHAR},
-            school      = #{school,jdbcType=VARCHAR},
-            major       = #{major,jdbcType=VARCHAR},
-            province    = #{province,jdbcType=VARCHAR},
-            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        set uid = #{uid,jdbcType=INTEGER},
+        nickname = #{nickname,jdbcType=VARCHAR},
+        avatar = #{avatar,jdbcType=VARCHAR},
+        gender = #{gender,jdbcType=VARCHAR},
+        school = #{school,jdbcType=VARCHAR},
+        major = #{major,jdbcType=VARCHAR},
+        province = #{province,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
 </mapper>

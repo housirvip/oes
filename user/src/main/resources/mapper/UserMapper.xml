@@ -206,29 +206,29 @@
     </update>
     <update id="updateByPrimaryKeyWithBLOBs" parameterType="vip.housir.user.entity.User">
         update user
-        set username    = #{username,jdbcType=VARCHAR},
-            email       = #{email,jdbcType=VARCHAR},
-            phone       = #{phone,jdbcType=VARCHAR},
-            password    = #{password,jdbcType=VARCHAR},
-            create_time = #{createTime,jdbcType=TIMESTAMP},
-            update_time = #{updateTime,jdbcType=TIMESTAMP},
-            enable      = #{enable,jdbcType=BIT},
-            level       = #{level,jdbcType=INTEGER},
-            `group`      = #{group,jdbcType=VARCHAR},
-            role        = #{role,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
+        set username = #{username,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        enable = #{enable,jdbcType=BIT},
+        level = #{level,jdbcType=INTEGER},
+        `group` = #{group,jdbcType=VARCHAR},
+        role = #{role,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="vip.housir.user.entity.User">
         update user
-        set username    = #{username,jdbcType=VARCHAR},
-            email       = #{email,jdbcType=VARCHAR},
-            phone       = #{phone,jdbcType=VARCHAR},
-            password    = #{password,jdbcType=VARCHAR},
-            create_time = #{createTime,jdbcType=TIMESTAMP},
-            update_time = #{updateTime,jdbcType=TIMESTAMP},
-            enable      = #{enable,jdbcType=BIT},
-            level       = #{level,jdbcType=INTEGER},
-            `group`     = #{group,jdbcType=VARCHAR}
+        set username = #{username,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        enable = #{enable,jdbcType=BIT},
+        level = #{level,jdbcType=INTEGER},
+        `group` = #{group,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
     <sql id="filter">

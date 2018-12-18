@@ -41,5 +41,7 @@ public class Paper implements Serializable {
 
     private List<Section> sections;
 
+    private Long times;
+
     private static final long serialVersionUID = 1L;
 }
