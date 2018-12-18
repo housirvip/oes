@@ -39,6 +39,7 @@
         where 1=1
         <include refid="filter"/>
         <include refid="search"/>
+        <include refid="order"/>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from exam
@@ -181,6 +182,27 @@
     <sql id="search">
         <if test="name != null and name!=''">
             and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+    </sql>
+    <sql id="order">
+        <if test="orderBy != null">
+            order by
+            <if test="orderBy == 'createTime'">
+                create_time
+            </if>
+            <if test="orderBy == 'score'">
+                score
+            </if>
+            <if test="orderBy == 'duration'">
+                duration
+            </if>
+            <!-- order type -->
+            <if test="orderType == 'desc'">
+                desc
+            </if>
+            <if test="orderType == 'asc'">
+                asc
+            </if>
         </if>
     </sql>
 </mapper>

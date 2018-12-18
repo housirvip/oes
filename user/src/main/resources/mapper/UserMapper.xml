@@ -77,6 +77,7 @@
         from user
         where 1=1
         <include refid="search"/>
+        <include refid="order"/>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
@@ -213,7 +214,7 @@
             update_time = #{updateTime,jdbcType=TIMESTAMP},
             enable      = #{enable,jdbcType=BIT},
             level       = #{level,jdbcType=INTEGER},
-            `group`       = #{group,jdbcType=VARCHAR},
+            `group`      = #{group,jdbcType=VARCHAR},
             role        = #{role,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.ListTypeHandler}
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -227,7 +228,7 @@
             update_time = #{updateTime,jdbcType=TIMESTAMP},
             enable      = #{enable,jdbcType=BIT},
             level       = #{level,jdbcType=INTEGER},
-            `group`       = #{group,jdbcType=VARCHAR}
+            `group`     = #{group,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
     <sql id="filter">
@@ -250,6 +251,24 @@
         </if>
         <if test="phone != null and phone!=''">
             and phone like CONCAT('%',#{phone,jdbcType=VARCHAR},'%')
+        </if>
+    </sql>
+    <sql id="order">
+        <if test="orderBy != null">
+            order by
+            <if test="orderBy == 'createTime'">
+                create_time
+            </if>
+            <if test="orderBy == 'avgScore'">
+                avg_score
+            </if>
+            <!-- order type -->
+            <if test="orderType == 'desc'">
+                desc
+            </if>
+            <if test="orderType == 'asc'">
+                asc
+            </if>
         </if>
     </sql>
 </mapper>
