@@ -25,6 +25,7 @@ public class UserController {
     @GetMapping(value = "/detail")
     public BaseResponse<User> detail() {
 
+        //TODO 用户id
         return new ResultResponse<>(userService.detail(3));
     }
 
