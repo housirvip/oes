@@ -39,6 +39,8 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public Integer submit(Exam exam) {
 
+        //TODO 设置用户
+        exam.setUid(1);
         exam.setCreateTime(new Date());
 
         return examMapper.insertSelective(exam);
