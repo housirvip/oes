@@ -13,7 +13,7 @@ spring:
         service-name: ${spring.application.name}
         instance-id: ${spring.application.name}:${random.value}
   #        health-check-interval: 5s
-        hostname: mibookpro.lan
+  #        hostname: mibookpro.lan
   datasource:
     url: jdbc:mysql://localhost:3306/oes?characterEncoding=utf8&autoReconnect=true&useSSL=false
     druid:

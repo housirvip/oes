@@ -1,0 +1,12 @@
+server:
+  port: 8510
+  address:
+
+spring:
+  application:
+    name: oes-user
+  cloud:
+    config:
+      uri: http://localhost:8000
+      profile: dev
+      label: master

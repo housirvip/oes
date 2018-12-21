@@ -1,0 +1,12 @@
+server:
+  port: 8520
+  address:
+
+spring:
+  application:
+    name: oes-exam
+  cloud:
+    config:
+      uri: http://localhost:8000
+      profile: dev
+      label: master
