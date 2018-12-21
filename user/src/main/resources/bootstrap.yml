@@ -7,6 +7,6 @@ spring:
     name: oes-user
   cloud:
     config:
-      uri: http://localhost:8000
+      uri: http://node3.nicesite.vip:8000
       profile: dev
       label: master
