@@ -1,0 +1,23 @@
+server:
+  port: 8501
+  address:
+
+spring:
+  application:
+    name: oes-config
+
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}:${random.value}
+    config:
+      label: master
+      server:
+        git:
+          uri: https://gitee.com/housirvip/oes
+          search-paths: config/src/main/resource
+          username: housirvip
+          password: hUTsxwXE5Yjg
