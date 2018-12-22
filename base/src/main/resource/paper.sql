@@ -11,7 +11,7 @@
  Target Server Version : 100309
  File Encoding         : 65001
 
- Date: 17/12/2018 21:40:06
+ Date: 23/12/2018 00:00:27
 */
 
 SET NAMES utf8mb4;
@@ -26,8 +26,8 @@ CREATE TABLE `paper` (
   `name` varchar(255) DEFAULT NULL COMMENT '试卷名称',
   `type` varchar(255) DEFAULT NULL COMMENT '试卷类型',
   `group` varchar(255) DEFAULT NULL COMMENT '试卷分组',
-  `enable` tinyint(1) DEFAULT NULL COMMENT '启用停用',
-  `min_level` int(4) DEFAULT NULL COMMENT '限制等级',
+  `enable` tinyint(1) NOT NULL DEFAULT 0 COMMENT '启用停用',
+  `min_level` int(4) NOT NULL DEFAULT 0 COMMENT '限制等级',
   `total_score` float(255,0) DEFAULT NULL COMMENT '试卷总分',
   `pass_score` float(255,0) DEFAULT NULL COMMENT '及格分数',
   `avg_score` float(255,0) DEFAULT NULL COMMENT '平均分数',

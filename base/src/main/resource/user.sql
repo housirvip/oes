@@ -11,7 +11,7 @@
  Target Server Version : 100309
  File Encoding         : 65001
 
- Date: 16/12/2018 23:24:10
+ Date: 23/12/2018 00:00:45
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `user` (
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   `enable` tinyint(1) DEFAULT 1 COMMENT '可用状态',
-  `level` int(4) DEFAULT NULL COMMENT '用户等级',
+  `level` int(4) NOT NULL DEFAULT 0 COMMENT '用户等级',
   `group` varchar(64) DEFAULT NULL COMMENT '所属组',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

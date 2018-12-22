@@ -11,7 +11,7 @@
  Target Server Version : 100309
  File Encoding         : 65001
 
- Date: 17/12/2018 21:39:59
+ Date: 23/12/2018 00:00:11
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `exam` (
   `uid` int(11) NOT NULL COMMENT '用户id',
   `pid` int(11) DEFAULT NULL COMMENT '试卷id',
   `name` varchar(255) DEFAULT NULL COMMENT '试卷名称',
-  `score` float DEFAULT NULL COMMENT '考试得分',
+  `score` float NOT NULL DEFAULT 0 COMMENT '考试得分',
   `duration` int(6) DEFAULT NULL COMMENT '考试时长',
   `user_answer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '考生作答',
   `section_score` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模块得分',

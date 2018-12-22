@@ -11,7 +11,7 @@
  Target Server Version : 100309
  File Encoding         : 65001
 
- Date: 17/12/2018 21:40:33
+ Date: 23/12/2018 00:01:03
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `exam` (
   `uid` int(11) NOT NULL COMMENT '用户id',
   `pid` int(11) DEFAULT NULL COMMENT '试卷id',
   `name` varchar(255) DEFAULT NULL COMMENT '试卷名称',
-  `score` float DEFAULT NULL COMMENT '考试得分',
+  `score` float NOT NULL DEFAULT 0 COMMENT '考试得分',
   `duration` int(6) DEFAULT NULL COMMENT '考试时长',
   `user_answer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '考生作答',
   `section_score` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模块得分',
@@ -43,8 +43,8 @@ CREATE TABLE `paper` (
   `name` varchar(255) DEFAULT NULL COMMENT '试卷名称',
   `type` varchar(255) DEFAULT NULL COMMENT '试卷类型',
   `group` varchar(255) DEFAULT NULL COMMENT '试卷分组',
-  `enable` tinyint(1) DEFAULT NULL COMMENT '启用停用',
-  `min_level` int(4) DEFAULT NULL COMMENT '限制等级',
+  `enable` tinyint(1) NOT NULL DEFAULT 0 COMMENT '启用停用',
+  `min_level` int(4) NOT NULL DEFAULT 0 COMMENT '限制等级',
   `total_score` float(255,0) DEFAULT NULL COMMENT '试卷总分',
   `pass_score` float(255,0) DEFAULT NULL COMMENT '及格分数',
   `avg_score` float(255,0) DEFAULT NULL COMMENT '平均分数',
@@ -108,7 +108,7 @@ CREATE TABLE `user` (
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   `enable` tinyint(1) DEFAULT 1 COMMENT '可用状态',
-  `level` int(4) DEFAULT NULL COMMENT '用户等级',
+  `level` int(4) NOT NULL DEFAULT 0 COMMENT '用户等级',
   `group` varchar(64) DEFAULT NULL COMMENT '所属组',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
