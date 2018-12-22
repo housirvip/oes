@@ -5,9 +5,9 @@ import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import vip.housir.base.constant.Constant;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 
 /**
  * @author housirvip
@@ -25,13 +25,6 @@ public class FeignAuthInterceptor implements RequestInterceptor {
         }
 
         HttpServletRequest request = attributes.getRequest();
-        Enumeration<String> headerNames = request.getHeaderNames();
-        if (headerNames != null) {
-            while (headerNames.hasMoreElements()) {
-                String name = headerNames.nextElement();
-                String values = request.getHeader(name);
-                template.header(name, values);
-            }
-        }
+        template.header(Constant.AUTHORIZATION, request.getHeader(Constant.AUTHORIZATION));
     }
 }

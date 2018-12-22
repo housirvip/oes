@@ -30,7 +30,7 @@ public class JwtAuthFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader(Constant.AUTHORIZATION);
         //以下情形直接放行
         if (request.getRequestURI().contains(Constant.PATH_AUTH) || token == null || !token.startsWith(Constant.TOKEN_PREFIX)) {
             chain.doFilter(request, response);

@@ -7,6 +7,7 @@ public class Constant {
 
     public static final String SUCCESS = "success";
     public static final String ERROR = "error";
+    public static final String AUTHORIZATION = "Authorization";
 
     public static final int SUCCESS_CODE = 0;
     public static final int ERROR_CODE = 1;
