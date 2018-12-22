@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.BooleanUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,7 +84,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User detail(Integer uid) {
+    public User one() {
+
+        Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userMapper.selectByPrimaryKey(uid);
+        Preconditions.checkNotNull(user, ErrorMessage.USER_NOT_FOUND);
+
+        user.setPassword(null);
+
+        return user;
+    }
+
+    @Override
+    public User detail() {
+
+        Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userMapper.selectByPrimaryKey(uid);
         Preconditions.checkNotNull(user, ErrorMessage.USER_NOT_FOUND);

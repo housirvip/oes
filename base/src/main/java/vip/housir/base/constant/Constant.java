@@ -23,4 +23,9 @@ public class Constant {
 
     public static final String UID = "uid";
     public static final String ROLE = "role";
+
+    public static final String TOKEN_PREFIX = "Bearer ";
+
+    public static final String PATH_AUTH = "/auth/";
+
 }

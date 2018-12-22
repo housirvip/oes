@@ -5,7 +5,10 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import vip.housir.base.client.UserClient;
+import vip.housir.base.dto.UserDto;
 import vip.housir.base.response.ErrorMessage;
 import vip.housir.exam.entity.Paper;
 import vip.housir.exam.entity.Question;
@@ -31,6 +34,8 @@ public class PaperServiceImpl implements PaperService {
     private final SectionMapper sectionMapper;
     private final QuestionMapper questionMapper;
 
+    private final UserClient userClient;
+
     @Override
     public Paper render(Integer id) {
 
@@ -38,7 +43,10 @@ public class PaperServiceImpl implements PaperService {
         Paper paper = paperMapper.selectByPrimaryKey(id);
         Preconditions.checkNotNull(paper, ErrorMessage.PAPER_NOT_FOUND);
 
-        //TODO 用户等级验证
+        //用户等级验证
+        UserDto userDto = userClient.one().getResult();
+        Preconditions.checkNotNull(userDto, ErrorMessage.PAPER_NOT_FOUND);
+        Preconditions.checkState(paper.getMinLevel() > userDto.getLevel(), ErrorMessage.PAPER_LEVEL_LIMIT);
 
         //试卷中没有模块直接返回
         if (paper.getSids() == null || paper.getSids().size() == 0) {
@@ -80,8 +88,9 @@ public class PaperServiceImpl implements PaperService {
         List<Integer> pids = Lists.newArrayList();
         paperPage.forEach(p -> pids.add(p.getId()));
 
-        //TODO user id
-        ImmutableMap<String, Object> countParam = ImmutableMap.of("uid", 1, "pids", pids);
+        //查询用户试卷完成次数
+        Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ImmutableMap<String, Object> countParam = ImmutableMap.of("uid", uid, "pids", pids);
         Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(countParam);
         paperPage.forEach(p -> {
             Map<String, Long> map = countResult.get(p.getId());

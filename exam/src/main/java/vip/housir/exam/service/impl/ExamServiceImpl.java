@@ -3,6 +3,7 @@ package vip.housir.exam.service.impl;
 import com.github.pagehelper.Page;
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import vip.housir.base.response.ErrorMessage;
 import vip.housir.exam.entity.Exam;
@@ -39,9 +40,10 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public Integer submit(Exam exam) {
 
-        //TODO 设置用户
-        exam.setUid(1);
+        Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         exam.setCreateTime(new Date());
+        exam.setUid(uid);
 
         return examMapper.insertSelective(exam);
     }

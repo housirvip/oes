@@ -31,12 +31,13 @@ public class JwtAuthFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         String token = request.getHeader("Authorization");
-        if (token == null) {
+        //以下情形直接放行
+        if (request.getRequestURI().contains(Constant.PATH_AUTH) || token == null || !token.startsWith(Constant.TOKEN_PREFIX)) {
+            chain.doFilter(request, response);
             return;
         }
-        token = token.replace("Bearer ", "");
 
-        DecodedJWT jwt = jwtUtils.decode(token);
+        DecodedJWT jwt = jwtUtils.decode(token.replace(Constant.TOKEN_PREFIX, ""));
         if (jwt == null) {
             return;
         }

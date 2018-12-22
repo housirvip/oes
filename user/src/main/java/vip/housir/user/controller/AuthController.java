@@ -11,6 +11,7 @@ import vip.housir.base.request.Login;
 import vip.housir.base.request.Register;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.ResultResponse;
+import vip.housir.base.utils.JwtUtils;
 import vip.housir.user.entity.User;
 import vip.housir.user.service.UserService;
 
@@ -23,16 +24,21 @@ import vip.housir.user.service.UserService;
 public class AuthController {
 
     private final UserService userService;
+    private final JwtUtils jwtUtils;
 
     @PostMapping(value = "/login")
-    public BaseResponse<User> login(@RequestBody @Validated(value = Login.class) AuthRequest form) {
+    public BaseResponse<String> login(@RequestBody @Validated(value = Login.class) AuthRequest form) {
 
-        return new ResultResponse<>(userService.login(form));
+        User user = userService.login(form);
+
+        return new ResultResponse<>(jwtUtils.encode(user.getId(), user.getRole()));
     }
 
     @PostMapping(value = "/register")
-    public BaseResponse<User> register(@RequestBody @Validated(value = Register.class) AuthRequest form) {
+    public BaseResponse<String> register(@RequestBody @Validated(value = Register.class) AuthRequest form) {
 
-        return new ResultResponse<>(userService.register(form));
+        User user = userService.register(form);
+
+        return new ResultResponse<>(jwtUtils.encode(user.getId(), user.getRole()));
     }
 }

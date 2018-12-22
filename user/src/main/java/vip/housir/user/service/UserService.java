@@ -28,12 +28,18 @@ public interface UserService {
     User register(AuthRequest authRequest);
 
     /**
-     * 根据 uid 获取 User 包含 UserInfo
+     * 根据上下文 uid 获取 User 不包含 UserInfo
      *
-     * @param uid int
      * @return User
      */
-    User detail(Integer uid);
+    User one();
+
+    /**
+     * 根据上下文 uid 获取 User 包含 UserInfo
+     *
+     * @return User
+     */
+    User detail();
 
     /**
      * 根据参数查询，支持分页
