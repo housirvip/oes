@@ -75,8 +75,9 @@
         ,
         <include refid="Blob_Column_List"/>
         from user
-        where 1=1
-        <include refid="search"/>
+        <where>
+            <include refid="search"/>
+        </where>
         <include refid="order"/>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

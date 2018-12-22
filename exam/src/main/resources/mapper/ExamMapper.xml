@@ -43,9 +43,10 @@
         ,
         <include refid="Blob_Column_List"/>
         from exam
-        where 1=1
-        <include refid="filter"/>
-        <include refid="search"/>
+        <where>
+            <include refid="filter"/>
+            <include refid="search"/>
+        </where>
         <include refid="order"/>
     </select>
     <select id="countTimesByPids" parameterType="map" resultType="java.util.Map">

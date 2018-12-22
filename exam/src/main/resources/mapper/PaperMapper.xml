@@ -52,9 +52,10 @@
         ,
         <include refid="Blob_Column_List"/>
         from paper
-        where 1=1
-        <include refid="filter"/>
-        <include refid="search"/>
+        <where>
+            <include refid="filter"/>
+            <include refid="search"/>
+        </where>
         <include refid="order"/>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

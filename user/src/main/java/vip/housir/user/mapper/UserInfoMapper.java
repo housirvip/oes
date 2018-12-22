@@ -70,7 +70,7 @@ public interface UserInfoMapper {
 
     /**
      * 获取 id 在 ids 列表中的 UserInfo 列表
-     * Map 的 key 为 id，value 为 UserInfo
+     * Map 的 key 为 uid，value 为 UserInfo
      *
      * @param uids List<Integer>
      * @return Map

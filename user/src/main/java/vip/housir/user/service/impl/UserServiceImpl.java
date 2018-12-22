@@ -90,6 +90,7 @@ public class UserServiceImpl implements UserService {
 
         UserInfo userInfo = userInfoMapper.selectByUid(uid);
         user.setUserInfo(userInfo);
+        user.setPassword(null);
 
         return user;
     }
@@ -97,7 +98,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> pageByParam(Map<String, Object> param) {
 
-        return userMapper.listByParam(param);
+        Page<User> userPage = userMapper.listByParam(param);
+
+        List<Integer> uids = Lists.newArrayList();
+        userPage.forEach(item -> uids.add(item.getId()));
+
+        Map<Integer, UserInfo> userInfoMap = userInfoMapper.listInUids(uids);
+        userPage.forEach(item -> {
+            item.setPassword(null);
+            item.setUserInfo(userInfoMap.get(item.getId()));
+        });
+
+        return userPage;
     }
 
     private List<String> checkExist(AuthRequest authRequest) {
