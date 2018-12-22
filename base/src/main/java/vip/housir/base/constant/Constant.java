@@ -20,4 +20,7 @@ public class Constant {
     public static final String TOTAL = "total";
 
     public static final String LIST = "list";
+
+    public static final String UID = "uid";
+    public static final String ROLE = "role";
 }

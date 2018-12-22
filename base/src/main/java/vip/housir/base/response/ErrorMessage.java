@@ -5,6 +5,8 @@ package vip.housir.base.response;
  */
 public class ErrorMessage {
 
+    public static final String UNAUTHORIZED = "未认证";
+
     public static final String ACCOUNT_NOT_FOUND = "账户未找到";
     public static final String ACCOUNT_DISABLED = "账户已停用";
     public static final String ACCOUNT_PASSWORD_ERROR = "账户密码错误";

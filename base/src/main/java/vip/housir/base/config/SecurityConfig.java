@@ -1,0 +1,46 @@
+package vip.housir.base.config;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import vip.housir.base.response.ErrorMessage;
+import vip.housir.base.security.JwtAuthFilter;
+import vip.housir.base.utils.JwtUtils;
+
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author housirvip
+ */
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("jwt.secret")
+    private String secret;
+
+    @Value("jwt.expire")
+    private Long expire;
+
+    @Value("jwt.delay")
+    private Long delay;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint((httpServletRequest, httpServletResponse, e) ->
+                        httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, ErrorMessage.UNAUTHORIZED))
+                .and().authorizeRequests()
+                .antMatchers("/auth/**", "/druid/**").permitAll()
+                .antMatchers("/**").authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .and().addFilter(new JwtAuthFilter(authenticationManager(), new JwtUtils(secret, expire, delay)));
+    }
+}

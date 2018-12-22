@@ -54,7 +54,7 @@ public class PaperServiceImpl implements PaperService {
             sectionList.add(section);
 
             //模块中没有题目，continue
-            if (section.getQids() == null || section.getQids().size() == 0) {
+            if (section.getQids() == null || section.getQids().isEmpty()) {
                 return;
             }
 

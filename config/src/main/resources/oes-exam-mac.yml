@@ -79,3 +79,8 @@ ribbon:
   max-auto-retries-next-server: 2
   # 对当前实例的重试次数
   max-auto-retries: 1
+
+jwt:
+  secret: changeIt
+  expire: 21600
+  delay: 60
