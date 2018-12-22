@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import vip.housir.base.constant.Constant;
 import vip.housir.base.request.AuthRequest;
 import vip.housir.base.response.ErrorMessage;
 import vip.housir.user.entity.User;
@@ -67,7 +68,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(authRequest.getEmail());
         user.setUsername(authRequest.getUsername());
         user.setPhone(authRequest.getPhone());
-        user.setGroup(initGroup);
+        user.setGroup(Constant.ROLE_PREFIX + initGroup);
         user.setLevel(initLevel);
         user.setRole(Lists.newArrayList(initRole));
         user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
