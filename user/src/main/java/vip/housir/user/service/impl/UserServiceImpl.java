@@ -105,8 +105,8 @@ public class UserServiceImpl implements UserService {
 
         Map<Integer, UserInfo> userInfoMap = userInfoMapper.listInUids(uids);
         userPage.forEach(item -> {
-            item.setPassword(null);
             item.setUserInfo(userInfoMap.get(item.getId()));
+            item.setPassword(null);
         });
 
         return userPage;
