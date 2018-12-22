@@ -80,10 +80,6 @@ ribbon:
   # 对当前实例的重试次数
   max-auto-retries: 1
 
-management:
-  security:
-    enabled: false
-
 user:
   init-role: USER
   init-group: Primary

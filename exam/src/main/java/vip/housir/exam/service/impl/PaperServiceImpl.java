@@ -46,7 +46,7 @@ public class PaperServiceImpl implements PaperService {
         //用户等级验证
         UserDto userDto = userClient.one().getResult();
         Preconditions.checkNotNull(userDto, ErrorMessage.PAPER_NOT_FOUND);
-        Preconditions.checkState(paper.getMinLevel() > userDto.getLevel(), ErrorMessage.PAPER_LEVEL_LIMIT);
+        Preconditions.checkState(paper.getMinLevel() <= userDto.getLevel(), ErrorMessage.PAPER_LEVEL_LIMIT);
 
         //试卷中没有模块直接返回
         if (paper.getSids() == null || paper.getSids().size() == 0) {
