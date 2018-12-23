@@ -20,7 +20,8 @@ public class MyExceptionHandler {
     public BaseResponse handlerRuntimeException(RuntimeException ex) {
 
         if (ex instanceof NullPointerException) {
-            log.error("handlerRuntimeException", ex);
+            log.error("NullPointerException", ex);
+            return new ErrorResponse("NullPointerException");
         }
 
         return new ErrorResponse(ex.getMessage());

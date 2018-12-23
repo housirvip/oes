@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         //账户未找到
         Preconditions.checkNotNull(user, ErrorMessage.ACCOUNT_NOT_FOUND);
         //账户被封禁
-        Preconditions.checkArgument(user.getEnable(), ErrorMessage.ACCOUNT_DISABLED);
+        Preconditions.checkState(user.getEnable(), ErrorMessage.ACCOUNT_DISABLED);
         //验证密码
         Preconditions.checkArgument(passwordEncoder.matches(authRequest.getPassword(), user.getPassword()), ErrorMessage.ACCOUNT_PASSWORD_ERROR);
 
