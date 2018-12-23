@@ -1,4 +1,4 @@
-package vip.housir.base.config;
+package vip.housir.base.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import vip.housir.base.response.ErrorMessage;
-import vip.housir.base.security.FeignAuthInterceptor;
-import vip.housir.base.security.JwtAuthFilter;
 import vip.housir.base.utils.JwtUtils;
 
 import javax.servlet.http.HttpServletResponse;

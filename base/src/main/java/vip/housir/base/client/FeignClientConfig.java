@@ -1,4 +1,4 @@
-package vip.housir.base.config;
+package vip.housir.base.client;
 
 import feign.Feign;
 import okhttp3.ConnectionPool;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @ConditionalOnClass(Feign.class)
 @AutoConfigureBefore(FeignAutoConfiguration.class)
-public class FeignOkHttpConfig {
+public class FeignClientConfig {
 
     @Bean
     public OkHttpClient okHttpClient() {
