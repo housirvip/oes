@@ -32,7 +32,7 @@ public class JwtUtils {
             jwt = JWT.create()
                     .withClaim(Constant.UID, uid)
                     .withArrayClaim(Constant.ROLE, role.toArray(roles))
-                    .withExpiresAt(new Date(System.currentTimeMillis() + expire))
+                    .withExpiresAt(new Date(System.currentTimeMillis() + expire * 1000))
                     .sign(Algorithm.HMAC256(secret));
         } catch (RuntimeException e) {
             log.error("Jwt: encode failed ", e);
@@ -46,8 +46,9 @@ public class JwtUtils {
         DecodedJWT decode = null;
         try {
             decode = JWT.require(Algorithm.HMAC256(secret))
-                    .acceptExpiresAt(System.currentTimeMillis() + delay)
-                    .build().verify(token);
+                    .acceptExpiresAt(delay)
+                    .build()
+                    .verify(token);
         } catch (RuntimeException e) {
             if (e instanceof JWTVerificationException) {
                 log.info("Jwt: verify failed, " + e.getMessage());
