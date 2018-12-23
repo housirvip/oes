@@ -17,7 +17,6 @@ import java.util.Date;
 /**
  * @author housirvip
  */
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ExamServiceImpl implements ExamService {
