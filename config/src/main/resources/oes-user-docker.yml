@@ -65,3 +65,8 @@ user:
   init-role: USER
   init-group: Primary
   init-level: 0
+
+jwt:
+  secret: changeIt
+  expire: 21600
+  delay: 60

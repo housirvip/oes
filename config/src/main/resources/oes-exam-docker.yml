@@ -60,3 +60,8 @@ ribbon:
   ok-to-retry-on-all-operations: true
   max-auto-retries-next-server: 2
   max-auto-retries: 1
+
+jwt:
+  secret: changeIt
+  expire: 21600
+  delay: 60
