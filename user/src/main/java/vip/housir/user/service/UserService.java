@@ -9,22 +9,21 @@ import vip.housir.user.entity.User;
  * @author housirvip
  */
 public interface UserService {
-
     /**
-     * 验证账户和密码，成功返回 User
+     * 验证账户和密码，成功返回 jwt
      *
      * @param userRequest UserRequest
-     * @return User
+     * @return String
      */
-    User login(UserRequest userRequest);
+    String login(UserRequest userRequest);
 
     /**
-     * 注册账户
+     * 注册账户，成功返回 jwt
      *
      * @param userRequest UserRequest
-     * @return User
+     * @return String
      */
-    User register(UserRequest userRequest);
+    String register(UserRequest userRequest);
 
     /**
      * 根据上下文 uid 获取 User 不包含 UserInfo

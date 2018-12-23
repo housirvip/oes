@@ -35,5 +35,7 @@ public class User implements Serializable {
 
     private UserInfo userInfo;
 
+    private Wallet wallet;
+
     private static final long serialVersionUID = 1L;
 }

@@ -62,9 +62,10 @@ ribbon:
   max-auto-retries: 1
 
 user:
-  init-role: USER
-  init-group: Primary
-  init-level: 0
+  role: USER
+  group: Primary
+  level: 0
+  coin: 0
 
 jwt:
   secret: changeIt

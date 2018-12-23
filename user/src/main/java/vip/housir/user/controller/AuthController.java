@@ -24,21 +24,16 @@ import vip.housir.user.service.UserService;
 public class AuthController {
 
     private final UserService userService;
-    private final JwtUtils jwtUtils;
 
     @PostMapping(value = "/login")
     public BaseResponse<String> login(@RequestBody @Validated(value = Login.class) UserRequest form) {
 
-        User user = userService.login(form);
-
-        return new ResultResponse<>(jwtUtils.encode(user.getId(), user.getRole()));
+        return new ResultResponse<>(userService.login(form));
     }
 
     @PostMapping(value = "/register")
     public BaseResponse<String> register(@RequestBody @Validated(value = Register.class) UserRequest form) {
 
-        User user = userService.register(form);
-
-        return new ResultResponse<>(jwtUtils.encode(user.getId(), user.getRole()));
+        return new ResultResponse<>(userService.register(form));
     }
 }

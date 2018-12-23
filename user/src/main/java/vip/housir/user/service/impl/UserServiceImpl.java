@@ -14,10 +14,13 @@ import vip.housir.base.constant.Constant;
 import vip.housir.base.request.PageRequest;
 import vip.housir.base.request.UserRequest;
 import vip.housir.base.response.ErrorMessage;
+import vip.housir.base.utils.JwtUtils;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.UserInfo;
+import vip.housir.user.entity.Wallet;
 import vip.housir.user.mapper.UserInfoMapper;
 import vip.housir.user.mapper.UserMapper;
+import vip.housir.user.mapper.WalletMapper;
 import vip.housir.user.service.UserService;
 
 import java.util.Date;
@@ -33,19 +36,25 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
     private final UserInfoMapper userInfoMapper;
+    private final WalletMapper walletMapper;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
 
-    @Value("${user.init-role}")
+
+    @Value("${user.role}")
     private String[] initRole;
 
-    @Value("${user.init-group}")
+    @Value("${user.group}")
     private String initGroup;
 
-    @Value("${user.init-level}")
+    @Value("${user.level}")
     private Integer initLevel;
 
+    @Value("${user.coin}")
+    private Integer initCoin;
+
     @Override
-    public User login(UserRequest userRequest) {
+    public String login(UserRequest userRequest) {
 
         User user = userMapper.selectByAccount(userRequest.getAccount());
         //账户未找到
@@ -55,12 +64,12 @@ public class UserServiceImpl implements UserService {
         //验证密码
         Preconditions.checkArgument(passwordEncoder.matches(userRequest.getPassword(), user.getPassword()), ErrorMessage.ACCOUNT_PASSWORD_ERROR);
 
-        return user;
+        return jwtUtils.encode(user.getId(), user.getRole());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public User register(UserRequest userRequest) {
+    public String register(UserRequest userRequest) {
 
         // 判断账户是否已经存在
         List<String> check = this.checkExist(userRequest);
@@ -84,7 +93,13 @@ public class UserServiceImpl implements UserService {
 
         userInfoMapper.insertSelective(userInfo);
 
-        return user;
+        Wallet wallet = new Wallet();
+        wallet.setUid(user.getId());
+        wallet.setCoin(initCoin);
+
+        walletMapper.insertSelective(wallet);
+
+        return jwtUtils.encode(user.getId(), user.getRole());
     }
 
     @Override
@@ -105,9 +120,8 @@ public class UserServiceImpl implements UserService {
         Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userMapper.selectByPrimaryKey(uid);
-        UserInfo userInfo = userInfoMapper.selectByUid(uid);
-
-        user.setUserInfo(userInfo);
+        user.setUserInfo(userInfoMapper.selectByUid(uid));
+        user.setWallet(walletMapper.selectByUid(uid));
         user.setPassword(null);
 
         return user;
@@ -135,8 +149,10 @@ public class UserServiceImpl implements UserService {
         userPage.forEach(item -> uids.add(item.getId()));
 
         Map<Integer, UserInfo> userInfoMap = userInfoMapper.listInUids(uids);
+        Map<Integer, Wallet> walletMap = walletMapper.listInUids(uids);
         userPage.forEach(item -> {
             item.setUserInfo(userInfoMap.get(item.getId()));
+            item.setWallet(walletMap.get(item.getId()));
             item.setPassword(null);
         });
 
