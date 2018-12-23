@@ -3,13 +3,14 @@ package vip.housir.base.request;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
  * @author housirvip
  */
 @Data
-public class AuthRequest implements Serializable {
+public class UserRequest implements Serializable {
 
     @NotBlank(groups = {Login.class})
     private String account;
@@ -26,5 +27,10 @@ public class AuthRequest implements Serializable {
     @NotBlank(groups = {Register.class})
     private String email;
 
-    private boolean remember;
+    @NotNull(groups = {Level.class})
+    private Integer level;
+
+    private Boolean remember;
+
+    private static final long serialVersionUID = 1L;
 }

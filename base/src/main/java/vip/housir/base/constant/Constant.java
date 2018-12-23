@@ -12,11 +12,13 @@ public class Constant {
     public static final int SUCCESS_CODE = 0;
     public static final int ERROR_CODE = 1;
 
-    public static final String PAGE_NUM = "pageNum";
     public static final int PAGE_NUM_VALUE = 1;
-
+    public static final int PAGE_SIZE_VALUE = 10;
+    public static final String PAGE_NUM = "pageNum";
     public static final String PAGE_SIZE = "pageSize";
-    public static final int PAGE_SIZE_VALUE = 5;
+    public static final String ORDER_TYPE = "orderType";
+    public static final String ORDER_BY = "orderBy";
+
 
     public static final String TOTAL = "total";
 
@@ -27,7 +29,4 @@ public class Constant {
 
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String ROLE_PREFIX = "ROLE_";
-
-    public static final String PATH_AUTH = "/auth/";
-
 }

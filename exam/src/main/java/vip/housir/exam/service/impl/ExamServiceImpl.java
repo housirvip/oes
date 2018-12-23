@@ -3,19 +3,21 @@ package vip.housir.exam.service.impl;
 import com.github.pagehelper.Page;
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import vip.housir.base.request.PageRequest;
 import vip.housir.base.response.ErrorMessage;
 import vip.housir.exam.entity.Exam;
 import vip.housir.exam.mapper.ExamMapper;
 import vip.housir.exam.service.ExamService;
 
 import java.util.Date;
-import java.util.Map;
 
 /**
  * @author housirvip
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ExamServiceImpl implements ExamService {
@@ -32,9 +34,16 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public Page<Exam> pageByParam(Map<String, Object> param) {
+    public Page<Exam> pageByParam(PageRequest pageRequest) {
 
-        return examMapper.listByParam(param);
+        Page<Exam> examPage = examMapper.listByParam(pageRequest.toMap());
+
+        examPage.forEach(item -> {
+            item.setSectionScore(null);
+            item.setUserAnswer(null);
+        });
+
+        return examPage;
     }
 
     @Override

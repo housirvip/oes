@@ -1,10 +1,9 @@
 package vip.housir.user.service;
 
 import com.github.pagehelper.Page;
-import vip.housir.base.request.AuthRequest;
+import vip.housir.base.request.PageRequest;
+import vip.housir.base.request.UserRequest;
 import vip.housir.user.entity.User;
-
-import java.util.Map;
 
 /**
  * @author housirvip
@@ -14,18 +13,18 @@ public interface UserService {
     /**
      * 验证账户和密码，成功返回 User
      *
-     * @param authRequest AuthRequest
+     * @param userRequest UserRequest
      * @return User
      */
-    User login(AuthRequest authRequest);
+    User login(UserRequest userRequest);
 
     /**
      * 注册账户
      *
-     * @param authRequest AuthRequest
+     * @param userRequest UserRequest
      * @return User
      */
-    User register(AuthRequest authRequest);
+    User register(UserRequest userRequest);
 
     /**
      * 根据上下文 uid 获取 User 不包含 UserInfo
@@ -42,11 +41,18 @@ public interface UserService {
     User detail();
 
     /**
-     * 根据参数查询，支持分页
-     * pageSize,PageNum
+     * 根据 uid 更新用户等级
      *
-     * @param param Map<String,Object>
-     * @return List<User>
+     * @param levelUpTo Integer
+     * @return Integer
      */
-    Page<User> pageByParam(Map<String, Object> param);
+    Integer userLevelUpTo(Integer levelUpTo);
+
+    /**
+     * 根据参数查询，支持分页
+     *
+     * @param pageRequest PageRequest
+     * @return Page
+     */
+    Page<User> pageByParam(PageRequest pageRequest);
 }

@@ -2,14 +2,14 @@ package vip.housir.exam.controller;
 
 import com.github.pagehelper.Page;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import vip.housir.base.request.PageRequest;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.PageResponse;
 import vip.housir.base.response.ResultResponse;
 import vip.housir.exam.entity.Exam;
 import vip.housir.exam.service.ExamService;
-
-import java.util.Map;
 
 /**
  * @author housirvip
@@ -28,9 +28,9 @@ public class ExamController {
     }
 
     @GetMapping(value = "/list")
-    public BaseResponse<Page> list(@RequestParam Map<String, Object> param) {
+    public BaseResponse<Page> list(@Validated PageRequest pageRequest) {
 
-        Page<Exam> examPage = examService.pageByParam(param);
+        Page<Exam> examPage = examService.pageByParam(pageRequest);
 
         return new PageResponse<>(examPage, examPage.getTotal());
     }

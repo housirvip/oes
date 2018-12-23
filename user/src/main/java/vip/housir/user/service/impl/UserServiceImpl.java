@@ -11,7 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vip.housir.base.constant.Constant;
-import vip.housir.base.request.AuthRequest;
+import vip.housir.base.request.PageRequest;
+import vip.housir.base.request.UserRequest;
 import vip.housir.base.response.ErrorMessage;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.UserInfo;
@@ -19,7 +20,9 @@ import vip.housir.user.mapper.UserInfoMapper;
 import vip.housir.user.mapper.UserMapper;
 import vip.housir.user.service.UserService;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author housirvip
@@ -42,36 +45,36 @@ public class UserServiceImpl implements UserService {
     private Integer initLevel;
 
     @Override
-    public User login(AuthRequest authRequest) {
+    public User login(UserRequest userRequest) {
 
-        User user = userMapper.selectByAccount(authRequest.getAccount());
+        User user = userMapper.selectByAccount(userRequest.getAccount());
         //账户未找到
         Preconditions.checkNotNull(user, ErrorMessage.ACCOUNT_NOT_FOUND);
         //账户被封禁
         Preconditions.checkState(user.getEnable(), ErrorMessage.ACCOUNT_DISABLED);
         //验证密码
-        Preconditions.checkArgument(passwordEncoder.matches(authRequest.getPassword(), user.getPassword()), ErrorMessage.ACCOUNT_PASSWORD_ERROR);
+        Preconditions.checkArgument(passwordEncoder.matches(userRequest.getPassword(), user.getPassword()), ErrorMessage.ACCOUNT_PASSWORD_ERROR);
 
         return user;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public User register(AuthRequest authRequest) {
+    public User register(UserRequest userRequest) {
 
         // 判断账户是否已经存在
-        List<String> check = this.checkExist(authRequest);
+        List<String> check = this.checkExist(userRequest);
         Preconditions.checkState(check.size() == 0, check.toString());
 
         User user = new User();
         user.setCreateTime(new Date());
-        user.setEmail(authRequest.getEmail());
-        user.setUsername(authRequest.getUsername());
-        user.setPhone(authRequest.getPhone());
+        user.setEmail(userRequest.getEmail());
+        user.setUsername(userRequest.getUsername());
+        user.setPhone(userRequest.getPhone());
         user.setGroup(Constant.ROLE_PREFIX + initGroup);
         user.setLevel(initLevel);
         user.setRole(Lists.newArrayList(initRole));
-        user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
+        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 
         userMapper.insertSelective(user);
 
@@ -90,7 +93,6 @@ public class UserServiceImpl implements UserService {
         Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userMapper.selectByPrimaryKey(uid);
-        Preconditions.checkNotNull(user, ErrorMessage.USER_NOT_FOUND);
 
         user.setPassword(null);
 
@@ -103,9 +105,8 @@ public class UserServiceImpl implements UserService {
         Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userMapper.selectByPrimaryKey(uid);
-        Preconditions.checkNotNull(user, ErrorMessage.USER_NOT_FOUND);
-
         UserInfo userInfo = userInfoMapper.selectByUid(uid);
+
         user.setUserInfo(userInfo);
         user.setPassword(null);
 
@@ -113,9 +114,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> pageByParam(Map<String, Object> param) {
+    public Integer userLevelUpTo(Integer levelUpTo) {
 
-        Page<User> userPage = userMapper.listByParam(param);
+        Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userMapper.selectByPrimaryKey(uid);
+        Preconditions.checkArgument(user.getLevel() < levelUpTo, ErrorMessage.USER_LEVEL_DOWN_DENY);
+
+        user.setLevel(levelUpTo);
+
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public Page<User> pageByParam(PageRequest pageRequest) {
+
+        Page<User> userPage = userMapper.listByParam(pageRequest.toMap());
 
         List<Integer> uids = Lists.newArrayList();
         userPage.forEach(item -> uids.add(item.getId()));
@@ -129,16 +143,16 @@ public class UserServiceImpl implements UserService {
         return userPage;
     }
 
-    private List<String> checkExist(AuthRequest authRequest) {
+    private List<String> checkExist(UserRequest userRequest) {
 
         List<String> result = Lists.newArrayList();
-        if (BooleanUtils.isTrue(userMapper.existUsername(authRequest.getUsername()))) {
+        if (BooleanUtils.isTrue(userMapper.existUsername(userRequest.getUsername()))) {
             result.add(ErrorMessage.USERNAME_EXIST);
         }
-        if (BooleanUtils.isTrue(userMapper.existEmail(authRequest.getEmail()))) {
+        if (BooleanUtils.isTrue(userMapper.existEmail(userRequest.getEmail()))) {
             result.add(ErrorMessage.EMAIL_EXIST);
         }
-        if (BooleanUtils.isTrue(userMapper.existPhone(authRequest.getPhone()))) {
+        if (BooleanUtils.isTrue(userMapper.existPhone(userRequest.getPhone()))) {
             result.add(ErrorMessage.PHONE_EXIST);
         }
 

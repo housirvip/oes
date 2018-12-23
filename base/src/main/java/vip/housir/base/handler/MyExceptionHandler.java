@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import vip.housir.base.response.BaseResponse;
+import vip.housir.base.response.ErrorMessage;
 import vip.housir.base.response.ErrorResponse;
 
 /**
@@ -20,8 +21,8 @@ public class MyExceptionHandler {
     public BaseResponse handlerRuntimeException(RuntimeException ex) {
 
         if (ex instanceof NullPointerException) {
-            log.error("NullPointerException", ex);
-            return new ErrorResponse("NullPointerException");
+            log.error(ErrorMessage.NULL_POINTER_EXCEPTION, ex);
+            return new ErrorResponse(ErrorMessage.NULL_POINTER_EXCEPTION);
         }
 
         return new ErrorResponse(ex.getMessage());

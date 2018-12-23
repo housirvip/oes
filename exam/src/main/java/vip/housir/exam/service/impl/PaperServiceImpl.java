@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import vip.housir.base.client.UserClient;
 import vip.housir.base.dto.UserDto;
+import vip.housir.base.request.PageRequest;
 import vip.housir.base.response.ErrorMessage;
 import vip.housir.exam.entity.Paper;
 import vip.housir.exam.entity.Question;
@@ -81,9 +82,9 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
-    public Page<Paper> pageByParam(Map<String, Object> param) {
+    public Page<Paper> pageByParam(PageRequest pageRequest) {
 
-        Page<Paper> paperPage = paperMapper.listByParam(param);
+        Page<Paper> paperPage = paperMapper.listByParam(pageRequest.toMap());
 
         List<Integer> pids = Lists.newArrayList();
         paperPage.forEach(p -> pids.add(p.getId()));

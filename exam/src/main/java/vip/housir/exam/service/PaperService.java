@@ -1,9 +1,8 @@
 package vip.housir.exam.service;
 
 import com.github.pagehelper.Page;
+import vip.housir.base.request.PageRequest;
 import vip.housir.exam.entity.Paper;
-
-import java.util.Map;
 
 /**
  * @author housirvip
@@ -19,10 +18,9 @@ public interface PaperService {
 
     /**
      * 根据参数查询，支持分页
-     * pageSize,PageNum
      *
-     * @param param Map<String, Object>
-     * @return Page<Paper>
+     * @param pageRequest PageRequest
+     * @return Page
      */
-    Page<Paper> pageByParam(Map<String, Object> param);
+    Page<Paper> pageByParam(PageRequest pageRequest);
 }

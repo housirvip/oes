@@ -4,11 +4,9 @@ import com.github.pagehelper.PageHelper;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import vip.housir.base.constant.Constant;
-
-import java.util.Map;
+import vip.housir.base.request.PageRequest;
 
 /**
  * @author housirvip
@@ -17,28 +15,25 @@ import java.util.Map;
 @Component
 public class PageHelperAop {
 
-    @Pointcut("execution(public com.github.pagehelper.Page vip.housir.*.service.*Service.page*(..))")
-    public void pageHelper() {
-    }
-
-    @Before("pageHelper()")
+    @Before("execution(public com.github.pagehelper.Page vip.housir.*.service.*Service.page*(..))")
     public void doBefore(JoinPoint joinPoint) {
 
         Object[] args = joinPoint.getArgs();
-        if (args == null || args.length == 0 || !(args[0] instanceof Map)) {
+        if (args == null || args.length == 0 || !(args[0] instanceof PageRequest)) {
             return;
         }
 
-        Map map = (Map) args[0];
+        PageRequest pageRequest = (PageRequest) args[0];
 
-        int pageNum = Constant.PAGE_NUM_VALUE;
-        int pageSize = Constant.PAGE_SIZE_VALUE;
+        Integer pageNum = pageRequest.getPageNum();
+        Integer pageSize = pageRequest.getPageSize();
 
-        if (map.containsKey(Constant.PAGE_NUM)) {
-            pageNum = Integer.parseInt(map.get(Constant.PAGE_NUM).toString());
+        if (pageNum == null) {
+            pageNum = Constant.PAGE_NUM_VALUE;
         }
-        if (map.containsKey(Constant.PAGE_SIZE)) {
-            pageSize = Integer.parseInt(map.get(Constant.PAGE_SIZE).toString());
+
+        if (pageSize == null) {
+            pageSize = Constant.PAGE_SIZE_VALUE;
         }
 
         PageHelper.startPage(pageNum, pageSize);
