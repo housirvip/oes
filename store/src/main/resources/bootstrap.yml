@@ -1,10 +1,10 @@
 server:
-  port: 8510
+  port: 8530
   address:
 
 spring:
   application:
-    name: oes-user
+    name: oes-store
   cloud:
     config:
       uri: http://node3.nicesite.vip:8000
