@@ -30,5 +30,5 @@ public interface ExamService {
      * @param exam Exam
      * @return Boolean
      */
-    Integer submit(Exam exam);
+    Boolean submit(Exam exam);
 }

@@ -12,4 +12,12 @@ public interface WalletService {
      * @return Wallet
      */
     Wallet one();
+
+    /**
+     * 根据商品 id 进行购买
+     *
+     * @param id Integer
+     * @return Boolean
+     */
+    Boolean buy(Integer id);
 }

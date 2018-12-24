@@ -3,5 +3,5 @@ package vip.housir.base.request;
 /**
  * @author housirvip
  */
-public interface Level {
+public interface Shopping {
 }

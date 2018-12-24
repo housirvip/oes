@@ -36,7 +36,7 @@ public class ExamController {
     }
 
     @PostMapping(value = "/submit")
-    public BaseResponse<Integer> submit(@RequestBody Exam exam) {
+    public BaseResponse<Boolean> submit(@RequestBody Exam exam) {
 
         return new ResultResponse<>(examService.submit(exam));
     }

@@ -3,7 +3,6 @@ package vip.housir.base.request;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -26,9 +25,6 @@ public class UserRequest implements Serializable {
 
     @NotBlank(groups = {Register.class})
     private String email;
-
-    @NotNull(groups = {Level.class})
-    private Integer level;
 
     private Boolean remember;
 

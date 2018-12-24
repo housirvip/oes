@@ -128,19 +128,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer userLevelUpTo(Integer levelUpTo) {
-
-        Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        User user = userMapper.selectByPrimaryKey(uid);
-        Preconditions.checkArgument(user.getLevel() < levelUpTo, ErrorMessage.USER_LEVEL_DOWN_DENY);
-
-        user.setLevel(levelUpTo);
-
-        return userMapper.updateByPrimaryKeySelective(user);
-    }
-
-    @Override
     public Page<User> pageByParam(PageRequest pageRequest) {
 
         Page<User> userPage = userMapper.listByParam(pageRequest.toMap());

@@ -40,14 +40,6 @@ public interface UserService {
     User detail();
 
     /**
-     * 根据 uid 更新用户等级
-     *
-     * @param levelUpTo Integer
-     * @return Integer
-     */
-    Integer userLevelUpTo(Integer levelUpTo);
-
-    /**
      * 根据参数查询，支持分页
      *
      * @param pageRequest PageRequest

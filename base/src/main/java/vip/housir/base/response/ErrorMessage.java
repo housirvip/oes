@@ -17,7 +17,8 @@ public class ErrorMessage {
     public static final String PHONE_EXIST = "手机号码已存在";
 
     public static final String USER_NOT_FOUND = "用户未找到";
-    public static final String USER_LEVEL_DOWN_DENY = "不支持降级";
+    public static final String USER_LEVEL_DOWN_DENY = "用户不支持降级";
+    public static final String USER_WALLET_LIMIT = "用户余额不足";
 
     public static final String PAPER_NOT_FOUND = "试卷未找到";
     public static final String PAPER_LEVEL_LIMIT = "试卷没有权限";

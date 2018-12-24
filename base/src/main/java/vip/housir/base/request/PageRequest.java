@@ -22,34 +22,26 @@ public class PageRequest implements Serializable {
 
     private String orderType;
 
-    private String filter;
-
-    private String search;
+    private String param;
 
     public Map<String, Object> toMap() {
 
-        Map<String, Object> param = Maps.newHashMap();
+        Map<String, Object> map = Maps.newHashMap();
 
         if (orderBy != null) {
-            param.put(Constant.ORDER_BY, orderBy);
+            map.put(Constant.ORDER_BY, orderBy);
         }
         if (orderType != null) {
-            param.put(Constant.ORDER_TYPE, orderType);
+            map.put(Constant.ORDER_TYPE, orderType);
         }
 
-        if (filter != null) {
-            Map<String, Object> map = JsonUtils.convertToMap(filter, String.class, Object.class);
-            if (map != null) {
-                param.putAll(map);
-            }
-        }
-        if (search != null) {
-            Map<String, Object> map = JsonUtils.convertToMap(search, String.class, Object.class);
-            if (map != null) {
-                param.putAll(map);
+        if (param != null) {
+            Map<String, Object> objectMap = JsonUtils.convertToMap(param, String.class, Object.class);
+            if (objectMap != null) {
+                map.putAll(objectMap);
             }
         }
 
-        return param;
+        return map;
     }
 }

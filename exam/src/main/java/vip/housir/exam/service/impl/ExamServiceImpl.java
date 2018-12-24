@@ -45,13 +45,13 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public Integer submit(Exam exam) {
+    public Boolean submit(Exam exam) {
 
         Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         exam.setCreateTime(new Date());
         exam.setUid(uid);
 
-        return examMapper.insertSelective(exam);
+        return examMapper.insertSelective(exam) == 1;
     }
 }
