@@ -84,7 +84,7 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public Page<Paper> pageByParam(PageRequest pageRequest) {
 
-        Page<Paper> paperPage = paperMapper.listByParam(pageRequest.toMap());
+        Page<Paper> paperPage = paperMapper.listByParam(pageRequest.paramToMap());
 
         List<Integer> pids = Lists.newArrayList();
         paperPage.forEach(p -> pids.add(p.getId()));

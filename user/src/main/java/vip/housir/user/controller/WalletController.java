@@ -27,6 +27,6 @@ public class WalletController {
     @PostMapping(value = "/shopping")
     public BaseResponse<Boolean> shopping(@RequestBody WalletRequest walletRequest) {
 
-        return new ResultResponse<>(walletService.buy(walletRequest.getProduct()));
+        return new ResultResponse<>(walletService.shopping(walletRequest.getProduct()));
     }
 }

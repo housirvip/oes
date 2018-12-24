@@ -34,7 +34,7 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public Page<Exam> pageByParam(PageRequest pageRequest) {
 
-        Page<Exam> examPage = examMapper.listByParam(pageRequest.toMap());
+        Page<Exam> examPage = examMapper.listByParam(pageRequest.paramToMap());
 
         examPage.forEach(item -> {
             item.setSectionScore(null);

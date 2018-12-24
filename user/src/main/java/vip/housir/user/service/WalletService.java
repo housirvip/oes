@@ -19,5 +19,5 @@ public interface WalletService {
      * @param id Integer
      * @return Boolean
      */
-    Boolean buy(Integer id);
+    Boolean shopping(Integer id);
 }

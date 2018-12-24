@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> pageByParam(PageRequest pageRequest) {
 
-        Page<User> userPage = userMapper.listByParam(pageRequest.toMap());
+        Page<User> userPage = userMapper.listByParam(pageRequest.paramToMap());
 
         List<Integer> uids = Lists.newArrayList();
         userPage.forEach(item -> uids.add(item.getId()));

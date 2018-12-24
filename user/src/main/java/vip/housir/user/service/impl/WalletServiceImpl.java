@@ -33,7 +33,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean buy(Integer id) {
+    public Boolean shopping(Integer id) {
 
         Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -47,7 +47,6 @@ public class WalletServiceImpl implements WalletService {
         user.setLevel(3);
         user.setGroup("Vip");
         user.getRole().add(Constant.ROLE_PREFIX + "VIP");
-        user.setRole(user.getRole());
         userMapper.updateByPrimaryKeySelective(user);
 
         wallet.setCoin(wallet.getCoin() - 100);

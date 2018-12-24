@@ -8,5 +8,5 @@ spring:
   cloud:
     config:
       uri: http://node3.nicesite.vip:8000
-      profile: mi
+      profile: mac
       label: master

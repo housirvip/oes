@@ -18,6 +18,7 @@ public class Constant {
     public static final String PAGE_SIZE = "pageSize";
     public static final String ORDER_TYPE = "orderType";
     public static final String ORDER_BY = "orderBy";
+    public static final String PARAM = "param";
 
 
     public static final String TOTAL = "total";
