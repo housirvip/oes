@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import vip.housir.base.client.UserClient;
+import vip.housir.base.constant.Constant;
 import vip.housir.base.dto.UserDto;
 import vip.housir.base.request.PageRequest;
 import vip.housir.base.response.ErrorMessage;
@@ -84,14 +85,14 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public Page<Paper> pageByParam(PageRequest pageRequest) {
 
-        Page<Paper> paperPage = paperMapper.listByParam(pageRequest.paramToMap());
+        Page<Paper> paperPage = paperMapper.listByParam(pageRequest.addParam().getMap());
 
         List<Integer> pids = Lists.newArrayList();
         paperPage.forEach(p -> pids.add(p.getId()));
 
         //查询用户试卷完成次数
         Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ImmutableMap<String, Object> countParam = ImmutableMap.of("uid", uid, "pids", pids);
+        ImmutableMap<String, Object> countParam = ImmutableMap.of(Constant.UID, uid, "pids", pids);
         Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(countParam);
         paperPage.forEach(p -> {
             Map<String, Long> map = countResult.get(p.getId());

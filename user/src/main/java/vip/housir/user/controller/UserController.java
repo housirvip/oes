@@ -24,7 +24,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping(value = "/one")
+    @GetMapping
     public BaseResponse<User> one() {
 
         return new ResultResponse<>(userService.one());

@@ -21,7 +21,7 @@ public class ExamController {
 
     private final ExamService examService;
 
-    @GetMapping(value = "/one")
+    @GetMapping
     public BaseResponse<Exam> one(@RequestParam Integer id) {
 
         return new ResultResponse<>(examService.one(id));
@@ -35,8 +35,8 @@ public class ExamController {
         return new PageResponse<>(examPage, examPage.getTotal());
     }
 
-    @PostMapping(value = "/submit")
-    public BaseResponse<Boolean> submit(@RequestBody Exam exam) {
+    @PostMapping
+    public BaseResponse<Boolean> create(@RequestBody Exam exam) {
 
         return new ResultResponse<>(examService.submit(exam));
     }

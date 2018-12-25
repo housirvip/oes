@@ -12,7 +12,10 @@ import java.io.Serializable;
 public class WalletRequest implements Serializable {
 
     @NotNull(groups = {Shopping.class})
-    private Integer product;
+    private Integer productId;
+
+    @NotNull(groups = {Shopping.class})
+    private Integer coin;
 
     private static final long serialVersionUID = 1L;
 }

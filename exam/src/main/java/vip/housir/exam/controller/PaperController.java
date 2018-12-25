@@ -2,9 +2,11 @@ package vip.housir.exam.controller;
 
 import com.github.pagehelper.Page;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import vip.housir.base.request.PageRequest;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.PageResponse;
@@ -22,7 +24,7 @@ public class PaperController {
 
     private final PaperService paperService;
 
-    @GetMapping(value = "/one")
+    @GetMapping
     public BaseResponse<Paper> one(@RequestParam Integer id) {
 
         return new ResultResponse<>(paperService.render(id));

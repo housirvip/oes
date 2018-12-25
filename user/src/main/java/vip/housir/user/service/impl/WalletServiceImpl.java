@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vip.housir.base.constant.Constant;
+import vip.housir.base.request.WalletRequest;
 import vip.housir.base.response.ErrorMessage;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.Wallet;
@@ -33,7 +34,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean shopping(Integer id) {
+    public Boolean shopping(WalletRequest walletRequest) {
 
         Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

@@ -1,5 +1,6 @@
 package vip.housir.user.service;
 
+import vip.housir.base.request.WalletRequest;
 import vip.housir.user.entity.Wallet;
 
 /**
@@ -16,8 +17,8 @@ public interface WalletService {
     /**
      * 根据商品 id 进行购买
      *
-     * @param id Integer
+     * @param walletRequest WalletRequest
      * @return Boolean
      */
-    Boolean shopping(Integer id);
+    Boolean shopping(WalletRequest walletRequest);
 }

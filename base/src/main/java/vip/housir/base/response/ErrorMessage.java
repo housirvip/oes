@@ -6,7 +6,7 @@ package vip.housir.base.response;
 public class ErrorMessage {
 
     public static final String UNAUTHORIZED = "未认证";
-    public static final String NULL_POINTER_EXCEPTION = "NullPointerException";
+    public static final String NULL_POINTER_EXCEPTION = "系统空指针异常";
 
     public static final String ACCOUNT_NOT_FOUND = "账户未找到";
     public static final String ACCOUNT_DISABLED = "账户已停用";
@@ -24,4 +24,5 @@ public class ErrorMessage {
     public static final String PAPER_LEVEL_LIMIT = "试卷没有权限";
 
     public static final String EXAM_NOT_FOUND = "考试记录未找到";
+    public static final String EXAM_PERMISSION_DENY = "此记录无权查看";
 }

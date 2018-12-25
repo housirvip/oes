@@ -11,8 +11,6 @@ import vip.housir.base.request.Register;
 import vip.housir.base.request.UserRequest;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.ResultResponse;
-import vip.housir.base.utils.JwtUtils;
-import vip.housir.user.entity.User;
 import vip.housir.user.service.UserService;
 
 /**

@@ -1,6 +1,9 @@
 package vip.housir.base.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Maps;
 import lombok.Data;
+import vip.housir.base.constant.Constant;
 import vip.housir.base.utils.JsonUtils;
 
 import java.io.Serializable;
@@ -18,8 +21,24 @@ public class PageRequest implements Serializable {
 
     private String param;
 
-    public Map<String, Object> paramToMap() {
+    @JsonIgnore
+    private Map<String, Object> map = Maps.newHashMap();
 
-        return JsonUtils.convertToMap(param, String.class, Object.class);
+    public PageRequest addUid(Integer uid) {
+
+        map.put(Constant.UID, uid);
+
+        return this;
+    }
+
+    public PageRequest addParam() {
+
+        Map<String, Object> paramMap = JsonUtils.convertToMap(param, String.class, Object.class);
+
+        if (paramMap != null) {
+            map.putAll(paramMap);
+        }
+
+        return this;
     }
 }
