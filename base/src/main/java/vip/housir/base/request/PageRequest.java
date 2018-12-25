@@ -31,6 +31,13 @@ public class PageRequest implements Serializable {
         return this;
     }
 
+    public PageRequest addDisable() {
+
+        map.put(Constant.ENABLE, false);
+
+        return this;
+    }
+
     public PageRequest addParam() {
 
         Map<String, Object> paramMap = JsonUtils.convertToMap(param, String.class, Object.class);

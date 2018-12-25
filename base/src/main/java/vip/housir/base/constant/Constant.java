@@ -26,6 +26,7 @@ public class Constant {
     public static final String LIST = "list";
 
     public static final String UID = "uid";
+    public static final String ENABLE = "enable";
     public static final String ROLE = "role";
 
     public static final String TOKEN_PREFIX = "Bearer ";
