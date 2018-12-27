@@ -23,6 +23,7 @@ import vip.housir.exam.service.PaperService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author housirvip
@@ -48,9 +49,9 @@ public class PaperServiceImpl implements PaperService {
         //用户等级验证
         UserDto userDto = userClient.one().getResult();
         Preconditions.checkNotNull(userDto, ErrorMessage.PAPER_NOT_FOUND);
-        Preconditions.checkState(paper.getMinLevel() <= userDto.getLevel(), ErrorMessage.PAPER_LEVEL_LIMIT);
+        Preconditions.checkArgument(paper.getMinLevel() <= userDto.getLevel(), ErrorMessage.PAPER_LEVEL_LIMIT);
 
-        //试卷中没有模块直接返回
+        //试卷中没有模块，return
         if (paper.getSids() == null || paper.getSids().size() == 0) {
             return paper;
         }
@@ -94,12 +95,9 @@ public class PaperServiceImpl implements PaperService {
         Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ImmutableMap<String, Object> countParam = ImmutableMap.of(Constant.UID, uid, "pids", pids);
         Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(countParam);
-        paperPage.forEach(p -> {
-            Map<String, Long> map = countResult.get(p.getId());
-            if (map != null) {
-                p.setTimes(map.get("times"));
-            }
-        });
+        paperPage.forEach(p ->
+                Optional.ofNullable(countResult.get(p.getId())).ifPresent(map ->
+                        p.setTimes(map.get("times"))));
 
         return paperPage;
     }

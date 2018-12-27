@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         //账户未找到
         Preconditions.checkNotNull(user, ErrorMessage.ACCOUNT_NOT_FOUND);
         //账户被封禁
-        Preconditions.checkState(user.getEnable(), ErrorMessage.ACCOUNT_DISABLED);
+        Preconditions.checkArgument(user.getEnable(), ErrorMessage.ACCOUNT_DISABLED);
         //验证密码
         Preconditions.checkArgument(passwordEncoder.matches(userRequest.getPassword(), user.getPassword()), ErrorMessage.ACCOUNT_PASSWORD_ERROR);
 
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
         // 判断账户是否已经存在
         List<String> check = this.checkExist(userRequest);
-        Preconditions.checkState(check.size() == 0, check.toString());
+        Preconditions.checkArgument(check.size() == 0, check.toString());
 
         User user = new User();
         user.setCreateTime(new Date());
