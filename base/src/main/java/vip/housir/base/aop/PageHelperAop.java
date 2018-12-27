@@ -25,16 +25,8 @@ public class PageHelperAop {
 
         PageRequest pageRequest = (PageRequest) args[0];
 
-        Integer pageNum = pageRequest.getPageNum();
-        Integer pageSize = pageRequest.getPageSize();
-
-        if (pageNum == null) {
-            pageNum = Constant.PAGE_NUM_VALUE;
-        }
-
-        if (pageSize == null) {
-            pageSize = Constant.PAGE_SIZE_VALUE;
-        }
+        int pageNum = pageRequest.getPageNum() != null ? pageRequest.getPageNum() : Constant.PAGE_NUM_VALUE;
+        int pageSize = pageRequest.getPageSize() != null ? pageRequest.getPageSize() : Constant.PAGE_SIZE_VALUE;
 
         PageHelper.startPage(pageNum, pageSize);
     }
