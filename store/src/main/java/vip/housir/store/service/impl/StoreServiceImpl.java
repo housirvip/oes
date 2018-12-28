@@ -39,7 +39,7 @@ public class StoreServiceImpl implements StoreService {
         //拷贝交易信息
         BeanUtils.copyProperties(product, tradeDto);
 
-        Optional.of(userClient.trade(tradeDto))
+        Optional.of(userClient.payForLevel(tradeDto))
                 .ifPresent(rsp -> Preconditions.checkArgument(rsp.getCode() == 0, rsp.getMessage()));
 
         //记录订单

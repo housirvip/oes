@@ -57,7 +57,8 @@ public class PaperServiceImpl implements PaperService {
                 ImmutableMap.of(Constant.PIDS, ImmutableList.of(id), Constant.UID, userDto.getId()));
         Optional.ofNullable(countResult.get(id))
                 .map(map -> map.get(Constant.TIMES))
-                .ifPresent(times -> Preconditions.checkArgument(times < userDto.getLevel(), ErrorMessage.PAPER_TIMES_LIMIT));
+                .ifPresent(times ->
+                        Preconditions.checkArgument(times < userDto.getLevel(), ErrorMessage.PAPER_TIMES_LIMIT));
 
         //试卷中没有模块，return
         if (paper.getSids() == null || paper.getSids().size() == 0) {
