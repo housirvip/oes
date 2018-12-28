@@ -2,6 +2,7 @@ package vip.housir.base.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.base.dto.UserDto;
@@ -35,6 +36,6 @@ public interface UserClient {
      * @param tradeDto TradeDto
      * @return BaseResponse
      */
-    @GetMapping(value = "/wallet/trade")
+    @PostMapping(value = "/wallet/trade")
     BaseResponse<Boolean> trade(@RequestBody TradeDto tradeDto);
 }

@@ -7,6 +7,7 @@ public class ErrorMessage {
 
     public static final String UNAUTHORIZED = "未认证";
     public static final String NULL_POINTER_EXCEPTION = "系统空指针异常";
+    public static final String SERVICE_EXCEPTION = "系统内部服务异常";
 
     public static final String ACCOUNT_NOT_FOUND = "账户未找到";
     public static final String ACCOUNT_DISABLED = "账户已停用";

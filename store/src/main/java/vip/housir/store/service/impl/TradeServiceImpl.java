@@ -37,6 +37,6 @@ public class TradeServiceImpl implements TradeService {
 
         //TODO 记录订单
 
-        return null;
+        return true;
     }
 }

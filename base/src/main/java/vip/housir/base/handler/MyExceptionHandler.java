@@ -20,9 +20,9 @@ public class MyExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public BaseResponse handlerRuntimeException(RuntimeException ex) {
 
-        if (ex instanceof NullPointerException) {
-            log.error(ErrorMessage.NULL_POINTER_EXCEPTION, ex);
-            return new ErrorResponse(ErrorMessage.NULL_POINTER_EXCEPTION);
+        if (ex.getMessage().isEmpty()) {
+            log.error(ErrorMessage.SERVICE_EXCEPTION, ex);
+            return new ErrorResponse(ErrorMessage.SERVICE_EXCEPTION);
         }
 
         return new ErrorResponse(ex.getMessage());
