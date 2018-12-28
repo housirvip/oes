@@ -33,7 +33,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean trade(TradeDto tradeDto) {
+    public Boolean payForLevel(TradeDto tradeDto) {
 
         User user = userMapper.selectByPrimaryKey(tradeDto.getUid());
         Wallet wallet = walletMapper.selectByUid(tradeDto.getUid());

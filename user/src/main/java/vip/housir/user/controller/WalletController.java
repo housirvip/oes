@@ -15,23 +15,22 @@ import vip.housir.user.service.WalletService;
  * @author housirvip
  */
 @RestController
-@RequestMapping(value = "/wallet")
 @RequiredArgsConstructor
 public class WalletController {
 
     private final WalletService walletService;
 
-    @GetMapping
+    @GetMapping(value = "/wallet")
     public BaseResponse<Wallet> one(Authentication auth) {
 
         return new ResultResponse<>(walletService.one((Integer) auth.getPrincipal()));
     }
 
-    @PostMapping(value = "/trade")
-    public BaseResponse<Boolean> trade(@RequestBody @Validated(value = Trade.class) TradeDto tradeDto, Authentication auth) {
+    @PostMapping(value = "/payForLevel")
+    public BaseResponse<Boolean> payForLevel(@RequestBody @Validated(value = Trade.class) TradeDto tradeDto, Authentication auth) {
 
         tradeDto.setUid((Integer) auth.getPrincipal());
 
-        return new ResultResponse<>(walletService.trade(tradeDto));
+        return new ResultResponse<>(walletService.payForLevel(tradeDto));
     }
 }

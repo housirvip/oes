@@ -28,8 +28,11 @@ public class ErrorMessage {
     public static final String PAPER_TIMES_LIMIT = "试卷次数超出";
 
     public static final String EXAM_NOT_FOUND = "考试记录未找到";
-    public static final String EXAM_PERMISSION_DENY = "此记录无权查看";
+    public static final String EXAM_PERMISSION_DENY = "此考试记录无权查看";
 
     public static final String PRODUCT_NOT_FOUND = "商品未找到";
+
+    public static final String ORDER_NOT_FOUND = "订单未找到";
+    public static final String ORDER_PERMISSION_DENY = "此订单无权查看";
 
 }

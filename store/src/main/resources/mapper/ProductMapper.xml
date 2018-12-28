@@ -1,188 +1,238 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="vip.housir.store.mapper.ProductMapper">
-  <resultMap id="BaseResultMap" type="vip.housir.store.entity.Product">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="enable" jdbcType="BIT" property="enable" />
-    <result column="price" jdbcType="INTEGER" property="price" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="min_level" jdbcType="INTEGER" property="minLevel" />
-    <result column="max_level" jdbcType="INTEGER" property="maxLevel" />
-    <result column="level_up" jdbcType="INTEGER" property="levelUp" />
-    <result column="level_to" jdbcType="INTEGER" property="levelTo" />
-    <result column="group_to" jdbcType="VARCHAR" property="groupTo" />
-    <result column="group_limit" jdbcType="VARCHAR" property="groupLimit" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, enable, price, name, description, min_level, max_level, level_up, level_to, group_to, 
-    group_limit, create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from product
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from product
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="vip.housir.store.entity.Product">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into product (enable, price, name, 
-      description, min_level, max_level, 
-      level_up, level_to, group_to, 
-      group_limit, create_time, update_time
-      )
-    values (#{enable,jdbcType=BIT}, #{price,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{minLevel,jdbcType=INTEGER}, #{maxLevel,jdbcType=INTEGER}, 
-      #{levelUp,jdbcType=INTEGER}, #{levelTo,jdbcType=INTEGER}, #{groupTo,jdbcType=VARCHAR}, 
-      #{groupLimit,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="vip.housir.store.entity.Product">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into product
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="enable != null">
+    <resultMap id="BaseResultMap" type="vip.housir.store.entity.Product">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="enable" jdbcType="BIT" property="enable"/>
+        <result column="price" jdbcType="INTEGER" property="price"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="min_level" jdbcType="INTEGER" property="minLevel"/>
+        <result column="max_level" jdbcType="INTEGER" property="maxLevel"/>
+        <result column="level_up" jdbcType="INTEGER" property="levelUp"/>
+        <result column="level_to" jdbcType="INTEGER" property="levelTo"/>
+        <result column="group_to" jdbcType="VARCHAR" property="groupTo"/>
+        <result column="group_limit" jdbcType="VARCHAR" property="groupLimit"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
         enable,
-      </if>
-      <if test="price != null">
         price,
-      </if>
-      <if test="name != null">
         name,
-      </if>
-      <if test="description != null">
         description,
-      </if>
-      <if test="minLevel != null">
         min_level,
-      </if>
-      <if test="maxLevel != null">
         max_level,
-      </if>
-      <if test="levelUp != null">
         level_up,
-      </if>
-      <if test="levelTo != null">
         level_to,
-      </if>
-      <if test="groupTo != null">
         group_to,
-      </if>
-      <if test="groupLimit != null">
         group_limit,
-      </if>
-      <if test="createTime != null">
         create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="enable != null">
-        #{enable,jdbcType=BIT},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="minLevel != null">
-        #{minLevel,jdbcType=INTEGER},
-      </if>
-      <if test="maxLevel != null">
-        #{maxLevel,jdbcType=INTEGER},
-      </if>
-      <if test="levelUp != null">
-        #{levelUp,jdbcType=INTEGER},
-      </if>
-      <if test="levelTo != null">
-        #{levelTo,jdbcType=INTEGER},
-      </if>
-      <if test="groupTo != null">
-        #{groupTo,jdbcType=VARCHAR},
-      </if>
-      <if test="groupLimit != null">
-        #{groupLimit,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="vip.housir.store.entity.Product">
-    update product
-    <set>
-      <if test="enable != null">
-        enable = #{enable,jdbcType=BIT},
-      </if>
-      <if test="price != null">
-        price = #{price,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="minLevel != null">
-        min_level = #{minLevel,jdbcType=INTEGER},
-      </if>
-      <if test="maxLevel != null">
-        max_level = #{maxLevel,jdbcType=INTEGER},
-      </if>
-      <if test="levelUp != null">
-        level_up = #{levelUp,jdbcType=INTEGER},
-      </if>
-      <if test="levelTo != null">
-        level_to = #{levelTo,jdbcType=INTEGER},
-      </if>
-      <if test="groupTo != null">
-        group_to = #{groupTo,jdbcType=VARCHAR},
-      </if>
-      <if test="groupLimit != null">
-        group_limit = #{groupLimit,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="vip.housir.store.entity.Product">
-    update product
-    set enable = #{enable,jdbcType=BIT},
-      price = #{price,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      min_level = #{minLevel,jdbcType=INTEGER},
-      max_level = #{maxLevel,jdbcType=INTEGER},
-      level_up = #{levelUp,jdbcType=INTEGER},
-      level_to = #{levelTo,jdbcType=INTEGER},
-      group_to = #{groupTo,jdbcType=VARCHAR},
-      group_limit = #{groupLimit,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="listByParam" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+        <where>
+            <include refid="filter"/>
+            <include refid="search"/>
+        </where>
+        <include refid="order"/>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from product
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="vip.housir.store.entity.Product">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into product (enable, price, name,
+        description, min_level, max_level,
+        level_up, level_to, group_to,
+        group_limit, create_time, update_time
+        )
+        values (#{enable,jdbcType=BIT}, #{price,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+        #{description,jdbcType=VARCHAR}, #{minLevel,jdbcType=INTEGER}, #{maxLevel,jdbcType=INTEGER},
+        #{levelUp,jdbcType=INTEGER}, #{levelTo,jdbcType=INTEGER}, #{groupTo,jdbcType=VARCHAR},
+        #{groupLimit,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="vip.housir.store.entity.Product">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="enable != null">
+                enable,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="minLevel != null">
+                min_level,
+            </if>
+            <if test="maxLevel != null">
+                max_level,
+            </if>
+            <if test="levelUp != null">
+                level_up,
+            </if>
+            <if test="levelTo != null">
+                level_to,
+            </if>
+            <if test="groupTo != null">
+                group_to,
+            </if>
+            <if test="groupLimit != null">
+                group_limit,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="enable != null">
+                #{enable,jdbcType=BIT},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="minLevel != null">
+                #{minLevel,jdbcType=INTEGER},
+            </if>
+            <if test="maxLevel != null">
+                #{maxLevel,jdbcType=INTEGER},
+            </if>
+            <if test="levelUp != null">
+                #{levelUp,jdbcType=INTEGER},
+            </if>
+            <if test="levelTo != null">
+                #{levelTo,jdbcType=INTEGER},
+            </if>
+            <if test="groupTo != null">
+                #{groupTo,jdbcType=VARCHAR},
+            </if>
+            <if test="groupLimit != null">
+                #{groupLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="vip.housir.store.entity.Product">
+        update product
+        <set>
+            <if test="enable != null">
+                enable = #{enable,jdbcType=BIT},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="minLevel != null">
+                min_level = #{minLevel,jdbcType=INTEGER},
+            </if>
+            <if test="maxLevel != null">
+                max_level = #{maxLevel,jdbcType=INTEGER},
+            </if>
+            <if test="levelUp != null">
+                level_up = #{levelUp,jdbcType=INTEGER},
+            </if>
+            <if test="levelTo != null">
+                level_to = #{levelTo,jdbcType=INTEGER},
+            </if>
+            <if test="groupTo != null">
+                group_to = #{groupTo,jdbcType=VARCHAR},
+            </if>
+            <if test="groupLimit != null">
+                group_limit = #{groupLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="vip.housir.store.entity.Product">
+        update product
+        set enable      = #{enable,jdbcType=BIT},
+            price       = #{price,jdbcType=INTEGER},
+            name        = #{name,jdbcType=VARCHAR},
+            description = #{description,jdbcType=VARCHAR},
+            min_level   = #{minLevel,jdbcType=INTEGER},
+            max_level   = #{maxLevel,jdbcType=INTEGER},
+            level_up    = #{levelUp,jdbcType=INTEGER},
+            level_to    = #{levelTo,jdbcType=INTEGER},
+            group_to    = #{groupTo,jdbcType=VARCHAR},
+            group_limit = #{groupLimit,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <sql id="filter">
+        <if test="price != null">
+            and price = #{price,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    <sql id="search">
+        <if test="name != null and name!=''">
+            and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+    </sql>
+    <sql id="order">
+        <if test="orderBy != null">
+            order by
+            <if test="orderBy == 'createTime'">
+                create_time
+            </if>
+            <if test="orderBy == 'price'">
+                price
+            </if>
+            <!-- order type -->
+            <if test="orderType == 'desc'">
+                desc
+            </if>
+            <if test="orderType == 'asc'">
+                asc
+            </if>
+        </if>
+    </sql>
 </mapper>

@@ -1,17 +1,16 @@
-package vip.housir.user.mapper;
+package vip.housir.store.mapper;
 
-import org.apache.ibatis.annotations.MapKey;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
-import vip.housir.user.entity.Wallet;
+import vip.housir.store.entity.Order;
 
-import java.util.List;
 import java.util.Map;
 
 /**
  * @author housirvip
  */
 @Mapper
-public interface WalletMapper {
+public interface OrderMapper {
     /**
      * 通过主键删除
      *
@@ -23,60 +22,50 @@ public interface WalletMapper {
     /**
      * 插入一条记录返回值为 ID，对象中属性值为 null，则数据库赋值为 null
      *
-     * @param record Wallet
+     * @param record Order
      * @return int
      */
-    int insert(Wallet record);
+    int insert(Order record);
 
     /**
      * 插入一条记录返回值为 ID，对象中属性值为 null 则不赋值，取数据库默认值
      *
-     * @param record Wallet
+     * @param record Order
      * @return int
      */
-    int insertSelective(Wallet record);
+    int insertSelective(Order record);
 
     /**
      * 根据主键查询记录，返回一条记录或者 null
      *
      * @param id Integer
-     * @return Wallet
+     * @return Order
      */
-    Wallet selectByPrimaryKey(Integer id);
+    Order selectByPrimaryKey(Integer id);
 
     /**
      * 根据主键更新记录，返回受影响的记录数
      * 对象中属性值为 null，则不赋值
      *
-     * @param record Wallet
+     * @param record Order
      * @return int
      */
-    int updateByPrimaryKeySelective(Wallet record);
+    int updateByPrimaryKeySelective(Order record);
 
     /**
      * 根据主键更新记录，返回受影响的记录数
      * 对象中属性值为 null，则数据库赋值为 null
      *
-     * @param record Wallet
+     * @param record Order
      * @return int
      */
-    int updateByPrimaryKey(Wallet record);
+    int updateByPrimaryKey(Order record);
 
     /**
-     * 根据 uid 查询 Wallet
+     * 根据参数查询，支持分页
      *
-     * @param uid Integer
-     * @return Wallet
+     * @param param Map<String,Object>
+     * @return Page
      */
-    Wallet selectByUid(Integer uid);
-
-    /**
-     * 获取 id 在 ids 列表中的 Wallet 列表
-     * Map 的 key 为 uid，value 为 Wallet
-     *
-     * @param uids List<Integer>
-     * @return Map
-     */
-    @MapKey("uid")
-    Map<Integer, Wallet> listInUids(List<Integer> uids);
+    Page<Order> listByParam(Map<String, Object> param);
 }

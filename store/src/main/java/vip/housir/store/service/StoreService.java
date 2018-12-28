@@ -1,11 +1,14 @@
 package vip.housir.store.service;
 
+import com.github.pagehelper.Page;
+import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.TradeDto;
+import vip.housir.store.entity.Product;
 
 /**
  * @author housirvip
  */
-public interface TradeService {
+public interface StoreService {
 
     /**
      * 交易
@@ -14,4 +17,6 @@ public interface TradeService {
      * @return Boolean
      */
     Boolean trade(TradeDto tradeDto);
+
+    Page<Product> pageProductByParam(PageDto pageDto);
 }

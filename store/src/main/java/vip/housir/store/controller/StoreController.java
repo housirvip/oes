@@ -1,16 +1,18 @@
 package vip.housir.store.controller;
 
+import com.github.pagehelper.Page;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.Shopping;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.base.response.BaseResponse;
+import vip.housir.base.response.PageResponse;
 import vip.housir.base.response.ResultResponse;
-import vip.housir.store.service.TradeService;
+import vip.housir.store.entity.Product;
+import vip.housir.store.service.StoreService;
 
 /**
  * @author housirvip
@@ -20,11 +22,21 @@ import vip.housir.store.service.TradeService;
 @RequiredArgsConstructor
 public class StoreController {
 
-    private final TradeService tradeService;
+    private final StoreService storeService;
 
-    @PostMapping(value = "shopping")
-    public BaseResponse<Boolean> shopping(@RequestBody @Validated(value = Shopping.class) TradeDto tradeDto) {
+    @GetMapping(value = "/products")
+    public BaseResponse<Page> products(@Validated PageDto pageDto) {
 
-        return new ResultResponse<>(tradeService.trade(tradeDto));
+        Page<Product> productPage = storeService.pageProductByParam(pageDto);
+
+        return new PageResponse<>(productPage, productPage.getTotal());
+    }
+
+    @PostMapping(value = "/shopping")
+    public BaseResponse<Boolean> shopping(@RequestBody @Validated(value = Shopping.class) TradeDto tradeDto, Authentication auth) {
+
+        tradeDto.setUid((Integer) auth.getPrincipal());
+
+        return new ResultResponse<>(storeService.trade(tradeDto));
     }
 }

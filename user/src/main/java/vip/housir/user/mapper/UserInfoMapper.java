@@ -23,7 +23,7 @@ public interface UserInfoMapper {
     /**
      * 插入一条记录返回值为 ID，对象中属性值为 null，则数据库赋值为 null
      *
-     * @param record User
+     * @param record UserInfo
      * @return int
      */
     int insert(UserInfo record);
@@ -31,7 +31,7 @@ public interface UserInfoMapper {
     /**
      * 插入一条记录返回值为 ID，对象中属性值为 null 则不赋值，取数据库默认值
      *
-     * @param record User
+     * @param record UserInfo
      * @return int
      */
     int insertSelective(UserInfo record);
@@ -40,14 +40,14 @@ public interface UserInfoMapper {
      * 根据主键查询记录，返回一条记录或者 null
      *
      * @param id Integer
-     * @return User
+     * @return UserInfo
      */
     UserInfo selectByPrimaryKey(Integer id);
 
     /**
      * 根据主键更新记录，返回受影响的记录数，对象中属性值为 null，则不赋值
      *
-     * @param record User
+     * @param record UserInfo
      * @return int
      */
     int updateByPrimaryKeySelective(UserInfo record);
@@ -55,7 +55,7 @@ public interface UserInfoMapper {
     /**
      * 根据主键更新记录，返回受影响的记录数，对象中属性值为 null，则数据库赋值为 null
      *
-     * @param record User
+     * @param record UserInfo
      * @return int
      */
     int updateByPrimaryKey(UserInfo record);
@@ -64,7 +64,7 @@ public interface UserInfoMapper {
      * 根据 uid 查询 UserInfo
      *
      * @param uid Integer
-     * @return User
+     * @return UserInfo
      */
     UserInfo selectByUid(Integer uid);
 

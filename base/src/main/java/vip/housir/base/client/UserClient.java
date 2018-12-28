@@ -36,6 +36,6 @@ public interface UserClient {
      * @param tradeDto TradeDto
      * @return BaseResponse
      */
-    @PostMapping(value = "/wallet/trade")
-    BaseResponse<Boolean> trade(@RequestBody TradeDto tradeDto);
+    @PostMapping(value = "/payForLevel")
+    BaseResponse<Boolean> payForLevel(@RequestBody TradeDto tradeDto);
 }

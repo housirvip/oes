@@ -11,10 +11,11 @@ public interface ExamService {
     /**
      * 根据 Exam 主键，获取考试详情
      *
-     * @param id Integer
+     * @param id  Integer
+     * @param uid Integer
      * @return Exam
      */
-    Exam one(Integer id);
+    Exam one(Integer id, Integer uid);
 
     /**
      * 根据参数查询，支持分页

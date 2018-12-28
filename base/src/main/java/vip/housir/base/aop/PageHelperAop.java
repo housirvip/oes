@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import vip.housir.base.constant.Constant;
 import vip.housir.base.dto.PageDto;
 
+import java.util.Optional;
+
 /**
  * @author housirvip
  */
@@ -25,8 +27,8 @@ public class PageHelperAop {
 
         PageDto pageDto = (PageDto) args[0];
 
-        int pageNum = pageDto.getPageNum() == null ? Constant.PAGE_NUM_VALUE : pageDto.getPageNum();
-        int pageSize = pageDto.getPageSize() == null ? Constant.PAGE_SIZE_VALUE : pageDto.getPageSize();
+        int pageNum = Optional.ofNullable(pageDto.getPageNum()).orElse(Constant.PAGE_NUM_VALUE);
+        int pageSize = Optional.ofNullable(pageDto.getPageSize()).orElse(Constant.PAGE_SIZE_VALUE);
 
         PageHelper.startPage(pageNum, pageSize);
     }

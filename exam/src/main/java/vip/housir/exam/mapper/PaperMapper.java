@@ -22,7 +22,7 @@ public interface PaperMapper {
     /**
      * 插入一条记录返回值为 ID，对象中属性值为 null，则数据库赋值为 null
      *
-     * @param record Exam
+     * @param record Paper
      * @return int
      */
     int insert(Paper record);
