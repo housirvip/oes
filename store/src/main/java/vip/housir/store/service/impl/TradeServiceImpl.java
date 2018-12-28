@@ -30,6 +30,7 @@ public class TradeServiceImpl implements TradeService {
         Product product = productMapper.selectByPrimaryKey(tradeDto.getProductId());
         Preconditions.checkNotNull(product, ErrorMessage.PRODUCT_NOT_FOUND);
 
+        //拷贝交易信息
         BeanUtils.copyProperties(product, tradeDto);
 
         Optional.of(userClient.trade(tradeDto))
