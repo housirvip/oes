@@ -22,6 +22,7 @@ public class ErrorMessage {
 
     public static final String PAPER_NOT_FOUND = "试卷未找到";
     public static final String PAPER_LEVEL_LIMIT = "试卷没有权限";
+    public static final String PAPER_TIMES_LIMIT = "试卷次数超出";
 
     public static final String EXAM_NOT_FOUND = "考试记录未找到";
     public static final String EXAM_PERMISSION_DENY = "此记录无权查看";

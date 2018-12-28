@@ -20,11 +20,8 @@ public class Constant {
     public static final String ORDER_BY = "orderBy";
     public static final String PARAM = "param";
 
-
-    public static final String TOTAL = "total";
-
-    public static final String LIST = "list";
-
+    public static final String PIDS = "pids";
+    public static final String TIMES = "times";
     public static final String UID = "uid";
     public static final String ENABLE = "enable";
     public static final String ROLE = "role";

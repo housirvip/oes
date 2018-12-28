@@ -2,6 +2,7 @@ package vip.housir.exam.service.impl;
 
 import com.github.pagehelper.Page;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +52,14 @@ public class PaperServiceImpl implements PaperService {
         Preconditions.checkNotNull(userDto, ErrorMessage.PAPER_NOT_FOUND);
         Preconditions.checkArgument(paper.getMinLevel() <= userDto.getLevel(), ErrorMessage.PAPER_LEVEL_LIMIT);
 
+        //次数上限验证
+        Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(
+                ImmutableMap.of(Constant.PIDS, ImmutableList.of(id), Constant.UID, userDto.getId()));
+        Optional.ofNullable(countResult.get(id))
+                .map(map -> map.get(Constant.TIMES))
+                .ifPresent(times -> Preconditions.checkArgument(
+                        times < userDto.getLevel(), ErrorMessage.PAPER_TIMES_LIMIT));
+
         //试卷中没有模块，return
         if (paper.getSids() == null || paper.getSids().size() == 0) {
             return paper;
@@ -93,11 +102,12 @@ public class PaperServiceImpl implements PaperService {
 
         //查询用户试卷完成次数
         Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ImmutableMap<String, Object> countParam = ImmutableMap.of(Constant.UID, uid, "pids", pids);
+        ImmutableMap<String, Object> countParam = ImmutableMap.of(Constant.UID, uid, Constant.PIDS, pids);
         Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(countParam);
         paperPage.forEach(p ->
-                Optional.ofNullable(countResult.get(p.getId())).ifPresent(map ->
-                        p.setTimes(map.get("times"))));
+                Optional.ofNullable(countResult.get(p.getId()))
+                        .map(map -> map.get(Constant.TIMES))
+                        .ifPresent(p::setTimes));
 
         return paperPage;
     }
