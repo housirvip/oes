@@ -3,6 +3,7 @@ package vip.housir.base.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,13 +13,25 @@ import java.util.List;
  */
 @Data
 public class UserDto implements Serializable {
-    private Integer id;
 
+    @NotBlank(groups = {Login.class})
+    private String account;
+
+    @NotBlank(groups = {Register.class})
+    private String phone;
+
+    @NotBlank(groups = {Register.class})
     private String username;
 
+    @NotBlank(groups = {Login.class, Register.class})
+    private String password;
+
+    @NotBlank(groups = {Register.class})
     private String email;
 
-    private String phone;
+    private Boolean remember;
+
+    private Integer id;
 
     private Date createTime;
 
@@ -33,6 +46,8 @@ public class UserDto implements Serializable {
     private String group;
 
     private UserInfoDto userInfo;
+
+    private WalletDto wallet;
 
     private static final long serialVersionUID = 1L;
 }

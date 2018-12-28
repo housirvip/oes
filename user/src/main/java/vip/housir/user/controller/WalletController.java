@@ -1,8 +1,11 @@
 package vip.housir.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import vip.housir.base.request.WalletRequest;
+import vip.housir.base.dto.Trade;
+import vip.housir.base.dto.TradeDto;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.ResultResponse;
 import vip.housir.user.entity.Wallet;
@@ -19,14 +22,16 @@ public class WalletController {
     private final WalletService walletService;
 
     @GetMapping
-    public BaseResponse<Wallet> one() {
+    public BaseResponse<Wallet> one(Authentication auth) {
 
-        return new ResultResponse<>(null);
+        return new ResultResponse<>(walletService.one((Integer) auth.getPrincipal()));
     }
 
-    @PostMapping(value = "/shopping")
-    public BaseResponse<Boolean> shopping(@RequestBody WalletRequest walletRequest) {
+    @PostMapping(value = "/trade")
+    public BaseResponse<Boolean> trade(@RequestBody @Validated(value = Trade.class) TradeDto tradeDto, Authentication auth) {
 
-        return new ResultResponse<>(walletService.shopping(walletRequest));
+        tradeDto.setUid((Integer) auth.getPrincipal());
+
+        return new ResultResponse<>(walletService.trade(tradeDto));
     }
 }

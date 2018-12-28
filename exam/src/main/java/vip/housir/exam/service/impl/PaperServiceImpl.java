@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import vip.housir.base.client.UserClient;
 import vip.housir.base.constant.Constant;
 import vip.housir.base.dto.UserDto;
-import vip.housir.base.request.PageRequest;
-import vip.housir.base.response.ErrorMessage;
+import vip.housir.base.dto.PageDto;
+import vip.housir.base.constant.ErrorMessage;
 import vip.housir.exam.entity.Paper;
 import vip.housir.exam.entity.Question;
 import vip.housir.exam.entity.Section;
@@ -55,10 +55,8 @@ public class PaperServiceImpl implements PaperService {
         //次数上限验证
         Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(
                 ImmutableMap.of(Constant.PIDS, ImmutableList.of(id), Constant.UID, userDto.getId()));
-        Optional.ofNullable(countResult.get(id))
-                .map(map -> map.get(Constant.TIMES))
-                .ifPresent(times -> Preconditions.checkArgument(
-                        times < userDto.getLevel(), ErrorMessage.PAPER_TIMES_LIMIT));
+        Optional.ofNullable(countResult.get(id)).map(map -> map.get(Constant.TIMES)).ifPresent(times ->
+                Preconditions.checkArgument(times < userDto.getLevel(), ErrorMessage.PAPER_TIMES_LIMIT));
 
         //试卷中没有模块，return
         if (paper.getSids() == null || paper.getSids().size() == 0) {
@@ -93,9 +91,9 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
-    public Page<Paper> pageByParam(PageRequest pageRequest) {
+    public Page<Paper> pageByParam(PageDto pageDto) {
 
-        Page<Paper> paperPage = paperMapper.listByParam(pageRequest.addParam().getMap());
+        Page<Paper> paperPage = paperMapper.listByParam(pageDto.putParam().getParamAsMap());
 
         List<Integer> pids = Lists.newArrayList();
         paperPage.forEach(p -> pids.add(p.getId()));
@@ -105,9 +103,7 @@ public class PaperServiceImpl implements PaperService {
         ImmutableMap<String, Object> countParam = ImmutableMap.of(Constant.UID, uid, Constant.PIDS, pids);
         Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(countParam);
         paperPage.forEach(p ->
-                Optional.ofNullable(countResult.get(p.getId()))
-                        .map(map -> map.get(Constant.TIMES))
-                        .ifPresent(p::setTimes));
+                Optional.ofNullable(countResult.get(p.getId())).map(map -> map.get(Constant.TIMES)).ifPresent(p::setTimes));
 
         return paperPage;
     }

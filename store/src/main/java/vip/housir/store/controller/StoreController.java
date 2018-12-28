@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vip.housir.base.request.Shopping;
-import vip.housir.base.request.WalletRequest;
+import vip.housir.base.dto.Shopping;
+import vip.housir.base.dto.TradeDto;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.ResultResponse;
-import vip.housir.store.service.OrderService;
+import vip.housir.store.service.TradeService;
 
 /**
  * @author housirvip
@@ -20,11 +20,11 @@ import vip.housir.store.service.OrderService;
 @RequiredArgsConstructor
 public class StoreController {
 
-    private final OrderService orderService;
+    private final TradeService tradeService;
 
     @PostMapping(value = "shopping")
-    public BaseResponse<Boolean> shopping(@RequestBody @Validated(value = Shopping.class) WalletRequest form) {
+    public BaseResponse<Boolean> shopping(@RequestBody @Validated(value = Shopping.class) TradeDto tradeDto) {
 
-        return new ResultResponse<>(orderService.create(form));
+        return new ResultResponse<>(tradeService.trade(tradeDto));
     }
 }

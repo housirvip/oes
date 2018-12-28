@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 import vip.housir.base.constant.Constant;
-import vip.housir.base.request.PageRequest;
+import vip.housir.base.dto.PageDto;
 
 /**
  * @author housirvip
@@ -19,14 +19,14 @@ public class PageHelperAop {
     public void doBefore(JoinPoint joinPoint) {
 
         Object[] args = joinPoint.getArgs();
-        if (args == null || args.length == 0 || !(args[0] instanceof PageRequest)) {
+        if (args == null || args.length == 0 || !(args[0] instanceof PageDto)) {
             return;
         }
 
-        PageRequest pageRequest = (PageRequest) args[0];
+        PageDto pageDto = (PageDto) args[0];
 
-        int pageNum = pageRequest.getPageNum() == null ? Constant.PAGE_NUM_VALUE : pageRequest.getPageNum();
-        int pageSize = pageRequest.getPageSize() == null ? Constant.PAGE_SIZE_VALUE : pageRequest.getPageSize();
+        int pageNum = pageDto.getPageNum() == null ? Constant.PAGE_NUM_VALUE : pageDto.getPageNum();
+        int pageSize = pageDto.getPageSize() == null ? Constant.PAGE_SIZE_VALUE : pageDto.getPageSize();
 
         PageHelper.startPage(pageNum, pageSize);
     }

@@ -1,4 +1,4 @@
-package vip.housir.base.response;
+package vip.housir.base.constant;
 
 /**
  * @author housirvip
@@ -18,6 +18,8 @@ public class ErrorMessage {
 
     public static final String USER_NOT_FOUND = "用户未找到";
     public static final String USER_LEVEL_DOWN_DENY = "用户不支持降级";
+    public static final String USER_LEVEL_LIMIT = "用户等级限制";
+    public static final String USER_GROUP_LIMIT = "用户组限制";
     public static final String USER_WALLET_LIMIT = "用户余额不足";
 
     public static final String PAPER_NOT_FOUND = "试卷未找到";
@@ -26,4 +28,7 @@ public class ErrorMessage {
 
     public static final String EXAM_NOT_FOUND = "考试记录未找到";
     public static final String EXAM_PERMISSION_DENY = "此记录无权查看";
+
+    public static final String PRODUCT_NOT_FOUND = "商品未找到";
+
 }

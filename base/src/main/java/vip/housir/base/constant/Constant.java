@@ -26,6 +26,13 @@ public class Constant {
     public static final String ENABLE = "enable";
     public static final String ROLE = "role";
 
+    public static final String PRIMARY = "PRIMARY";
+    public static final String USER = "USER";
+    public static final String CHENGGONG = "CHENGGONG";
+    public static final String VIP = "VIP";
+    public static final String ADMIN = "ADMIN";
+    public static final String ROOT = "ROOT";
+
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String ROLE_PREFIX = "ROLE_";
 }

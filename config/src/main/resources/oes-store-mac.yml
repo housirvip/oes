@@ -1,21 +1,21 @@
 server:
-  port: 8510
+  port: 8530
   address:
 
 spring:
   application:
-    name: oes-user
+    name: oes-store
   cloud:
     consul:
-      host: ubuntu.lan
+      host: localhost
       port: 8500
       discovery:
         service-name: ${spring.application.name}
         instance-id: ${spring.application.name}:${random.value}
-        hostname: mibookpro.lan
+        hostname: housirvipdeimac.lan
   #        health-check-interval: 5s
   datasource:
-    url: jdbc:mysql://ubuntu.lan:3306/oes?characterEncoding=utf8&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/oes?characterEncoding=utf8&autoReconnect=true&useSSL=false
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: ${spring.datasource.url}
@@ -79,12 +79,6 @@ ribbon:
   max-auto-retries-next-server: 2
   # 对当前实例的重试次数
   max-auto-retries: 1
-
-user:
-  role: USER
-  group: PRIMARY
-  level: 0
-  coin: 0
 
 jwt:
   secret: changeIt

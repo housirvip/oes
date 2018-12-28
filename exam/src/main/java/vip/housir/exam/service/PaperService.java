@@ -1,7 +1,7 @@
 package vip.housir.exam.service;
 
 import com.github.pagehelper.Page;
-import vip.housir.base.request.PageRequest;
+import vip.housir.base.dto.PageDto;
 import vip.housir.exam.entity.Paper;
 
 /**
@@ -19,8 +19,8 @@ public interface PaperService {
     /**
      * 根据参数查询，支持分页
      *
-     * @param pageRequest PageRequest
+     * @param pageDto PageDto
      * @return Page
      */
-    Page<Paper> pageByParam(PageRequest pageRequest);
+    Page<Paper> pageByParam(PageDto pageDto);
 }

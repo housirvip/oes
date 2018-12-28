@@ -6,14 +6,13 @@ import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.BooleanUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vip.housir.base.constant.Constant;
-import vip.housir.base.request.PageRequest;
-import vip.housir.base.request.UserRequest;
-import vip.housir.base.response.ErrorMessage;
+import vip.housir.base.dto.PageDto;
+import vip.housir.base.dto.UserDto;
+import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.utils.JwtUtils;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.UserInfo;
@@ -54,36 +53,36 @@ public class UserServiceImpl implements UserService {
     private Integer initCoin;
 
     @Override
-    public String login(UserRequest userRequest) {
+    public String login(UserDto userDto) {
 
-        User user = userMapper.selectByAccount(userRequest.getAccount());
+        User user = userMapper.selectByAccount(userDto.getAccount());
         //账户未找到
         Preconditions.checkNotNull(user, ErrorMessage.ACCOUNT_NOT_FOUND);
         //账户被封禁
         Preconditions.checkArgument(user.getEnable(), ErrorMessage.ACCOUNT_DISABLED);
         //验证密码
-        Preconditions.checkArgument(passwordEncoder.matches(userRequest.getPassword(), user.getPassword()), ErrorMessage.ACCOUNT_PASSWORD_ERROR);
+        Preconditions.checkArgument(passwordEncoder.matches(userDto.getPassword(), user.getPassword()), ErrorMessage.ACCOUNT_PASSWORD_ERROR);
 
         return jwtUtils.encode(user.getId(), user.getRole());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String register(UserRequest userRequest) {
+    public String register(UserDto userDto) {
 
         // 判断账户是否已经存在
-        List<String> check = this.checkExist(userRequest);
+        List<String> check = this.checkExist(userDto);
         Preconditions.checkArgument(check.size() == 0, check.toString());
 
         User user = new User();
         user.setCreateTime(new Date());
-        user.setEmail(userRequest.getEmail());
-        user.setUsername(userRequest.getUsername());
-        user.setPhone(userRequest.getPhone());
+        user.setEmail(userDto.getEmail());
+        user.setUsername(userDto.getUsername());
+        user.setPhone(userDto.getPhone());
         user.setGroup(Constant.ROLE_PREFIX + initGroup);
         user.setLevel(initLevel);
         user.setRole(Lists.newArrayList(initRole));
-        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         userMapper.insertSelective(user);
 
@@ -103,21 +102,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User one() {
-
-        Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public User one(Integer uid) {
 
         User user = userMapper.selectByPrimaryKey(uid);
-
         user.setPassword(null);
 
         return user;
     }
 
     @Override
-    public User detail() {
-
-        Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public User detail(Integer uid) {
 
         User user = userMapper.selectByPrimaryKey(uid);
         user.setUserInfo(userInfoMapper.selectByUid(uid));
@@ -128,9 +122,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> pageByParam(PageRequest pageRequest) {
+    public Page<User> pageByParam(PageDto pageDto) {
 
-        Page<User> userPage = userMapper.listByParam(pageRequest.addParam().getMap());
+        Page<User> userPage = userMapper.listByParam(pageDto.putParam().getParamAsMap());
 
         List<Integer> uids = Lists.newArrayList();
         userPage.forEach(item -> uids.add(item.getId()));
@@ -146,16 +140,16 @@ public class UserServiceImpl implements UserService {
         return userPage;
     }
 
-    private List<String> checkExist(UserRequest userRequest) {
+    private List<String> checkExist(UserDto userDto) {
 
         List<String> result = Lists.newArrayList();
-        if (BooleanUtils.isTrue(userMapper.existUsername(userRequest.getUsername()))) {
+        if (BooleanUtils.isTrue(userMapper.existUsername(userDto.getUsername()))) {
             result.add(ErrorMessage.USERNAME_EXIST);
         }
-        if (BooleanUtils.isTrue(userMapper.existEmail(userRequest.getEmail()))) {
+        if (BooleanUtils.isTrue(userMapper.existEmail(userDto.getEmail()))) {
             result.add(ErrorMessage.EMAIL_EXIST);
         }
-        if (BooleanUtils.isTrue(userMapper.existPhone(userRequest.getPhone()))) {
+        if (BooleanUtils.isTrue(userMapper.existPhone(userDto.getPhone()))) {
             result.add(ErrorMessage.PHONE_EXIST);
         }
 

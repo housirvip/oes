@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import vip.housir.base.response.BaseResponse;
-import vip.housir.base.response.ErrorMessage;
+import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.response.ErrorResponse;
 
 /**

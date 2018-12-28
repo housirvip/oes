@@ -1,4 +1,4 @@
-package vip.housir.base.request;
+package vip.housir.base.dto;
 
 /**
  * @author housirvip

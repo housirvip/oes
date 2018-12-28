@@ -1,7 +1,7 @@
 package vip.housir.exam.service;
 
 import com.github.pagehelper.Page;
-import vip.housir.base.request.PageRequest;
+import vip.housir.base.dto.PageDto;
 import vip.housir.exam.entity.Exam;
 
 /**
@@ -19,10 +19,10 @@ public interface ExamService {
     /**
      * 根据参数查询，支持分页
      *
-     * @param pageRequest PageRequest
+     * @param pageDto PageDto
      * @return Page
      */
-    Page<Exam> pageByParam(PageRequest pageRequest);
+    Page<Exam> pageByParam(PageDto pageDto);
 
     /**
      * 插入考试记录

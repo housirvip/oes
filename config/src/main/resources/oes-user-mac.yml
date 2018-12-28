@@ -82,10 +82,9 @@ ribbon:
 
 user:
   role: USER
-  group: Primary
+  group: PRIMARY
   level: 0
   coin: 0
-
 
 jwt:
   secret: changeIt

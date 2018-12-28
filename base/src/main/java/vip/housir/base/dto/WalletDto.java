@@ -9,23 +9,15 @@ import java.util.Date;
  * @author housirvip
  */
 @Data
-class UserInfoDto implements Serializable {
+class WalletDto implements Serializable {
 
     private Integer id;
 
     private Integer uid;
 
-    private String nickname;
+    private Integer coin;
 
-    private String avatar;
-
-    private String gender;
-
-    private String school;
-
-    private String major;
-
-    private String province;
+    private Integer freeze;
 
     private Date updateTime;
 

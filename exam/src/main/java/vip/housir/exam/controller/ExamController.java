@@ -4,7 +4,7 @@ import com.github.pagehelper.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import vip.housir.base.request.PageRequest;
+import vip.housir.base.dto.PageDto;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.PageResponse;
 import vip.housir.base.response.ResultResponse;
@@ -21,16 +21,16 @@ public class ExamController {
 
     private final ExamService examService;
 
-    @GetMapping
-    public BaseResponse<Exam> one(@RequestParam Integer id) {
+    @GetMapping(value = "{id}")
+    public BaseResponse<Exam> one(@PathVariable Integer id) {
 
         return new ResultResponse<>(examService.one(id));
     }
 
     @GetMapping(value = "/list")
-    public BaseResponse<Page> list(@Validated PageRequest pageRequest) {
+    public BaseResponse<Page> list(@Validated PageDto pageDto) {
 
-        Page<Exam> examPage = examService.pageByParam(pageRequest);
+        Page<Exam> examPage = examService.pageByParam(pageDto);
 
         return new PageResponse<>(examPage, examPage.getTotal());
     }
