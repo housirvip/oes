@@ -28,7 +28,8 @@ public class OrderServiceImpl implements OrderService {
         Preconditions.checkNotNull(order, ErrorMessage.ORDER_NOT_FOUND);
 
         Optional.ofNullable(uid)
-                .ifPresent(u -> Preconditions.checkArgument(u.equals(order.getUid()), ErrorMessage.ORDER_PERMISSION_DENY));
+                .ifPresent(u ->
+                        Preconditions.checkArgument(u.equals(order.getUid()), ErrorMessage.ORDER_PERMISSION_DENY));
 
         return order;
     }

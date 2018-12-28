@@ -29,7 +29,8 @@ public class ExamServiceImpl implements ExamService {
         Preconditions.checkNotNull(exam, ErrorMessage.EXAM_NOT_FOUND);
 
         Optional.ofNullable(uid)
-                .ifPresent(u -> Preconditions.checkArgument(u.equals(exam.getUid()), ErrorMessage.EXAM_PERMISSION_DENY));
+                .ifPresent(u ->
+                        Preconditions.checkArgument(u.equals(exam.getUid()), ErrorMessage.EXAM_PERMISSION_DENY));
 
         return exam;
     }
