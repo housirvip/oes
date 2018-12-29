@@ -40,8 +40,7 @@ public class StoreServiceImpl implements StoreService {
         BeanUtils.copyProperties(product, tradeDto);
 
         Optional.of(userClient.payForLevel(tradeDto))
-                .ifPresent(rsp ->
-                        Preconditions.checkArgument(rsp.getCode() == 0, rsp.getMessage()));
+                .ifPresent(rsp -> Preconditions.checkArgument(rsp.getCode() == 0, rsp.getMessage()));
 
         //记录订单
         Order order = new Order();

@@ -41,14 +41,11 @@ public class WalletServiceImpl implements WalletService {
         //商品信息，用户等级检查，余额检查
         Preconditions.checkArgument(wallet.getCoin() >= tradeDto.getPrice(), ErrorMessage.USER_WALLET_LIMIT);
         Optional.ofNullable(tradeDto.getMaxLevel())
-                .ifPresent(max ->
-                        Preconditions.checkArgument(user.getLevel() <= max, ErrorMessage.USER_LEVEL_LIMIT));
+                .ifPresent(max -> Preconditions.checkArgument(user.getLevel() <= max, ErrorMessage.USER_LEVEL_LIMIT));
         Optional.ofNullable(tradeDto.getMinLevel())
-                .ifPresent(min ->
-                        Preconditions.checkArgument(user.getLevel() >= min, ErrorMessage.USER_LEVEL_LIMIT));
+                .ifPresent(min -> Preconditions.checkArgument(user.getLevel() >= min, ErrorMessage.USER_LEVEL_LIMIT));
         Optional.ofNullable(tradeDto.getGroupLimit())
-                .ifPresent(group ->
-                        Preconditions.checkArgument(group.equals(user.getGroup()), ErrorMessage.USER_GROUP_LIMIT));
+                .ifPresent(group -> Preconditions.checkArgument(group.equals(user.getGroup()), ErrorMessage.USER_GROUP_LIMIT));
 
         Optional.ofNullable(tradeDto.getGroupTo())
                 .filter(group -> !user.getRole().contains(Constant.ROLE_PREFIX + group))
