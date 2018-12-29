@@ -3,7 +3,6 @@ package vip.housir.base.utils;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.Contract;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +19,6 @@ public class JsonUtils {
 
     private static ObjectMapper mapper = new ObjectMapper();
 
-    @Contract(value = "null -> null", pure = true)
     public static String convertToString(Object object) {
 
         if (object == null) {
@@ -37,7 +35,6 @@ public class JsonUtils {
         return result;
     }
 
-    @Contract(value = "null, _ -> null", pure = true)
     public static <T> T convertToObj(String json, Class<T> c) {
 
         if (json == null) {
@@ -54,7 +51,6 @@ public class JsonUtils {
         return result;
     }
 
-    @Contract(value = "null, _ -> null", pure = true)
     public static <T> T convertToObj(InputStream src, Class<T> c) {
 
         if (src == null) {
@@ -71,7 +67,6 @@ public class JsonUtils {
         return result;
     }
 
-    @Contract(value = "null, _ -> null", pure = true)
     public static <T> List<T> convertToList(String json, Class<T> t) {
 
         if (json == null) {
@@ -90,7 +85,6 @@ public class JsonUtils {
         return result;
     }
 
-    @Contract(value = "null, _, _ -> null", pure = true)
     public static <K, V> Map<K, V> convertToMap(String json, Class<K> k, Class<V> v) {
 
         if (json == null) {
