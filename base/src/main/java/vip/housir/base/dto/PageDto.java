@@ -25,7 +25,7 @@ public class PageDto implements Serializable {
     @JsonIgnore
     private Map<String, Object> paramAsMap = Maps.newHashMap();
 
-    public PageDto putUid(Integer uid) {
+    public PageDto putUid(Object uid) {
 
         paramAsMap.put(Constant.UID, uid);
 

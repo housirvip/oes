@@ -6,13 +6,12 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import vip.housir.base.client.UserClient;
 import vip.housir.base.constant.Constant;
-import vip.housir.base.dto.UserDto;
-import vip.housir.base.dto.PageDto;
 import vip.housir.base.constant.ErrorMessage;
+import vip.housir.base.dto.PageDto;
+import vip.housir.base.dto.UserDto;
 import vip.housir.exam.entity.Paper;
 import vip.housir.exam.entity.Question;
 import vip.housir.exam.entity.Section;
@@ -98,11 +97,10 @@ public class PaperServiceImpl implements PaperService {
 
         List<Integer> pids = Lists.newArrayList();
         paperPage.forEach(p -> pids.add(p.getId()));
+        pageDto.getParamAsMap().put(Constant.PIDS, pids);
 
         //查询用户试卷完成次数
-        Integer uid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ImmutableMap<String, Object> countParam = ImmutableMap.of(Constant.UID, uid, Constant.PIDS, pids);
-        Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(countParam);
+        Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(pageDto.getParamAsMap());
         paperPage.forEach(p ->
                 Optional.ofNullable(countResult.get(p.getId()))
                         .map(map -> map.get(Constant.TIMES))
