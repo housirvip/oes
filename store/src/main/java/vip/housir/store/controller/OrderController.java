@@ -31,6 +31,6 @@ public class OrderController {
     @GetMapping(value = "/orders")
     public BaseResponse<Page> list(@Validated PageDto pageDto, Authentication auth) {
 
-        return new ResultResponse<>(orderService.pageByParam(pageDto.putUid(auth.getPrincipal())));
+        return new ResultResponse<>(orderService.pageByParam(pageDto.putUid((Integer) auth.getPrincipal())));
     }
 }

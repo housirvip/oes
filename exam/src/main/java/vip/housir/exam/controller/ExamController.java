@@ -30,7 +30,7 @@ public class ExamController {
     @GetMapping(value = "/exams")
     public BaseResponse<Page> list(@Validated PageDto pageDto, Authentication auth) {
 
-        Page<Exam> examPage = examService.pageByParam(pageDto.putUid(auth.getPrincipal()));
+        Page<Exam> examPage = examService.pageByParam(pageDto.putUid((Integer) auth.getPrincipal()));
 
         return new PageResponse<>(examPage, examPage.getTotal());
     }

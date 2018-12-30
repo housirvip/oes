@@ -32,7 +32,7 @@ public class PaperController {
     @GetMapping(value = "/papers")
     public BaseResponse<Page> list(@Validated PageDto pageDto, Authentication auth) {
 
-        Page<Paper> papers = paperService.pageByParam(pageDto.putUid(auth.getPrincipal()));
+        Page<Paper> papers = paperService.pageByParam(pageDto.putUid((Integer) auth.getPrincipal()));
 
         return new PageResponse<>(papers, papers.getTotal());
     }
