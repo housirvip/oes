@@ -47,7 +47,7 @@ public class PaperServiceImpl implements PaperService {
         Preconditions.checkNotNull(paper, ErrorMessage.PAPER_NOT_FOUND);
 
         //用户等级验证
-        UserDto userDto = userClient.one().getResult();
+        UserDto userDto = userClient.user().getResult();
         Preconditions.checkNotNull(userDto, ErrorMessage.PAPER_NOT_FOUND);
         Preconditions.checkArgument(paper.getMinLevel() <= userDto.getLevel(), ErrorMessage.PAPER_LEVEL_LIMIT);
 

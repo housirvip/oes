@@ -9,7 +9,7 @@ import java.util.Date;
  * @author housirvip
  */
 @Data
-class WalletDto implements Serializable {
+public class WalletDto implements Serializable {
 
     private Integer id;
 

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.base.dto.UserDto;
+import vip.housir.base.dto.WalletDto;
 import vip.housir.base.response.BaseResponse;
 
 /**
@@ -15,15 +16,23 @@ import vip.housir.base.response.BaseResponse;
 public interface UserClient {
 
     /**
-     * 获取用户信息，不包含 UserInfo
+     * 获取用户信息，不包含 UserInfo, Wallet
      *
      * @return BaseResponse
      */
     @GetMapping(value = "/user")
-    BaseResponse<UserDto> one();
+    BaseResponse<UserDto> user();
 
     /**
-     * 获取用户信息，包含 UserInfo
+     * 获取用户钱包信息
+     *
+     * @return BaseResponse
+     */
+    @GetMapping(value = "/user/wallet")
+    BaseResponse<WalletDto> wallet();
+
+    /**
+     * 获取用户信息，包含 UserInfo, Wallet
      *
      * @return BaseResponse
      */
