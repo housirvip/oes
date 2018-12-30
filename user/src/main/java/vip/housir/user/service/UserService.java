@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.UserDto;
 import vip.housir.user.entity.User;
+import vip.housir.user.entity.UserInfo;
 
 /**
  * @author housirvip
@@ -34,13 +35,20 @@ public interface UserService {
     User one(Integer uid);
 
     /**
+     * 根据 uid 获取 UserInfo
+     *
+     * @param uid Integer
+     * @return User
+     */
+    UserInfo info(Integer uid);
+
+    /**
      * 根据 uid 获取 User 包含 UserInfo, Wallet
      *
      * @param uid Integer
      * @return User
      */
     User detail(Integer uid);
-
 
     /**
      * 根据参数查询，支持分页

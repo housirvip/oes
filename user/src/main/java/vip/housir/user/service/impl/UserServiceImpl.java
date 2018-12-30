@@ -36,9 +36,10 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final UserInfoMapper userInfoMapper;
     private final WalletMapper walletMapper;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtils jwtUtils;
 
+    private final PasswordEncoder passwordEncoder;
+
+    private final JwtUtils jwtUtils;
 
     @Value("${user.role}")
     private String[] initRole;
@@ -108,6 +109,12 @@ public class UserServiceImpl implements UserService {
         user.setPassword(null);
 
         return user;
+    }
+
+    @Override
+    public UserInfo info(Integer uid) {
+
+        return userInfoMapper.selectByUid(uid);
     }
 
     @Override
