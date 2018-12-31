@@ -1,6 +1,7 @@
 package vip.housir.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,5 +34,11 @@ public class AuthController {
     public BaseResponse<String> register(@RequestBody @Validated(value = Register.class) UserDto userDto) {
 
         return new ResultResponse<>(userService.register(userDto));
+    }
+
+    @PostMapping(value = "/register")
+    public BaseResponse<String> register(Authentication auth) {
+
+        return new ResultResponse<>(userService.refresh((Integer) auth.getPrincipal()));
     }
 }

@@ -27,6 +27,14 @@ public interface UserService {
     String register(UserDto userDto);
 
     /**
+     * 更新认证，成功返回 jwt
+     *
+     * @param uid Integer
+     * @return String
+     */
+    String refresh(Integer uid);
+
+    /**
      * 根据 uid 获取 User 不包含 UserInfo
      *
      * @param uid Integer

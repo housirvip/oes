@@ -103,6 +103,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String refresh(Integer uid) {
+
+        User user = userMapper.selectByPrimaryKey(uid);
+
+        return jwtUtils.encode(uid, user.getRole());
+    }
+
+    @Override
     public User one(Integer uid) {
 
         User user = userMapper.selectByPrimaryKey(uid);
