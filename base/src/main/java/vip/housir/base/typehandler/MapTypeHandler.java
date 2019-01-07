@@ -3,7 +3,6 @@ package vip.housir.base.typehandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.TypeHandler;
-import org.jetbrains.annotations.Contract;
 import vip.housir.base.utils.JsonUtils;
 
 import java.sql.CallableStatement;
@@ -42,7 +41,6 @@ public class MapTypeHandler implements TypeHandler<Object> {
         return jsonToMap(cs.getString(columnIndex));
     }
 
-    @Contract(value = "null -> null", pure = true)
     private Map jsonToMap(String json) throws RuntimeException {
 
         return JsonUtils.convertToMap(json, Object.class, Object.class);
