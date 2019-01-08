@@ -1,2 +1,2 @@
-*.h linguist-language=java
-*.m linguist-language=java
+*.xml linguist-language=java
+*.md linguist-language=java
