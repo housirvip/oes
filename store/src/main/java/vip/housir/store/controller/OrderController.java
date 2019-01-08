@@ -23,13 +23,13 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping(value = "/order/{id}")
-    public BaseResponse<Order> one(@PathVariable Integer id, Authentication auth) {
+    public BaseResponse<Order> order(@PathVariable Integer id, Authentication auth) {
 
         return new ResultResponse<>(orderService.one(id, (Integer) auth.getPrincipal()));
     }
 
     @GetMapping(value = "/orders")
-    public BaseResponse<Page> list(@Validated PageDto pageDto, Authentication auth) {
+    public BaseResponse<Page> orders(@Validated PageDto pageDto, Authentication auth) {
 
         return new ResultResponse<>(orderService.pageByParam(pageDto.putUid((Integer) auth.getPrincipal())));
     }

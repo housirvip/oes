@@ -108,4 +108,52 @@ public class PaperServiceImpl implements PaperService {
 
         return paperPage;
     }
+
+    @Override
+    public Question question(Integer id) {
+
+        return questionMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Section section(Integer id) {
+
+        return sectionMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Paper paper(Integer id) {
+
+        return paperMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Integer createOrUpdate(Question record) {
+
+        if (record.getId() != null) {
+            return questionMapper.insertSelective(record);
+        }
+
+        return questionMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public Integer createOrUpdate(Section record) {
+
+        if (record.getId() != null) {
+            return sectionMapper.insertSelective(record);
+        }
+
+        return sectionMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public Integer createOrUpdate(Paper record) {
+
+        if (record.getId() != null) {
+            return paperMapper.insertSelective(record);
+        }
+
+        return paperMapper.updateByPrimaryKeySelective(record);
+    }
 }

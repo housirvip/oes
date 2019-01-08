@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 .antMatchers("/actuator/**", "/auth/**", "/druid/**").permitAll()
                 .antMatchers("/**").authenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/admin/**").hasAnyRole("ADMIN", "ROOT")
                 .and().addFilter(new JwtAuthFilter(authenticationManager(), jwtUtils()));
     }
 }

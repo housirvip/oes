@@ -22,13 +22,13 @@ public class ExamController {
     private final ExamService examService;
 
     @GetMapping(value = "/exam/{id}")
-    public BaseResponse<Exam> one(@PathVariable Integer id, Authentication auth) {
+    public BaseResponse<Exam> exam(@PathVariable Integer id, Authentication auth) {
 
         return new ResultResponse<>(examService.one(id, (Integer) auth.getPrincipal()));
     }
 
     @GetMapping(value = "/exams")
-    public BaseResponse<Page> list(@Validated PageDto pageDto, Authentication auth) {
+    public BaseResponse<Page> exams(@Validated PageDto pageDto, Authentication auth) {
 
         Page<Exam> examPage = examService.pageByParam(pageDto.putUid((Integer) auth.getPrincipal()));
 

@@ -57,7 +57,7 @@ public class UserController {
 
     @GetMapping(value = "/users")
     @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
-    public BaseResponse<Page> list(@Validated PageDto pageDto) {
+    public BaseResponse<Page> users(@Validated PageDto pageDto) {
 
         Page<User> userPage = userService.pageByParam(pageDto);
 
