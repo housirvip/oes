@@ -28,6 +28,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <docker.user>housirvip@outlook.com</docker.user>
+        <docker.pass>housir@370481</docker.pass>
     </properties>
 
     <dependencies>
@@ -86,12 +88,23 @@
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>0.10.0</version>
                 <configuration>
-                    <allowInsecureRegistries>true</allowInsecureRegistries>
                     <from>
-                        <image>localhost:5000/openjdk:8-jdk-alpine</image>
+                        <image>
+                            registry.cn-shanghai.aliyuncs.com/housirvip/openjdk:8-jdk-alpine
+                        </image>
+                        <auth>
+                            <username>${docker.user}</username>
+                            <password>${docker.pass}</password>
+                        </auth>
                     </from>
                     <to>
-                        <image>localhost:5000/${project.artifactId}:${project.version}</image>
+                        <image>
+                            registry.cn-shanghai.aliyuncs.com/housirvip/oes-${project.artifactId}:${project.version}
+                        </image>
+                        <auth>
+                            <username>${docker.user}</username>
+                            <password>${docker.pass}</password>
+                        </auth>
                     </to>
                 </configuration>
             </plugin>

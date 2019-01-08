@@ -172,7 +172,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean info(UserInfo userInfo) {
+    public Boolean update(UserInfo userInfo) {
 
         return userInfoMapper.updateByPrimaryKeySelective(userInfo) > 0;
     }
