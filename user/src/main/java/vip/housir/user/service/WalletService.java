@@ -22,4 +22,12 @@ public interface WalletService {
      * @return Boolean
      */
     Boolean payForLevel(TradeDto tradeDto);
+
+    /**
+     * 奖励
+     *
+     * @param tradeDto TradeDto
+     * @return Boolean
+     */
+    Boolean award(TradeDto tradeDto);
 }

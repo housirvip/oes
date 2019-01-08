@@ -1,19 +1,15 @@
 package vip.housir.user.controller;
 
-import com.github.pagehelper.Page;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.Trade;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.base.response.BaseResponse;
-import vip.housir.base.response.PageResponse;
 import vip.housir.base.response.ResultResponse;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.UserInfo;
@@ -43,6 +39,12 @@ public class UserController {
         return new ResultResponse<>(userService.info((Integer) auth.getPrincipal()));
     }
 
+    @PostMapping(value = "/user/info")
+    public BaseResponse<Boolean> info(@RequestBody UserInfo userInfo) {
+
+        return new ResultResponse<>(userService.update(userInfo));
+    }
+
     @GetMapping(value = "/user/wallet")
     public BaseResponse<Wallet> wallet(Authentication auth) {
 
@@ -53,15 +55,6 @@ public class UserController {
     public BaseResponse<User> detail(Authentication auth) {
 
         return new ResultResponse<>(userService.detail((Integer) auth.getPrincipal()));
-    }
-
-    @GetMapping(value = "/users")
-    @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
-    public BaseResponse<Page> users(@Validated PageDto pageDto) {
-
-        Page<User> userPage = userService.pageByParam(pageDto);
-
-        return new PageResponse<>(userPage, userPage.getTotal());
     }
 
     @PostMapping(value = "/payForLevel")

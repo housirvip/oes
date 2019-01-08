@@ -10,9 +10,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vip.housir.base.constant.Constant;
-import vip.housir.base.dto.PageDto;
-import vip.housir.base.dto.UserDto;
 import vip.housir.base.constant.ErrorMessage;
+import vip.housir.base.dto.PageDto;
+import vip.housir.base.dto.TradeDto;
+import vip.housir.base.dto.UserDto;
 import vip.housir.base.utils.JwtUtils;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.UserInfo;
@@ -25,6 +26,7 @@ import vip.housir.user.service.UserService;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author housirvip
@@ -153,6 +155,26 @@ public class UserServiceImpl implements UserService {
         });
 
         return userPage;
+    }
+
+    @Override
+    public Boolean levelUp(TradeDto tradeDto) {
+
+        User user = userMapper.selectByPrimaryKey(tradeDto.getUid());
+        Preconditions.checkNotNull(user, ErrorMessage.USER_NOT_FOUND);
+
+        Optional.ofNullable(tradeDto.getLevelTo())
+                .ifPresent(user::setLevel);
+        Optional.ofNullable(tradeDto.getLevelUp())
+                .ifPresent(up -> user.setLevel(user.getLevel() + up));
+
+        return userMapper.updateByPrimaryKeySelective(user) > 0;
+    }
+
+    @Override
+    public Boolean info(UserInfo userInfo) {
+
+        return userInfoMapper.updateByPrimaryKeySelective(userInfo) > 0;
     }
 
     private List<String> checkExist(UserDto userDto) {

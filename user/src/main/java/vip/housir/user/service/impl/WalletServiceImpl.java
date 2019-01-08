@@ -64,4 +64,13 @@ public class WalletServiceImpl implements WalletService {
 
         return true;
     }
+
+    @Override
+    public Boolean award(TradeDto tradeDto) {
+
+        Wallet wallet = walletMapper.selectByUid(tradeDto.getUid());
+        wallet.setCoin(wallet.getCoin() + tradeDto.getPrice());
+
+        return walletMapper.updateByPrimaryKeySelective(wallet) > 0;
+    }
 }

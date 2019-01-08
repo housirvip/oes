@@ -2,6 +2,7 @@ package vip.housir.user.service;
 
 import com.github.pagehelper.Page;
 import vip.housir.base.dto.PageDto;
+import vip.housir.base.dto.TradeDto;
 import vip.housir.base.dto.UserDto;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.UserInfo;
@@ -65,4 +66,20 @@ public interface UserService {
      * @return Page
      */
     Page<User> pageByParam(PageDto pageDto);
+
+    /**
+     * 升级用户
+     *
+     * @param tradeDto TradeDto
+     * @return Boolean
+     */
+    Boolean levelUp(TradeDto tradeDto);
+
+    /**
+     * 更新 UserInfo
+     *
+     * @param userInfo UserInfo
+     * @return Boolean
+     */
+    Boolean update(UserInfo userInfo);
 }
