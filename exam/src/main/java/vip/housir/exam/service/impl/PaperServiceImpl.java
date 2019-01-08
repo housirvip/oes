@@ -130,7 +130,7 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public Integer createOrUpdate(Question record) {
 
-        if (record.getId() != null) {
+        if (record.getId() == null) {
             return questionMapper.insertSelective(record);
         }
 
@@ -140,7 +140,7 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public Integer createOrUpdate(Section record) {
 
-        if (record.getId() != null) {
+        if (record.getId() == null) {
             return sectionMapper.insertSelective(record);
         }
 
@@ -150,7 +150,7 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public Integer createOrUpdate(Paper record) {
 
-        if (record.getId() != null) {
+        if (record.getId() == null) {
             return paperMapper.insertSelective(record);
         }
 
