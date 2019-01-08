@@ -34,14 +34,14 @@ public class AdminController {
         return new PageResponse<>(userPage, userPage.getTotal());
     }
 
-    @PostMapping(value = "/levelUp")
+    @PutMapping(value = "/levelUp")
     @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
     public BaseResponse<Boolean> levelUp(@RequestBody TradeDto tradeDto) {
 
         return new ResultResponse<>(userService.levelUp(tradeDto));
     }
 
-    @PostMapping(value = "/award")
+    @PutMapping(value = "/award")
     @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
     public BaseResponse<Boolean> award(@RequestBody TradeDto tradeDto) {
 
