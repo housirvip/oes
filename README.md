@@ -1,6 +1,6 @@
 # oes 在线考试系统 java 后台
 
-> 基于 spring cloud 构建，注册中心 consul
+> 基于 spring cloud 构建，数据库 mysql, 注册中心 consul
 
 ## config
 
