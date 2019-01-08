@@ -16,7 +16,7 @@ spring:
       label: master
       server:
         git:
-          uri: https://gitee.com/housirvip/oes
+          uri: https://github.com/housirvip/oes
           search-paths: config/src/main/resources
           username: housirvip
-          password: hUTsxwXE5Yjg
+          password: sKUBJzXxiMv3
