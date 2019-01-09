@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     private final JwtUtils jwtUtils;
 
     @Value("${user.role}")
-    private String[] initRole;
+    private String initRole;
 
     @Value("${user.group}")
     private String initGroup;
@@ -82,9 +82,9 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
         user.setPhone(userDto.getPhone());
-        user.setGroup(Constant.ROLE_PREFIX + initGroup);
+        user.setGroup(initGroup);
         user.setLevel(initLevel);
-        user.setRole(Lists.newArrayList(initRole));
+        user.setRole(Lists.newArrayList(Constant.ROLE_PREFIX + initRole));
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         userMapper.insertSelective(user);
