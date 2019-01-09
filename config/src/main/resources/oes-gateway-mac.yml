@@ -47,7 +47,7 @@ spring:
       - id: store
         uri: lb://oes-store
         predicates:
-            - Path=/store/**
+          - Path=/store/**
       - id: store-admin
         uri: lb://oes-store
         predicates:
