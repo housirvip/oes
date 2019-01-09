@@ -16,11 +16,11 @@ spring:
   #        health-check-interval: 5s
     gateway:
       routes:
-      - id: test
-        uri: http://www.163.com/
+      - id: paper
+        uri: lb://oes-exam
         predicates:
-          - Path=/asd,/test,/163
-      - id: oes-exam
+          - Path=/paper/**
+      - id: papers
         uri: lb://oes-exam
         predicates:
           - Path=/papers
