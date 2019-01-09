@@ -16,10 +16,16 @@ spring:
   #        health-check-interval: 5s
     gateway:
       routes:
-      - id: test
+      - id: test1
         uri: http://www.163.com/
         predicates:
-          - Path=/163
+          - Path=/test1
+      - id: test2
+        uri: http://www.163.com/
+        predicates:
+          - Path=/test2
+          - Path=/test10
+          - Path=/test10/**
       - id: oes-exam
         uri: lb://oes-exam
         predicates:
