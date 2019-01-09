@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  address:
+
+spring:
+  application:
+    name: oes-gateway
+  cloud:
+    consul:
+      host: consul
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}:${random.value}
+        hostname: housirvipdeimac.lan
+  #        health-check-interval: 5s
+    gateway:
+      routes:
+      - id: test
+        uri: http://www.163.com/
+        predicates:
+          - Path=/asd,/test,/163
+      - id: oes-exam
+        uri: lb://oes-exam
+        predicates:
+          - Path=/papers
