@@ -19,7 +19,7 @@ spring:
       - id: test
         uri: http://www.163.com/
         predicates:
-          - Path=/test,/asd
+          - Path=/test, /asd
       - id: oes-exam
         uri: lb://oes-exam
         predicates:
