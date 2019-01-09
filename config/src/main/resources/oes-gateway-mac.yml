@@ -19,8 +19,4 @@ spring:
       - id: paper
         uri: lb://oes-exam
         predicates:
-          - Path=/paper/**
-      - id: papers
-        uri: lb://oes-exam
-        predicates:
-          - Path=/papers
+          - Path=/paper*/**
