@@ -27,7 +27,7 @@ spring:
       - id: user-admin
         uri: lb://oes-user
         predicates:
-          - Path=/user-admin/**/**
+          - Path=/user-admin/**
       - id: paper
         uri: lb://oes-exam
         predicates:
@@ -39,5 +39,17 @@ spring:
       - id: exam-admin
         uri: lb://oes-exam
         predicates:
-          - Path=/exam-admin/**/**
+          - Path=/exam-admin/**
+      - id: order
+        uri: lb://oes-store
+        predicates:
+          - Path=/order/**
+      - id: store
+        uri: lb://oes-store
+        predicates:
+            - Path=/store/**
+      - id: store-admin
+        uri: lb://oes-store
+        predicates:
+          - Path=/store-admin/**
 
