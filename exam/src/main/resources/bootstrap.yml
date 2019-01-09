@@ -1,7 +1,3 @@
-server:
-  port: 8520
-  address:
-
 spring:
   application:
     name: oes-exam

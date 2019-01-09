@@ -1,7 +1,3 @@
-server:
-  port: 8530
-  address:
-
 spring:
   application:
     name: oes-store
