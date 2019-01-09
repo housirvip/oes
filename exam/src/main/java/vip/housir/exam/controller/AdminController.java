@@ -34,7 +34,7 @@ public class AdminController {
         return new ResultResponse<>(examService.one(id, null));
     }
 
-    @GetMapping(value = "/exams")
+    @GetMapping(value = "/exam/list")
     @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
     public BaseResponse<Page> exams(@Validated PageDto pageDto) {
 

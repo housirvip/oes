@@ -36,7 +36,7 @@ public class ExamController {
         return new PageResponse<>(examPage, examPage.getTotal());
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "")
     public BaseResponse<Boolean> create(@RequestBody Exam exam, Authentication auth) {
 
         exam.setUid((Integer) auth.getPrincipal());
