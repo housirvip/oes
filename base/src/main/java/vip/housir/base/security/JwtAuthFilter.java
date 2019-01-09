@@ -1,7 +1,6 @@
 package vip.housir.base.security;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -23,7 +22,7 @@ public class JwtAuthFilter extends BasicAuthenticationFilter {
 
     private final JwtUtils jwtUtils;
 
-    public JwtAuthFilter(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+    JwtAuthFilter(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         super(authenticationManager);
         this.jwtUtils = jwtUtils;
     }

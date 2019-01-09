@@ -7,6 +7,6 @@ spring:
     name: oes-store
   cloud:
     config:
-      uri: http://oes-config:8000
-      profile: docker
+      uri: http://bd.nicesite.vip:8000
+      profile: mi
       label: master
