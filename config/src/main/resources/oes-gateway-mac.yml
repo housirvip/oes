@@ -24,10 +24,14 @@ spring:
         uri: lb://oes-user
         predicates:
           - Path=/user/**
+      - id: user-admin
+        uri: lb://oes-user
+        predicates:
+          - Path=/user-admin/**/**
       - id: paper
         uri: lb://oes-exam
         predicates:
-          - Path=/paper/**/**
+          - Path=/paper/**
       - id: exam
         uri: lb://oes-exam
         predicates:

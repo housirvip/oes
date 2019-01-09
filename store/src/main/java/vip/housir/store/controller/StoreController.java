@@ -24,7 +24,7 @@ public class StoreController {
 
     private final StoreService storeService;
 
-    @GetMapping(value = "/products")
+    @GetMapping(value = "/product/list")
     public BaseResponse<Page> products(@Validated PageDto pageDto) {
 
         Page<Product> productPage = storeService.pageProductByParam(pageDto);

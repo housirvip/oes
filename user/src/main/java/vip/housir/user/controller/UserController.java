@@ -18,37 +18,38 @@ import vip.housir.user.service.WalletService;
  * @author housirvip
  */
 @RestController
+@RequestMapping(value = "/user")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
     private final WalletService walletService;
 
-    @GetMapping(value = "/user")
+    @GetMapping(value = "")
     public BaseResponse<User> user(Authentication auth) {
 
         return new ResultResponse<>(userService.one((Integer) auth.getPrincipal()));
     }
 
-    @GetMapping(value = "/user/info")
+    @GetMapping(value = "/info")
     public BaseResponse<UserInfo> info(Authentication auth) {
 
         return new ResultResponse<>(userService.info((Integer) auth.getPrincipal()));
     }
 
-    @PutMapping(value = "/user/info")
+    @PutMapping(value = "/info")
     public BaseResponse<Boolean> info(@RequestBody UserInfo userInfo) {
 
         return new ResultResponse<>(userService.update(userInfo));
     }
 
-    @GetMapping(value = "/user/wallet")
+    @GetMapping(value = "/wallet")
     public BaseResponse<Wallet> wallet(Authentication auth) {
 
         return new ResultResponse<>(walletService.one((Integer) auth.getPrincipal()));
     }
 
-    @GetMapping(value = "/user/detail")
+    @GetMapping(value = "/detail")
     public BaseResponse<User> detail(Authentication auth) {
 
         return new ResultResponse<>(userService.detail((Integer) auth.getPrincipal()));

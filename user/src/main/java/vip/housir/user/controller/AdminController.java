@@ -18,14 +18,14 @@ import vip.housir.user.service.WalletService;
  * @author housirvip
  */
 @RestController
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/user-admin")
 @RequiredArgsConstructor
 public class AdminController {
 
     private final UserService userService;
     private final WalletService walletService;
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = "/user/list")
     @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
     public BaseResponse<Page> users(@Validated PageDto pageDto) {
 
