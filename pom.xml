@@ -14,6 +14,7 @@
         <module>user</module>
         <module>exam</module>
         <module>store</module>
+        <module>gateway</module>
     </modules>
 
     <parent>

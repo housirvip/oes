@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  address:
+
+spring:
+  application:
+    name: oes-gateway
+  cloud:
+    config:
+      uri: http://bd.nicesite.vip:8000
+      profile: mac
+      label: master
