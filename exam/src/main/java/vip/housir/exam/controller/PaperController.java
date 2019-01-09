@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.response.BaseResponse;
@@ -20,18 +21,19 @@ import vip.housir.exam.service.PaperService;
  * @author housirvip
  */
 @RestController
+@RequestMapping(value = "/paper")
 @RequiredArgsConstructor
 public class PaperController {
 
     private final PaperService paperService;
 
-    @GetMapping(value = "/paper/{id}/render")
+    @GetMapping(value = "/{id}/render")
     public BaseResponse<Paper> render(@PathVariable Integer id) {
 
         return new ResultResponse<>(paperService.render(id));
     }
 
-    @GetMapping(value = "/papers")
+    @GetMapping(value = "/list")
     public BaseResponse<Page> papers(@Validated PageDto pageDto, Authentication auth) {
 
         Page<Paper> papers = paperService.pageByParam(pageDto.putUid((Integer) auth.getPrincipal()));
@@ -39,7 +41,7 @@ public class PaperController {
         return new PageResponse<>(papers, papers.getTotal());
     }
 
-    @GetMapping(value = "/paper/{id}")
+    @GetMapping(value = "/{id}")
     public BaseResponse<Paper> paper(@PathVariable Integer id) {
 
         return new ResultResponse<>(paperService.paper(id));

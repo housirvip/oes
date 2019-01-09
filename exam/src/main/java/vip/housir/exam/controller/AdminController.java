@@ -20,7 +20,7 @@ import vip.housir.exam.service.PaperService;
  * @author housirvip
  */
 @RestController
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/exam-admin")
 @RequiredArgsConstructor
 public class AdminController {
 

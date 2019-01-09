@@ -16,18 +16,19 @@ import vip.housir.exam.service.ExamService;
  * @author housirvip
  */
 @RestController
+@RequestMapping(value = "/exam")
 @RequiredArgsConstructor
 public class ExamController {
 
     private final ExamService examService;
 
-    @GetMapping(value = "/exam/{id}")
+    @GetMapping(value = "/{id}")
     public BaseResponse<Exam> exam(@PathVariable Integer id, Authentication auth) {
 
         return new ResultResponse<>(examService.one(id, (Integer) auth.getPrincipal()));
     }
 
-    @GetMapping(value = "/exams")
+    @GetMapping(value = "/list")
     public BaseResponse<Page> exams(@Validated PageDto pageDto, Authentication auth) {
 
         Page<Exam> examPage = examService.pageByParam(pageDto.putUid((Integer) auth.getPrincipal()));
@@ -35,7 +36,7 @@ public class ExamController {
         return new PageResponse<>(examPage, examPage.getTotal());
     }
 
-    @PostMapping(value = "/exam")
+    @PostMapping(value = "/")
     public BaseResponse<Boolean> create(@RequestBody Exam exam, Authentication auth) {
 
         exam.setUid((Integer) auth.getPrincipal());

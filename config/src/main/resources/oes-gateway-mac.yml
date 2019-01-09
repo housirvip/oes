@@ -16,14 +16,6 @@ spring:
   #        health-check-interval: 5s
     gateway:
       routes:
-      - id: paper
-        uri: lb://oes-exam
-        predicates:
-          - Path=/paper/**/**
-      - id: exam
-        uri: lb://oes-exam
-        predicates:
-          - Path=/exam/**/**
       - id: auth
         uri: lb://oes-user
         predicates:
@@ -32,3 +24,16 @@ spring:
         uri: lb://oes-user
         predicates:
           - Path=/user/**
+      - id: paper
+        uri: lb://oes-exam
+        predicates:
+          - Path=/paper/**/**
+      - id: exam
+        uri: lb://oes-exam
+        predicates:
+          - Path=/exam/**/**
+      - id: exam-admin
+        uri: lb://oes-exam
+        predicates:
+          - Path=/exam-admin/**/**
+
