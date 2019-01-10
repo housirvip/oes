@@ -10,10 +10,15 @@ import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
 import vip.housir.exam.entity.Exam;
 import vip.housir.exam.entity.Paper;
+import vip.housir.exam.entity.Question;
+import vip.housir.exam.entity.Section;
 import vip.housir.exam.mapper.ExamMapper;
 import vip.housir.exam.mapper.PaperMapper;
+import vip.housir.exam.mapper.QuestionMapper;
+import vip.housir.exam.mapper.SectionMapper;
 import vip.housir.exam.service.ExamService;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
@@ -28,6 +33,8 @@ public class ExamServiceImpl implements ExamService {
 
     private final ExamMapper examMapper;
     private final PaperMapper paperMapper;
+    private final SectionMapper sectionMapper;
+    private final QuestionMapper questionMapper;
 
     @Value("${exam.score-async}")
     private Boolean scoreAsync;
@@ -83,12 +90,17 @@ public class ExamServiceImpl implements ExamService {
         Preconditions.checkNotNull(paper, ErrorMessage.PAPER_NOT_FOUND);
 
         Map<String, Double> sectionScore = Maps.newHashMap();
-        paper.getSections().forEach(section -> {
+        Map<Integer, Section> sectionMap = sectionMapper.listInIds(paper.getSids());
+        paper.getSids().forEach(sid -> {
 
             //thisScore 为此 section 得分
             AtomicReference<Float> thisScore = new AtomicReference<>(0f);
+            Section section = sectionMap.get(sid);
             float everyScore = section.getTotalScore() / section.getQids().size();
-            section.getQuestions().forEach(question -> {
+            Map<Integer, Question> questionMap = questionMapper.listInIds(section.getQids());
+            section.getQids().forEach(qid -> {
+
+                Question question = questionMap.get(qid);
                 if (question.getAnswer() == null) {
                     return;
                 }
@@ -104,7 +116,9 @@ public class ExamServiceImpl implements ExamService {
                 //不允许负分
                 thisScore.set(0f);
             }
-            sectionScore.put(section.getId().toString(), thisScore.get().doubleValue());
+            BigDecimal finalScore = new BigDecimal(thisScore.get()).setScale(2, BigDecimal.ROUND_HALF_UP);
+            thisScore.set(finalScore.floatValue());
+            sectionScore.put(section.getId().toString(), finalScore.doubleValue());
         });
         sectionScore.forEach((k, v) -> exam.setScore(exam.getScore() + v.floatValue()));
         exam.setSectionScore(sectionScore);
