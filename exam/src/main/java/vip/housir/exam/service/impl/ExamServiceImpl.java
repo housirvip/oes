@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
@@ -27,6 +28,9 @@ public class ExamServiceImpl implements ExamService {
 
     private final ExamMapper examMapper;
     private final PaperMapper paperMapper;
+
+    @Value("${exam.score-async}")
+    private Boolean scoreAsync;
 
     @Override
     public Exam one(Integer id, Integer uid) {
@@ -57,10 +61,16 @@ public class ExamServiceImpl implements ExamService {
     public Boolean submit(Exam exam) {
 
         exam.setCreateTime(new Date());
+        if (examMapper.insertSelective(exam) == 0) {
+            return false;
+        }
 
-        //TODO 后端打分
+        //TODO 异步后端打分
+        if (scoreAsync) {
+            score(exam.getId());
+        }
 
-        return examMapper.insertSelective(exam) == 1;
+        return true;
     }
 
     @Override

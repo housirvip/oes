@@ -84,3 +84,6 @@ jwt:
   secret: changeIt
   expire: 21600
   delay: 60
+
+exam:
+  score-async: false
