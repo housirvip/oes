@@ -32,4 +32,12 @@ public interface ExamService {
      * @return Boolean
      */
     Boolean submit(Exam exam);
+
+    /**
+     * 将存入数据库中的考试记录打分
+     *
+     * @param id Integer
+     * @return Boolean
+     */
+    Boolean score(Integer id);
 }
