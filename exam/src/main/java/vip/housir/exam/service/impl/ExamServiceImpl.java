@@ -96,15 +96,24 @@ public class ExamServiceImpl implements ExamService {
             //thisScore 为此 section 得分
             AtomicReference<Float> thisScore = new AtomicReference<>(0f);
             Section section = sectionMap.get(sid);
+            if (section == null) {
+                return;
+            }
+
             float everyScore = section.getTotalScore() / section.getQids().size();
             Map<Integer, Question> questionMap = questionMapper.listInIds(section.getQids());
             section.getQids().forEach(qid -> {
 
                 Question question = questionMap.get(qid);
-                if (question.getAnswer() == null) {
+                if (question == null) {
                     return;
                 }
-                if (question.getAnswer().equals(exam.getUserAnswer().get(question.getId().toString()))) {
+
+                String answer = exam.getUserAnswer().get(question.getId().toString());
+                if (answer == null || question.getAnswer() == null) {
+                    return;
+                }
+                if (answer.equals(question.getAnswer())) {
                     //答对加分
                     thisScore.updateAndGet(v -> v + everyScore);
                 } else if (section.getDeduct()) {
