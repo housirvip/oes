@@ -5,6 +5,8 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
@@ -16,6 +18,7 @@ import vip.housir.exam.mapper.ExamMapper;
 import vip.housir.exam.mapper.PaperMapper;
 import vip.housir.exam.mapper.QuestionMapper;
 import vip.housir.exam.mapper.SectionMapper;
+import vip.housir.exam.mqhandler.ExamOutput;
 import vip.housir.exam.service.ExamService;
 
 import java.math.BigDecimal;
@@ -28,6 +31,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author housirvip
  */
 @Service
+@EnableBinding(ExamOutput.class)
 @RequiredArgsConstructor
 public class ExamServiceImpl implements ExamService {
 
@@ -35,6 +39,8 @@ public class ExamServiceImpl implements ExamService {
     private final PaperMapper paperMapper;
     private final SectionMapper sectionMapper;
     private final QuestionMapper questionMapper;
+
+    private final ExamOutput examOutput;
 
     @Value("${exam.score-async}")
     private Boolean scoreAsync;
@@ -72,12 +78,12 @@ public class ExamServiceImpl implements ExamService {
             return false;
         }
 
-        //TODO 异步后端打分
-        if (scoreAsync) {
-            score(exam.getId());
+        if (!scoreAsync) {
+            return true;
         }
 
-        return true;
+        //异步后端打分
+        return examOutput.score().send(MessageBuilder.withPayload(exam.getId()).build());
     }
 
     @Override
