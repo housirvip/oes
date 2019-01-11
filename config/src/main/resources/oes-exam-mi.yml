@@ -5,6 +5,11 @@ server:
 spring:
   application:
     name: oes-exam
+  rabbitmq:
+    host: ubuntu.lan
+    username: guest
+    password: guest
+    virtual-host: oes
   cloud:
     consul:
       host: ubuntu.lan
@@ -14,6 +19,23 @@ spring:
         instance-id: ${spring.application.name}:${random.value}
         hostname: mibookpro.lan
   #        health-check-interval: 5s
+    stream:
+      bindings:
+        score-input:
+          destination: exam-score
+          group: average
+        score-output:
+          destination: exam-score
+      binders:
+        defaultRabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: ${spring.rabbitmq.host}
+                username: ${spring.rabbitmq.username}
+                password: ${spring.rabbitmq.password}
+                virtual-host: ${spring.rabbitmq.virtual-host}
   datasource:
     url: jdbc:mysql://ubuntu.lan:3306/oes?characterEncoding=utf8&autoReconnect=true&useSSL=false
     druid:
