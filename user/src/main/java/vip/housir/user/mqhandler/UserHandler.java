@@ -22,11 +22,11 @@ public class UserHandler {
     public void processOrder(Message<TradeDto> msg) {
 
         TradeDto tradeDto = msg.getPayload();
+
         try {
             walletService.payForLevel(tradeDto);
         } catch (Exception e) {
-            log.error(tradeDto.toString());
-            log.error("订单处理失败", e);
+            log.error("订单处理失败:" + e.getMessage() + tradeDto.toString());
         }
     }
 }

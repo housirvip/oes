@@ -20,10 +20,11 @@ public class ExamHandler {
     @StreamListener(ExamInput.SCORE)
     public void scoreByExamId(Message<Integer> msg) {
 
+        Integer examId = msg.getPayload();
         try {
-            examService.score(msg.getPayload());
+            examService.score(examId);
         } catch (Exception e) {
-            log.error("考试打分失败", e);
+            log.error("考试打分失败:" + e.getMessage() + examId.toString());
         }
     }
 }

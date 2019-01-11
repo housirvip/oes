@@ -31,8 +31,7 @@ public class StoreHandler {
         try {
             orderService.update(order);
         } catch (Exception e) {
-            log.error(tradeDto.toString());
-            log.error("订单处理失败", e);
+            log.error("订单处理失败:" + e.getMessage() + tradeDto.toString());
         }
     }
 }
