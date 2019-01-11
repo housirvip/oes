@@ -21,10 +21,10 @@ spring:
   #        health-check-interval: 5s
     stream:
       bindings:
-        order-input:
+        user-order-input:
           destination: store-order
           group: average
-        order-output:
+        user-order-output:
           destination: user-order
       binders:
         defaultRabbit:
