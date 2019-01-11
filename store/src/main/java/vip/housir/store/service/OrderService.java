@@ -25,4 +25,12 @@ public interface OrderService {
      * @return Page
      */
     Page<Order> pageByParam(PageDto pageDto);
+
+    /**
+     * 更新订单
+     *
+     * @param order Order
+     * @return Boolean
+     */
+    Boolean update(Order order);
 }

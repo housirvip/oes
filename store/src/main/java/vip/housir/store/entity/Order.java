@@ -20,7 +20,11 @@ public class Order implements Serializable {
 
     private Integer price;
 
+    private String status;
+
     private Date createTime;
+
+    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 }

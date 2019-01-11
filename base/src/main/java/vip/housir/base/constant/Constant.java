@@ -4,9 +4,7 @@ package vip.housir.base.constant;
  * @author housirvip
  */
 public class Constant {
-
-    public static final String SUCCESS = "success";
-    public static final String ERROR = "error";
+    
     public static final String AUTHORIZATION = "Authorization";
 
     public static final int SUCCESS_CODE = 0;
@@ -25,6 +23,10 @@ public class Constant {
     public static final String UID = "uid";
     public static final String ENABLE = "enable";
     public static final String ROLE = "role";
+
+    public static final String PENDING = "pending";
+    public static final String SUCCESS = "success";
+    public static final String ERROR = "error";
 
     public static final String PRIMARY = "PRIMARY";
     public static final String USER = "USER";

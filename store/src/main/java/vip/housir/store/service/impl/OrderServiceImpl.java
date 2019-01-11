@@ -38,4 +38,10 @@ public class OrderServiceImpl implements OrderService {
 
         return orderMapper.listByParam(pageDto.putParam().getParamAsMap());
     }
+
+    @Override
+    public Boolean update(Order order) {
+
+        return orderMapper.updateByPrimaryKeySelective(order) > 0;
+    }
 }

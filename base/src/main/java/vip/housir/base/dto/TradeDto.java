@@ -35,5 +35,7 @@ public class TradeDto implements Serializable {
 
     private String groupLimit;
 
+    private String status;
+
     private static final long serialVersionUID = 1L;
 }

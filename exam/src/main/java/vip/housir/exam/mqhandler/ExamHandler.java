@@ -17,10 +17,8 @@ public class ExamHandler {
     private final ExamService examService;
 
     @StreamListener(ExamInput.SCORE)
-    public void receive1(Message<Integer> msg) {
+    public void scoreByExamId(Message<Integer> msg) {
 
-        Integer uid = msg.getPayload();
-
-        examService.score(uid);
+        examService.score(msg.getPayload());
     }
 }

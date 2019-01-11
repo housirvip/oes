@@ -2,6 +2,8 @@ package vip.housir.user.service.impl;
 
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vip.housir.base.constant.Constant;
@@ -11,6 +13,7 @@ import vip.housir.user.entity.User;
 import vip.housir.user.entity.Wallet;
 import vip.housir.user.mapper.UserMapper;
 import vip.housir.user.mapper.WalletMapper;
+import vip.housir.user.mqhandler.UserOutput;
 import vip.housir.user.service.WalletService;
 
 import java.util.Optional;
@@ -19,11 +22,14 @@ import java.util.Optional;
  * @author housirvip
  */
 @Service
+@EnableBinding(value = UserOutput.class)
 @RequiredArgsConstructor
 public class WalletServiceImpl implements WalletService {
 
     private final UserMapper userMapper;
     private final WalletMapper walletMapper;
+
+    private final UserOutput userOutput;
 
     @Override
     public Wallet one(Integer uid) {
@@ -62,7 +68,9 @@ public class WalletServiceImpl implements WalletService {
         wallet.setCoin(wallet.getCoin() - tradeDto.getPrice());
         walletMapper.updateByPrimaryKeySelective(wallet);
 
-        return true;
+        tradeDto.setStatus(Constant.SUCCESS);
+
+        return userOutput.order().send(MessageBuilder.withPayload(tradeDto).build());
     }
 
     @Override
