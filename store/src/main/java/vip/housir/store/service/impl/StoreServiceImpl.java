@@ -7,7 +7,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
-import vip.housir.base.client.UserClient;
 import vip.housir.base.constant.Constant;
 import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
@@ -20,7 +19,6 @@ import vip.housir.store.mqhandler.StoreOutput;
 import vip.housir.store.service.StoreService;
 
 import java.util.Date;
-import java.util.Optional;
 
 /**
  * @author housirvip
@@ -33,7 +31,7 @@ public class StoreServiceImpl implements StoreService {
     private final OrderMapper orderMapper;
     private final ProductMapper productMapper;
 
-    private final UserClient userClient;
+//    private final UserClient userClient;
 
     private final StoreOutput storeOutput;
 
@@ -46,8 +44,8 @@ public class StoreServiceImpl implements StoreService {
         //拷贝交易信息
         BeanUtils.copyProperties(product, tradeDto);
 
-        Optional.of(userClient.payForLevel(tradeDto))
-                .ifPresent(rsp -> Preconditions.checkArgument(rsp.getCode() == 0, rsp.getMessage()));
+//        Optional.of(userClient.payForLevel(tradeDto))
+//                .ifPresent(rsp -> Preconditions.checkArgument(rsp.getCode() == 0, rsp.getMessage()));
 
         //记录订单
         Order order = new Order();
