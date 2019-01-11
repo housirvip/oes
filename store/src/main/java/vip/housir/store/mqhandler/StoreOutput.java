@@ -8,7 +8,7 @@ import org.springframework.messaging.MessageChannel;
  */
 public interface StoreOutput {
 
-    String ORDER = "store-order-output";
+    String ORDER = "order-output";
 
     /**
      * 交易

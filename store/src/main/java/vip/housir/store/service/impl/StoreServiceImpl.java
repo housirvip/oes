@@ -31,8 +31,6 @@ public class StoreServiceImpl implements StoreService {
     private final OrderMapper orderMapper;
     private final ProductMapper productMapper;
 
-//    private final UserClient userClient;
-
     private final StoreOutput storeOutput;
 
     @Override
@@ -40,12 +38,6 @@ public class StoreServiceImpl implements StoreService {
 
         Product product = productMapper.selectByPrimaryKey(tradeDto.getProductId());
         Preconditions.checkNotNull(product, ErrorMessage.PRODUCT_NOT_FOUND);
-
-        //拷贝交易信息
-        BeanUtils.copyProperties(product, tradeDto);
-
-//        Optional.of(userClient.payForLevel(tradeDto))
-//                .ifPresent(rsp -> Preconditions.checkArgument(rsp.getCode() == 0, rsp.getMessage()));
 
         //记录订单
         Order order = new Order();
@@ -57,7 +49,12 @@ public class StoreServiceImpl implements StoreService {
         order.setStatus(Constant.PENDING);
         orderMapper.insertSelective(order);
 
-        return storeOutput.order().send(MessageBuilder.withPayload(order).build());
+        //拷贝交易信息
+        BeanUtils.copyProperties(product, tradeDto);
+        tradeDto.setProductId(product.getId());
+        tradeDto.setOrderId(order.getId());
+
+        return storeOutput.order().send(MessageBuilder.withPayload(tradeDto).build());
     }
 
     @Override

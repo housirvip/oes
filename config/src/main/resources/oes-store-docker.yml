@@ -21,7 +21,7 @@ spring:
     stream:
       bindings:
         order-input:
-          destination: store-order
+          destination: user-order
           group: average
         order-output:
           destination: store-order

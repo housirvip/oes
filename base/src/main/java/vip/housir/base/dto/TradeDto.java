@@ -22,7 +22,8 @@ public class TradeDto implements Serializable {
     @NotNull(groups = Shopping.class)
     private Integer productId;
 
-    @NotNull(groups = Trade.class)
+    private Integer orderId;
+
     private Integer price;
 
     private Integer uid;

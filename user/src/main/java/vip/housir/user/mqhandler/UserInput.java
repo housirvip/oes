@@ -8,7 +8,7 @@ import org.springframework.messaging.SubscribableChannel;
  */
 public interface UserInput {
 
-    String ORDER = "user-order-input";
+    String ORDER = "order-input";
 
     /**
      * 交易
