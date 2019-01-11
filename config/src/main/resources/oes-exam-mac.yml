@@ -21,11 +21,11 @@ spring:
     #        health-check-interval: 5s
     stream:
       bindings:
-        input:
-          destination: testDes
+        score-input:
+          destination: exam-score
           group: average
-        output:
-          destination: testDes
+        score-output:
+          destination: exam-score
       binders:
         defaultRabbit:
           type: rabbit
