@@ -10,7 +10,6 @@ import vip.housir.user.service.WalletService;
 
 /**
  * @author: housirvip
- * @date: 2019-01-11 19:31
  */
 @Slf4j
 @EnableBinding(UserInput.class)
@@ -22,7 +21,12 @@ public class UserHandler {
     @StreamListener(UserInput.ORDER)
     public void processOrder(Message<TradeDto> msg) {
 
-        log.info(msg.getPayload().toString());
-        walletService.payForLevel(msg.getPayload());
+        TradeDto tradeDto = msg.getPayload();
+        try {
+            walletService.payForLevel(tradeDto);
+        } catch (Exception e) {
+            log.error(tradeDto.toString());
+            log.error("订单处理失败", e);
+        }
     }
 }

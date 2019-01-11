@@ -11,7 +11,6 @@ import vip.housir.store.service.OrderService;
 
 /**
  * @author: housirvip
- * @date: 2019-01-11 19:31
  */
 @Slf4j
 @EnableBinding(StoreInput.class)
@@ -24,10 +23,16 @@ public class StoreHandler {
     public void processOrder(Message<TradeDto> msg) {
 
         TradeDto tradeDto = msg.getPayload();
-        log.info(tradeDto.toString());
+
         Order order = new Order();
         order.setStatus(tradeDto.getStatus());
         order.setId(tradeDto.getOrderId());
-        orderService.update(order);
+
+        try {
+            orderService.update(order);
+        } catch (Exception e) {
+            log.error(tradeDto.toString());
+            log.error("订单处理失败", e);
+        }
     }
 }
