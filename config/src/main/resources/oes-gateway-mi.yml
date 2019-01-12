@@ -20,36 +20,54 @@ spring:
           uri: lb://oes-user
           predicates:
             - Path=/auth/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, *
         - id: user
           uri: lb://oes-user
           predicates:
             - Path=/user/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, *
         - id: user-admin
           uri: lb://oes-user
           predicates:
             - Path=/user-admin/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, *
         - id: paper
           uri: lb://oes-exam
           predicates:
             - Path=/paper/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, *
         - id: exam
           uri: lb://oes-exam
           predicates:
             - Path=/exam/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, *
         - id: exam-admin
           uri: lb://oes-exam
           predicates:
             - Path=/exam-admin/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, *
         - id: order
           uri: lb://oes-store
           predicates:
             - Path=/order/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, *
         - id: store
           uri: lb://oes-store
           predicates:
             - Path=/store/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, *
         - id: store-admin
           uri: lb://oes-store
           predicates:
             - Path=/store-admin/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, *
 
