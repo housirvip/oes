@@ -142,6 +142,9 @@ public class UserServiceImpl implements UserService {
     public Page<User> pageByParam(PageDto pageDto) {
 
         Page<User> userPage = userMapper.listByParam(pageDto.putParam().getParamAsMap());
+        if (userPage.getTotal() == 0) {
+            return userPage;
+        }
 
         List<Integer> uids = Lists.newArrayList();
         userPage.forEach(item -> uids.add(item.getId()));
