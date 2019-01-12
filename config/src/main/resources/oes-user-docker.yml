@@ -9,7 +9,7 @@ spring:
     host: rabbitmq
     username: guest
     password: guest
-    virtual-host: oes
+    virtual-host: /
   cloud:
     consul:
       host: consul
