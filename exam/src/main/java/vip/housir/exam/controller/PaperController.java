@@ -16,6 +16,8 @@ import vip.housir.exam.entity.Paper;
 import vip.housir.exam.entity.Question;
 import vip.housir.exam.entity.Section;
 import vip.housir.exam.service.PaperService;
+import vip.housir.exam.service.QuestionService;
+import vip.housir.exam.service.SectionService;
 
 /**
  * @author housirvip
@@ -26,6 +28,8 @@ import vip.housir.exam.service.PaperService;
 public class PaperController {
 
     private final PaperService paperService;
+    private final SectionService sectionService;
+    private final QuestionService questionService;
 
     @GetMapping(value = "/{id}/render")
     public BaseResponse<Paper> render(@PathVariable Integer id) {
@@ -44,18 +48,18 @@ public class PaperController {
     @GetMapping(value = "/{id}")
     public BaseResponse<Paper> paper(@PathVariable Integer id) {
 
-        return new ResultResponse<>(paperService.paper(id));
+        return new ResultResponse<>(paperService.oneById(id));
     }
 
     @GetMapping(value = "/section/{id}")
     public BaseResponse<Section> section(@PathVariable Integer id) {
 
-        return new ResultResponse<>(paperService.section(id));
+        return new ResultResponse<>(sectionService.oneById(id));
     }
 
     @GetMapping(value = "/question/{id}")
     public BaseResponse<Question> question(@PathVariable Integer id) {
 
-        return new ResultResponse<>(paperService.question(id));
+        return new ResultResponse<>(questionService.oneById(id));
     }
 }

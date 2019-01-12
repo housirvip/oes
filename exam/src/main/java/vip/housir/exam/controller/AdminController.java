@@ -15,6 +15,8 @@ import vip.housir.exam.entity.Question;
 import vip.housir.exam.entity.Section;
 import vip.housir.exam.service.ExamService;
 import vip.housir.exam.service.PaperService;
+import vip.housir.exam.service.QuestionService;
+import vip.housir.exam.service.SectionService;
 
 /**
  * @author housirvip
@@ -26,6 +28,8 @@ public class AdminController {
 
     private final ExamService examService;
     private final PaperService paperService;
+    private final SectionService sectionService;
+    private final QuestionService questionService;
 
     @GetMapping(value = "/exam/{id}")
     @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
@@ -54,13 +58,31 @@ public class AdminController {
     @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
     public BaseResponse<Integer> section(@RequestBody Section section) {
 
-        return new ResultResponse<>(paperService.createOrUpdate(section));
+        return new ResultResponse<>(sectionService.createOrUpdate(section));
+    }
+
+    @GetMapping(value = "/section/list")
+    @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
+    public BaseResponse<Page> sections(@Validated PageDto pageDto) {
+
+        Page<Section> sectionPage = sectionService.pageByParam(pageDto);
+
+        return new PageResponse<>(sectionPage, sectionPage.getTotal());
     }
 
     @PostMapping(value = "/question")
     @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
     public BaseResponse<Integer> question(@RequestBody Question question) {
 
-        return new ResultResponse<>(paperService.createOrUpdate(question));
+        return new ResultResponse<>(questionService.createOrUpdate(question));
+    }
+
+    @GetMapping(value = "/question/list")
+    @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
+    public BaseResponse<Page> questions(@Validated PageDto pageDto) {
+
+        Page<Question> questions = questionService.pageByParam(pageDto);
+
+        return new PageResponse<>(questions, questions.getTotal());
     }
 }

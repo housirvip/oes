@@ -1,5 +1,6 @@
 package vip.housir.exam.mapper;
 
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import vip.housir.exam.entity.Question;
@@ -70,6 +71,14 @@ public interface QuestionMapper {
      * @return int
      */
     int updateByPrimaryKey(Question record);
+
+    /**
+     * 根据参数查询，支持分页
+     *
+     * @param param Map<String,Object>
+     * @return Page
+     */
+    Page<Question> listByParam(Map<String, Object> param);
 
     /**
      * 获取 id 在 ids 列表中的 Question 列表

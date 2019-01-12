@@ -31,6 +31,18 @@
         from section
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="listByParam" parameterType="map" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from section
+        <where>
+            <include refid="filter"/>
+            <include refid="search"/>
+        </where>
+        <include refid="order"/>
+    </select>
     <select id="listInIds" parameterType="list" resultMap="ResultMapWithBLOBs">
         select
         <include refid="Base_Column_List"/>
@@ -194,4 +206,32 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <sql id="filter">
+        <if test="type != null and type!=''">
+            and type = #{type,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    <sql id="search">
+        <if test="name != null and name!=''">
+            and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+    </sql>
+    <sql id="order">
+        <if test="orderBy != null">
+            order by
+            <if test="orderBy == 'createTime'">
+                create_time
+            </if>
+            <if test="orderBy == 'avgScore'">
+                update_time
+            </if>
+            <!-- order type -->
+            <if test="orderType == 'desc'">
+                desc
+            </if>
+            <if test="orderType == 'asc'">
+                asc
+            </if>
+        </if>
+    </sql>
 </mapper>
