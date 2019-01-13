@@ -62,4 +62,14 @@ public class StoreServiceImpl implements StoreService {
 
         return productMapper.listByParam(pageDto.putParam().getParamAsMap());
     }
+
+    @Override
+    public Integer productCreateOrUpdate(Product product) {
+
+        if (product.getId() == null) {
+            return productMapper.insertSelective(product);
+        }
+
+        return productMapper.updateByPrimaryKeySelective(product);
+    }
 }

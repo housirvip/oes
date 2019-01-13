@@ -18,5 +18,19 @@ public interface StoreService {
      */
     Boolean trade(TradeDto tradeDto);
 
+    /**
+     * 分页查询 Product
+     *
+     * @param pageDto PageDto
+     * @return Page
+     */
     Page<Product> pageProductByParam(PageDto pageDto);
+
+    /**
+     * 创建或者修改 Product 返回影响行数
+     *
+     * @param product Product
+     * @return Integer
+     */
+    Integer productCreateOrUpdate(Product product);
 }
