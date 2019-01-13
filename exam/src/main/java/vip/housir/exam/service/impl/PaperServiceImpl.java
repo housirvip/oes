@@ -94,6 +94,9 @@ public class PaperServiceImpl implements PaperService {
     public Page<Paper> pageByParam(PageDto pageDto) {
 
         Page<Paper> paperPage = paperMapper.listByParam(pageDto.putParam().getParamAsMap());
+        if (paperPage.getTotal() == 0) {
+            return paperPage;
+        }
 
         List<Integer> pids = Lists.newArrayList();
         paperPage.forEach(p -> pids.add(p.getId()));
