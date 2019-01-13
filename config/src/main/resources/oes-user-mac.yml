@@ -103,7 +103,7 @@ ribbon:
   max-auto-retries: 1
 
 user:
-  role: USER
+  role: PRIMARY
   group: PRIMARY
   level: 0
   coin: 0
