@@ -39,7 +39,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean payForLevel(TradeDto tradeDto) {
+    public void payForLevel(TradeDto tradeDto) {
 
         User user = userMapper.selectByPrimaryKey(tradeDto.getUid());
         Wallet wallet = walletMapper.selectByUid(tradeDto.getUid());
@@ -70,7 +70,7 @@ public class WalletServiceImpl implements WalletService {
 
         tradeDto.setStatus(Constant.SUCCESS);
 
-        return userOutput.order().send(MessageBuilder.withPayload(tradeDto).build());
+        userOutput.order().send(MessageBuilder.withPayload(tradeDto).build());
     }
 
     @Override

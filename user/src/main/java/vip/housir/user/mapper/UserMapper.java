@@ -79,6 +79,14 @@ public interface UserMapper {
     User selectByAccount(String account);
 
     /**
+     * 根据 phone 查找账户
+     *
+     * @param phone String
+     * @return User
+     */
+    User selectByPhone(String phone);
+
+    /**
      * 判断 username 是否已存在
      *
      * @param username String

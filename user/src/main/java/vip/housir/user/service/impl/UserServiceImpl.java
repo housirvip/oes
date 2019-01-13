@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.BooleanUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -105,6 +106,46 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer create(UserDto userDto) {
+
+        // 判断账户是否已经存在
+        List<String> check = this.checkExist(userDto);
+        Preconditions.checkArgument(check.size() == 0, check.toString());
+
+        User user = new User();
+        BeanUtils.copyProperties(userDto, user);
+
+        UserInfo userInfo = new UserInfo();
+        BeanUtils.copyProperties(userDto.getUserInfo(), userInfo);
+
+        Wallet wallet = new Wallet();
+        BeanUtils.copyProperties(userDto.getWallet(), wallet);
+
+        List<String> roles = Lists.newArrayList(Constant.ROLE_PREFIX + initRole);
+        if (user.getGroup() == null) {
+            user.setGroup(initGroup);
+        } else if (!initGroup.equals(user.getGroup())) {
+            roles.add(Constant.ROLE_PREFIX + user.getGroup());
+        }
+        user.setRole(roles);
+        user.setCreateTime(new Date());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        userMapper.insertSelective(user);
+
+        userInfo.setUid(user.getId());
+
+        userInfoMapper.insertSelective(userInfo);
+
+        wallet.setUid(user.getId());
+
+        walletMapper.insertSelective(wallet);
+
+        return user.getId();
+    }
+
+    @Override
     public String refresh(Integer uid) {
 
         User user = userMapper.selectByPrimaryKey(uid);
@@ -170,6 +211,11 @@ public class UserServiceImpl implements UserService {
                 .ifPresent(user::setLevel);
         Optional.ofNullable(tradeDto.getLevelUp())
                 .ifPresent(up -> user.setLevel(user.getLevel() + up));
+        Optional.ofNullable(tradeDto.getGroupTo())
+                .filter(group -> !user.getRole().contains(Constant.ROLE_PREFIX + group))
+                .ifPresent(group -> user.getRole().add(Constant.ROLE_PREFIX + group));
+
+        user.setGroup(tradeDto.getGroupTo());
 
         return userMapper.updateByPrimaryKeySelective(user) > 0;
     }
@@ -180,9 +226,31 @@ public class UserServiceImpl implements UserService {
         return userInfoMapper.updateByPrimaryKeySelective(userInfo) > 0;
     }
 
+    @Override
+    public List<String> profit(TradeDto tradeDto) {
+
+        List<String> res = Lists.newArrayList();
+
+        tradeDto.getPhones().forEach(phone ->
+
+                Optional.ofNullable(userMapper.selectByPhone(phone))
+                        .filter(user -> user.getLevel() < tradeDto.getLevelTo())
+                        .ifPresent(user -> {
+
+                            user.setGroup(tradeDto.getGroupTo());
+                            user.setLevel(tradeDto.getLevelTo());
+                            if (userMapper.updateByPrimaryKeySelective(user) > 0) {
+                                res.add(phone);
+                            }
+                        }));
+
+        return res;
+    }
+
     private List<String> checkExist(UserDto userDto) {
 
         List<String> result = Lists.newArrayList();
+
         if (BooleanUtils.isTrue(userMapper.existUsername(userDto.getUsername()))) {
             result.add(ErrorMessage.USERNAME_EXIST);
         }

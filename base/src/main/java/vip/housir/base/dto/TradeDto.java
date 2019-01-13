@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author housirvip
@@ -17,6 +18,7 @@ public class TradeDto implements Serializable {
 
     private Integer levelUp;
 
+    @NotNull(groups = Profit.class)
     private Integer levelTo;
 
     @NotNull(groups = Shopping.class)
@@ -24,9 +26,14 @@ public class TradeDto implements Serializable {
 
     private Integer orderId;
 
+    @NotNull(groups = Award.class)
     private Integer price;
 
+    @NotNull(groups = Award.class)
     private Integer uid;
+
+    @NotNull(groups = Profit.class)
+    private List<String> phones;
 
     private Integer fromUid;
 

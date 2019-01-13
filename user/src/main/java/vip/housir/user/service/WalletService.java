@@ -19,9 +19,8 @@ public interface WalletService {
      * 根据商品，生效交易
      *
      * @param tradeDto TradeDto
-     * @return Boolean
      */
-    Boolean payForLevel(TradeDto tradeDto);
+    void payForLevel(TradeDto tradeDto);
 
     /**
      * 奖励

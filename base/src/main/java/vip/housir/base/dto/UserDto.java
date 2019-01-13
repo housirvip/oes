@@ -43,6 +43,8 @@ public class UserDto implements Serializable {
 
     private Integer level;
 
+    private Integer coin;
+
     private String group;
 
     private UserInfoDto userInfo;

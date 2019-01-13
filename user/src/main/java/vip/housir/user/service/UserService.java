@@ -7,6 +7,8 @@ import vip.housir.base.dto.UserDto;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.UserInfo;
 
+import java.util.List;
+
 /**
  * @author housirvip
  */
@@ -26,6 +28,14 @@ public interface UserService {
      * @return String
      */
     String register(UserDto userDto);
+
+    /**
+     * 管理员创建账户，返回 uid
+     *
+     * @param userDto UserDto
+     * @return Integer
+     */
+    Integer create(UserDto userDto);
 
     /**
      * 更新认证，成功返回 jwt
@@ -82,4 +92,12 @@ public interface UserService {
      * @return Boolean
      */
     Boolean update(UserInfo userInfo);
+
+    /**
+     * 分享奖励
+     *
+     * @param tradeDto TradeDto
+     * @return List
+     */
+    List<String> profit(TradeDto tradeDto);
 }
