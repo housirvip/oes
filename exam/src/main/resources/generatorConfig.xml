@@ -74,27 +74,23 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-        <table tableName="exam" enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-            <columnOverride column="user_answer" javaType="java.util.Map"
-                            typeHandler="vip.housir.base.typehandler.MapTypeHandler"/>
-            <columnOverride column="section_score" javaType="java.util.Map"
-                            typeHandler="vip.housir.base.typehandler.MapTypeHandler"/>
-        </table>
+        <!--<table tableName="exam" enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+            <!--<columnOverride column="user_answer" javaType="java.util.Map"-->
+                            <!--typeHandler="vip.housir.base.typehandler.MapTypeHandler"/>-->
+            <!--<columnOverride column="section_score" javaType="java.util.Map"-->
+                            <!--typeHandler="vip.housir.base.typehandler.MapTypeHandler"/>-->
+        <!--</table>-->
 
         <table tableName="paper" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-            <columnOverride column="sids" javaType="java.util.List"
-                            typeHandler="vip.housir.base.typehandler.ListTypeHandler"/>
         </table>
 
         <table tableName="section" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-            <columnOverride column="qids" javaType="java.util.List"
-                            typeHandler="vip.housir.base.typehandler.ListTypeHandler"/>
         </table>
 
         <table tableName="question" enableCountByExample="false" enableUpdateByExample="false"

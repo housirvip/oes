@@ -3,6 +3,7 @@
 <mapper namespace="vip.housir.exam.mapper.QuestionMapper">
     <resultMap id="BaseResultMap" type="vip.housir.exam.entity.Question">
         <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="sid" jdbcType="INTEGER" property="sid"/>
         <result column="type" jdbcType="VARCHAR" property="type"/>
         <result column="pic" jdbcType="VARCHAR" property="pic"/>
         <result column="answer" jdbcType="VARCHAR" property="answer"/>
@@ -18,7 +19,7 @@
         <result column="explain" jdbcType="LONGVARCHAR" property="explain"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, type, pic, answer, exp_pic, create_time, update_time
+        id, sid, type, pic, answer, exp_pic, create_time, update_time
     </sql>
     <sql id="Blob_Column_List">
         stem, answer_full, selections, `explain`
@@ -30,6 +31,14 @@
         <include refid="Blob_Column_List"/>
         from question
         where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="listBySid" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from question
+        where sid = #{sid,jdbcType=INTEGER}
     </select>
     <select id="listByParam" parameterType="map" resultMap="ResultMapWithBLOBs">
         select
@@ -62,11 +71,11 @@
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into question (type, pic, answer,
+        insert into question (sid, type, pic, answer,
         exp_pic, create_time, update_time,
         stem, answer_full, selections,
         `explain`)
-        values (#{type,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR},
+        values (#{sid,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR},
         #{expPic,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
         #{stem,jdbcType=LONGVARCHAR}, #{answerFull,jdbcType=LONGVARCHAR},
         #{selections,jdbcType=LONGVARCHAR,typeHandler=vip.housir.base.typehandler.MapTypeHandler},
@@ -78,6 +87,9 @@
         </selectKey>
         insert into question
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sid != null">
+                sid,
+            </if>
             <if test="type != null">
                 type,
             </if>
@@ -110,6 +122,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sid != null">
+                #{sid,jdbcType=INTEGER},
+            </if>
             <if test="type != null">
                 #{type,jdbcType=VARCHAR},
             </if>
@@ -145,6 +160,9 @@
     <update id="updateByPrimaryKeySelective" parameterType="vip.housir.exam.entity.Question">
         update question
         <set>
+            <if test="sid != null">
+                sid = #{sid,jdbcType=INTEGER},
+            </if>
             <if test="type != null">
                 type = #{type,jdbcType=VARCHAR},
             </if>
@@ -180,7 +198,8 @@
     </update>
     <update id="updateByPrimaryKeyWithBLOBs" parameterType="vip.housir.exam.entity.Question">
         update question
-        set type = #{type,jdbcType=VARCHAR},
+        set sid = #{sid,jdbcType=INTEGER},
+        type = #{type,jdbcType=VARCHAR},
         pic = #{pic,jdbcType=VARCHAR},
         answer = #{answer,jdbcType=VARCHAR},
         exp_pic = #{expPic,jdbcType=VARCHAR},
@@ -194,7 +213,8 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="vip.housir.exam.entity.Question">
         update question
-        set type = #{type,jdbcType=VARCHAR},
+        set sid = #{sid,jdbcType=INTEGER},
+        type = #{type,jdbcType=VARCHAR},
         pic = #{pic,jdbcType=VARCHAR},
         answer = #{answer,jdbcType=VARCHAR},
         exp_pic = #{expPic,jdbcType=VARCHAR},

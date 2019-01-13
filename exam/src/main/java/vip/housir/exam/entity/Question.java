@@ -13,6 +13,8 @@ import java.util.Map;
 public class Question implements Serializable {
     private Integer id;
 
+    private Integer sid;
+
     private String type;
 
     private String pic;

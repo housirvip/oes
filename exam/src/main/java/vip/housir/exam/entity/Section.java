@@ -13,6 +13,8 @@ import java.util.List;
 public class Section implements Serializable {
     private Integer id;
 
+    private Integer pid;
+
     private String name;
 
     private Integer duration;
@@ -30,8 +32,6 @@ public class Section implements Serializable {
     private Date createTime;
 
     private Date updateTime;
-
-    private List<Integer> qids;
 
     private List<Question> questions;
 

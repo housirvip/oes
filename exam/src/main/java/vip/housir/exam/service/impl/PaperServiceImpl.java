@@ -59,33 +59,26 @@ public class PaperServiceImpl implements PaperService {
                 .ifPresent(times -> Preconditions.checkArgument(times < userDto.getLevel(), ErrorMessage.PAPER_TIMES_LIMIT));
 
         //试卷中没有模块，return
-        if (paper.getSids() == null || paper.getSids().size() == 0) {
+        List<Section> sectionList = sectionMapper.listByPid(paper.getId());
+        if (sectionList.isEmpty()) {
             return paper;
         }
 
         //装载模块
-        Map<Integer, Section> sectionMap = sectionMapper.listInIds(paper.getSids());
-        List<Section> sectionList = Lists.newArrayList();
-        paper.getSids().forEach(sid -> {
+        paper.setSections(sectionList);
 
-            Section section = sectionMap.get(sid);
-            sectionList.add(section);
+        sectionList.forEach(section -> {
 
             //模块中没有题目，continue
-            if (section.getQids() == null || section.getQids().isEmpty()) {
+            List<Question> questionList = questionMapper.listBySid(section.getId());
+            if (questionList.isEmpty()) {
                 return;
             }
 
             //装载题目
-            List<Question> questionList = Lists.newArrayList();
-            Map<Integer, Question> questionMap = questionMapper.listInIds(section.getQids());
-
-            section.getQids().forEach(qid -> questionList.add(questionMap.get(qid)));
-
             section.setQuestions(questionList);
         });
 
-        paper.setSections(sectionList);
 
         return paper;
     }

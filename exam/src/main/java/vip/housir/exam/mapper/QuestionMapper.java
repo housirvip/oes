@@ -73,6 +73,14 @@ public interface QuestionMapper {
     int updateByPrimaryKey(Question record);
 
     /**
+     * 根据 sid 查询记录
+     *
+     * @param sid Integer
+     * @return List
+     */
+    List<Question> listBySid(Integer sid);
+
+    /**
      * 根据参数查询，支持分页
      *
      * @param param Map<String,Object>

@@ -37,8 +37,6 @@ public class Paper implements Serializable {
 
     private Date updateTime;
 
-    private List<Integer> sids;
-
     private List<Section> sections;
 
     private Long times;

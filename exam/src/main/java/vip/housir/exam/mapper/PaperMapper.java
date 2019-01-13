@@ -59,15 +59,6 @@ public interface PaperMapper {
      * @param record Paper
      * @return int
      */
-    int updateByPrimaryKeyWithBLOBs(Paper record);
-
-    /**
-     * 根据主键更新记录，返回受影响的记录数
-     * 对象中属性值为 null，则数据库赋值为 null
-     *
-     * @param record Paper
-     * @return int
-     */
     int updateByPrimaryKey(Paper record);
 
     /**

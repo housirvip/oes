@@ -61,16 +61,15 @@ public interface SectionMapper {
      * @param record Section
      * @return int
      */
-    int updateByPrimaryKeyWithBLOBs(Section record);
+    int updateByPrimaryKey(Section record);
 
     /**
-     * 根据主键更新记录，返回受影响的记录数
-     * 对象中属性值为 null，则数据库赋值为 null
+     * 根据 pid 查询记录
      *
-     * @param record Section
-     * @return int
+     * @param pid Integer
+     * @return List
      */
-    int updateByPrimaryKey(Section record);
+    List<Section> listByPid(Integer pid);
 
     /**
      * 根据参数查询，支持分页
