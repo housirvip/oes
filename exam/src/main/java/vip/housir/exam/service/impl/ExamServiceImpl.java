@@ -71,23 +71,21 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public Boolean submit(Exam exam) {
+    public Integer submit(Exam exam) {
 
         exam.setCreateTime(new Date());
-        if (examMapper.insertSelective(exam) == 0) {
-            return false;
+        examMapper.insertSelective(exam);
+
+        if (scoreAsync) {
+            //异步后端打分
+            examOutput.score().send(MessageBuilder.withPayload(exam.getId()).build());
         }
 
-        if (!scoreAsync) {
-            return true;
-        }
-
-        //异步后端打分
-        return examOutput.score().send(MessageBuilder.withPayload(exam.getId()).build());
+        return exam.getId();
     }
 
     @Override
-    public Boolean score(Integer id) {
+    public void score(Integer id) {
 
         Exam exam = examMapper.selectByPrimaryKey(id);
         Preconditions.checkNotNull(exam, ErrorMessage.EXAM_NOT_FOUND);
@@ -139,6 +137,6 @@ public class ExamServiceImpl implements ExamService {
         exam.setSectionScore(sectionScore);
         exam.setUserAnswer(null);
 
-        return examMapper.updateByPrimaryKeySelective(exam) > 0;
+        examMapper.updateByPrimaryKeySelective(exam);
     }
 }

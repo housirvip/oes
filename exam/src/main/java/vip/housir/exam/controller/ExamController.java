@@ -37,7 +37,7 @@ public class ExamController {
     }
 
     @PostMapping(value = "")
-    public BaseResponse<Boolean> create(@RequestBody Exam exam, Authentication auth) {
+    public BaseResponse<Integer> create(@RequestBody Exam exam, Authentication auth) {
 
         exam.setUid((Integer) auth.getPrincipal());
 

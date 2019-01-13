@@ -33,7 +33,7 @@ public class StoreController {
     }
 
     @PostMapping(value = "/shopping")
-    public BaseResponse<Boolean> shopping(@RequestBody @Validated(value = Shopping.class) TradeDto tradeDto, Authentication auth) {
+    public BaseResponse<Integer> shopping(@RequestBody @Validated(value = Shopping.class) TradeDto tradeDto, Authentication auth) {
 
         tradeDto.setUid((Integer) auth.getPrincipal());
 

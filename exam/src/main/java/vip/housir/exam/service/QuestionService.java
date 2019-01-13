@@ -25,7 +25,7 @@ public interface QuestionService {
     Question oneById(Integer id);
 
     /**
-     * 更新 Question
+     * 创建或更新，返回主键 id
      *
      * @param record Question
      * @return Boolean

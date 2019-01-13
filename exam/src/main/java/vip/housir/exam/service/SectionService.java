@@ -25,7 +25,7 @@ public interface SectionService {
     Section oneById(Integer id);
 
     /**
-     * 更新 Section
+     * 创建或更新，返回主键 id
      *
      * @param record Section
      * @return Boolean

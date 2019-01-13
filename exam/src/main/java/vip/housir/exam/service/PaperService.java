@@ -33,7 +33,7 @@ public interface PaperService {
     Paper oneById(Integer id);
 
     /**
-     * 更新 Paper
+     * 创建或更新，返回主键 id
      *
      * @param record Paper
      * @return Boolean

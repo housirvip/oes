@@ -33,9 +33,11 @@ public class SectionServiceImpl implements SectionService {
     public Integer createOrUpdate(Section record) {
 
         if (record.getId() == null) {
-            return sectionMapper.insertSelective(record);
+            sectionMapper.insertSelective(record);
+        } else {
+            sectionMapper.updateByPrimaryKeySelective(record);
         }
 
-        return sectionMapper.updateByPrimaryKeySelective(record);
+        return record.getId();
     }
 }

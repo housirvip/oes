@@ -3,6 +3,6 @@ spring:
     name: oes-exam
   cloud:
     config:
-      uri: http://bd.nicesite.vip:8000
-      profile: mac
+      uri: http://oes-config:8000
+      profile: docker
       label: master

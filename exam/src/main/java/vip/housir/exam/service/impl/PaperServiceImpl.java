@@ -119,12 +119,14 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
-    public Integer createOrUpdate(Paper record) {
+    public Integer createOrUpdate(Paper paper) {
 
-        if (record.getId() == null) {
-            return paperMapper.insertSelective(record);
+        if (paper.getId() == null) {
+            paperMapper.insertSelective(paper);
+        } else {
+            paperMapper.updateByPrimaryKeySelective(paper);
         }
 
-        return paperMapper.updateByPrimaryKeySelective(record);
+        return paper.getId();
     }
 }

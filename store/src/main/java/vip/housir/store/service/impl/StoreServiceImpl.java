@@ -34,7 +34,7 @@ public class StoreServiceImpl implements StoreService {
     private final StoreOutput storeOutput;
 
     @Override
-    public Boolean trade(TradeDto tradeDto) {
+    public Integer trade(TradeDto tradeDto) {
 
         Product product = productMapper.selectByPrimaryKey(tradeDto.getProductId());
         Preconditions.checkNotNull(product, ErrorMessage.PRODUCT_NOT_FOUND);
@@ -54,7 +54,9 @@ public class StoreServiceImpl implements StoreService {
         tradeDto.setProductId(product.getId());
         tradeDto.setOrderId(order.getId());
 
-        return storeOutput.order().send(MessageBuilder.withPayload(tradeDto).build());
+        storeOutput.order().send(MessageBuilder.withPayload(tradeDto).build());
+
+        return order.getId();
     }
 
     @Override
@@ -67,9 +69,11 @@ public class StoreServiceImpl implements StoreService {
     public Integer productCreateOrUpdate(Product product) {
 
         if (product.getId() == null) {
-            return productMapper.insertSelective(product);
+            productMapper.insertSelective(product);
+        } else {
+            productMapper.updateByPrimaryKeySelective(product);
         }
 
-        return productMapper.updateByPrimaryKeySelective(product);
+        return product.getId();
     }
 }

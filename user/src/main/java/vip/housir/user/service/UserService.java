@@ -30,7 +30,7 @@ public interface UserService {
     String register(UserDto userDto);
 
     /**
-     * 管理员创建账户，返回 uid
+     * 管理员创建账户，返回主键 id
      *
      * @param userDto UserDto
      * @return Integer

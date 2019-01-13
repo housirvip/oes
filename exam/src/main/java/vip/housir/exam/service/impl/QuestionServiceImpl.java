@@ -30,12 +30,14 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Integer createOrUpdate(Question record) {
+    public Integer createOrUpdate(Question question) {
 
-        if (record.getId() == null) {
-            return questionMapper.insertSelective(record);
+        if (question.getId() == null) {
+            questionMapper.insertSelective(question);
+        } else {
+            questionMapper.updateByPrimaryKeySelective(question);
         }
 
-        return questionMapper.updateByPrimaryKeySelective(record);
+        return question.getId();
     }
 }

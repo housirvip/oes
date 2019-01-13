@@ -11,12 +11,12 @@ import vip.housir.store.entity.Product;
 public interface StoreService {
 
     /**
-     * 交易
+     * 处理交易，生成订单，返回主键 id
      *
      * @param tradeDto TradeDto
      * @return Boolean
      */
-    Boolean trade(TradeDto tradeDto);
+    Integer trade(TradeDto tradeDto);
 
     /**
      * 分页查询 Product
@@ -27,7 +27,7 @@ public interface StoreService {
     Page<Product> pageProductByParam(PageDto pageDto);
 
     /**
-     * 创建或者修改 Product 返回影响行数
+     * 创建或者修改，返回主键 id
      *
      * @param product Product
      * @return Integer

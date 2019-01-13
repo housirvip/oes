@@ -26,18 +26,17 @@ public interface ExamService {
     Page<Exam> pageByParam(PageDto pageDto);
 
     /**
-     * 插入考试记录
+     * 插入考试记录，返回主键 id
      *
      * @param exam Exam
-     * @return Boolean
+     * @return Integer
      */
-    Boolean submit(Exam exam);
+    Integer submit(Exam exam);
 
     /**
      * 将存入数据库中的考试记录打分
      *
      * @param id Integer
-     * @return Boolean
      */
-    Boolean score(Integer id);
+    void score(Integer id);
 }
