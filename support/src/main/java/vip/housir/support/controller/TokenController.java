@@ -16,8 +16,8 @@ import vip.housir.support.service.SmsService;
 @RequiredArgsConstructor
 public class TokenController {
 
-    private final QiniuService qiniuService;
     private final SmsService smsService;
+    private final QiniuService qiniuService;
     private final CaptchaService captchaService;
 
     @GetMapping(value = "/qiniu")
