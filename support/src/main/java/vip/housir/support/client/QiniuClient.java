@@ -2,12 +2,11 @@ package vip.housir.support.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author housirvip
  */
-@FeignClient(name = "qiniu-client", url = "https://api.github.com")
+@FeignClient(name = "qiniu-client", url = "https://www.qiniu.com/")
 public interface QiniuClient {
 
     /**
@@ -15,6 +14,6 @@ public interface QiniuClient {
      *
      * @return BaseResponse
      */
-    @GetMapping(value = "/search/repositories")
-    String searchRepo(@RequestParam String q);
+    @GetMapping(value = "")
+    String qiniu();
 }
