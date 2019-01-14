@@ -47,7 +47,7 @@ public class ExamServiceImpl implements ExamService {
     private Boolean scoreAsync;
 
     @Override
-    public Exam one(Integer id, Integer uid) {
+    public Exam oneById(Integer id, Integer uid) {
 
         Exam exam = examMapper.selectByPrimaryKey(id);
         Preconditions.checkNotNull(exam, ErrorMessage.EXAM_NOT_FOUND);

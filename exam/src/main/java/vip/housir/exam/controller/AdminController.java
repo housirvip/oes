@@ -35,7 +35,7 @@ public class AdminController {
     @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
     public BaseResponse<Exam> exam(@PathVariable Integer id) {
 
-        return new ResultResponse<>(examService.one(id, null));
+        return new ResultResponse<>(examService.oneById(id, null));
     }
 
     @GetMapping(value = "/exam/list")

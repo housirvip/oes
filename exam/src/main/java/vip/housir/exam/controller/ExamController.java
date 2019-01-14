@@ -25,7 +25,7 @@ public class ExamController {
     @GetMapping(value = "/{id}")
     public BaseResponse<Exam> exam(@PathVariable Integer id, Authentication auth) {
 
-        return new ResultResponse<>(examService.one(id, (Integer) auth.getPrincipal()));
+        return new ResultResponse<>(examService.oneById(id, (Integer) auth.getPrincipal()));
     }
 
     @GetMapping(value = "/list")

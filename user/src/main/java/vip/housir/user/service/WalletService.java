@@ -13,7 +13,7 @@ public interface WalletService {
      * @param uid Integer
      * @return Wallet
      */
-    Wallet one(Integer uid);
+    Wallet oneById(Integer uid);
 
     /**
      * 根据商品，生效交易

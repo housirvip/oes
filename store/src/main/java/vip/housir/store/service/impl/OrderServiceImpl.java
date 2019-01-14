@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
 
     @Override
-    public Order one(Integer id, Integer uid) {
+    public Order oneById(Integer id, Integer uid) {
 
         Order order = orderMapper.selectByPrimaryKey(id);
         Preconditions.checkNotNull(order, ErrorMessage.ORDER_NOT_FOUND);
@@ -40,8 +40,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Boolean update(Order order) {
+    public void update(Order order) {
 
-        return orderMapper.updateByPrimaryKeySelective(order) > 0;
+        orderMapper.updateByPrimaryKeySelective(order);
     }
 }

@@ -32,7 +32,7 @@ public class WalletServiceImpl implements WalletService {
     private final UserOutput userOutput;
 
     @Override
-    public Wallet one(Integer uid) {
+    public Wallet oneById(Integer uid) {
 
         return walletMapper.selectByUid(uid);
     }

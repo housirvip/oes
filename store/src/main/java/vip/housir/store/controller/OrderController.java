@@ -27,7 +27,7 @@ public class OrderController {
     @GetMapping(value = "/{id}")
     public BaseResponse<Order> order(@PathVariable Integer id, Authentication auth) {
 
-        return new ResultResponse<>(orderService.one(id, (Integer) auth.getPrincipal()));
+        return new ResultResponse<>(orderService.oneById(id, (Integer) auth.getPrincipal()));
     }
 
     @GetMapping(value = "/list")

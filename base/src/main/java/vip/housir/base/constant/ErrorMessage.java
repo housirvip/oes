@@ -35,4 +35,7 @@ public class ErrorMessage {
     public static final String ORDER_NOT_FOUND = "订单未找到";
     public static final String ORDER_PERMISSION_DENY = "此订单无权查看";
 
+    public static final String TICKET_NOT_FOUND = "服务单未找到";
+    public static final String TICKET_PERMISSION_DENY = "此服务单无权查看";
+
 }

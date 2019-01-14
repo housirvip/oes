@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User one(Integer uid) {
+    public User oneById(Integer uid) {
 
         User user = userMapper.selectByPrimaryKey(uid);
         user.setPassword(null);

@@ -51,7 +51,7 @@ public interface UserService {
      * @param uid Integer
      * @return User
      */
-    User one(Integer uid);
+    User oneById(Integer uid);
 
     /**
      * 根据 uid 获取 UserInfo

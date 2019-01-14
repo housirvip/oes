@@ -15,7 +15,7 @@ public interface ExamService {
      * @param uid Integer
      * @return Exam
      */
-    Exam one(Integer id, Integer uid);
+    Exam oneById(Integer id, Integer uid);
 
     /**
      * 根据参数查询，支持分页

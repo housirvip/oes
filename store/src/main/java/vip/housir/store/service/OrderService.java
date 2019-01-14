@@ -10,13 +10,13 @@ import vip.housir.store.entity.Order;
 public interface OrderService {
 
     /**
-     * 获取 order 记录
+     * 获取 Order 记录
      *
      * @param id  Integer
      * @param uid Integer
-     * @return Boolean
+     * @return Order
      */
-    Order one(Integer id, Integer uid);
+    Order oneById(Integer id, Integer uid);
 
     /**
      * 根据参数查询，支持分页
@@ -30,7 +30,6 @@ public interface OrderService {
      * 更新订单
      *
      * @param order Order
-     * @return Boolean
      */
-    Boolean update(Order order);
+    void update(Order order);
 }

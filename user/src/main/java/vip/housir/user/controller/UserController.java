@@ -25,7 +25,7 @@ public class UserController {
     @GetMapping(value = "")
     public BaseResponse<User> user(Authentication auth) {
 
-        return new ResultResponse<>(userService.one((Integer) auth.getPrincipal()));
+        return new ResultResponse<>(userService.oneById((Integer) auth.getPrincipal()));
     }
 
     @GetMapping(value = "/info")
@@ -43,7 +43,7 @@ public class UserController {
     @GetMapping(value = "/wallet")
     public BaseResponse<Wallet> wallet(Authentication auth) {
 
-        return new ResultResponse<>(walletService.one((Integer) auth.getPrincipal()));
+        return new ResultResponse<>(walletService.oneById((Integer) auth.getPrincipal()));
     }
 
     @GetMapping(value = "/detail")
