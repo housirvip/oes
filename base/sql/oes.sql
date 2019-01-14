@@ -3,15 +3,15 @@
 
  Source Server         : mariadb
  Source Server Type    : MariaDB
- Source Server Version : 100309
+ Source Server Version : 100312
  Source Host           : localhost:3306
  Source Schema         : oes
 
  Target Server Type    : MariaDB
- Target Server Version : 100309
+ Target Server Version : 100312
  File Encoding         : 65001
 
- Date: 07/01/2019 22:17:58
+ Date: 13/01/2019 21:04:06
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `exam` (
   `section_score` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模块得分',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for order
@@ -44,9 +44,11 @@ CREATE TABLE `order` (
   `product_name` varchar(255) DEFAULT NULL COMMENT '商品名',
   `product_id` int(11) DEFAULT NULL COMMENT '商品id',
   `price` int(11) DEFAULT NULL COMMENT '商品价格',
+  `status` varchar(32) DEFAULT NULL COMMENT '订单状态',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for paper
@@ -64,11 +66,10 @@ CREATE TABLE `paper` (
   `avg_score` float(255,2) DEFAULT NULL COMMENT '平均分数',
   `duration` int(6) DEFAULT NULL COMMENT '时间限制',
   `description` varchar(255) DEFAULT NULL COMMENT '试卷描述',
-  `sids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模块id列表',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for product
@@ -89,7 +90,7 @@ CREATE TABLE `product` (
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for question
@@ -97,6 +98,7 @@ CREATE TABLE `product` (
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '题目id',
+  `sid` int(11) NOT NULL DEFAULT 0 COMMENT '板块id',
   `type` varchar(255) DEFAULT NULL COMMENT '题目类型',
   `stem` text DEFAULT NULL COMMENT '题干',
   `pic` varchar(255) DEFAULT NULL COMMENT '题干图片',
@@ -108,7 +110,7 @@ CREATE TABLE `question` (
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19537 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for recharge
@@ -137,6 +139,7 @@ CREATE TABLE `recharge` (
 DROP TABLE IF EXISTS `section`;
 CREATE TABLE `section` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '模块id',
+  `pid` int(11) NOT NULL DEFAULT 0 COMMENT '板块id',
   `name` varchar(255) DEFAULT NULL COMMENT '模块名称',
   `duration` int(6) DEFAULT NULL COMMENT '时间限制',
   `total_score` float(255,2) DEFAULT NULL COMMENT '总分',
@@ -144,7 +147,37 @@ CREATE TABLE `section` (
   `deduct` tinyint(1) DEFAULT NULL COMMENT '倒扣分',
   `type` varchar(255) DEFAULT NULL COMMENT '模块类型',
   `group` int(4) DEFAULT NULL COMMENT '每组显示数量',
-  `qids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '试题id列表',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=729 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for ticket
+-- ----------------------------
+DROP TABLE IF EXISTS `ticket`;
+CREATE TABLE `ticket` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '服务单id',
+  `uid` int(11) NOT NULL DEFAULT 0 COMMENT '用户id',
+  `status` varchar(64) DEFAULT NULL COMMENT '状态',
+  `rate` int(4) DEFAULT NULL COMMENT '评价',
+  `module` varchar(255) DEFAULT NULL COMMENT '模块',
+  `title` varchar(255) DEFAULT NULL COMMENT '题目',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for ticket_content
+-- ----------------------------
+DROP TABLE IF EXISTS `ticket_content`;
+CREATE TABLE `ticket_content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '服务单内容id',
+  `tid` int(11) NOT NULL DEFAULT 0 COMMENT '服务单id',
+  `id_admin` tinyint(1) DEFAULT 0 COMMENT '是否管理员',
+  `pics` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '图片地址数组',
+  `content` text DEFAULT NULL COMMENT '内容详情',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -167,7 +200,7 @@ CREATE TABLE `user` (
   `level` int(4) NOT NULL DEFAULT 0 COMMENT '用户等级',
   `group` varchar(64) DEFAULT NULL COMMENT '所属组',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for user_info
@@ -184,7 +217,7 @@ CREATE TABLE `user_info` (
   `province` varchar(255) DEFAULT NULL COMMENT '省份',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for wallet
@@ -197,6 +230,6 @@ CREATE TABLE `wallet` (
   `freeze` int(11) NOT NULL DEFAULT 0 COMMENT '冻结金额',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 1;
