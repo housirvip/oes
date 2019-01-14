@@ -6,9 +6,10 @@ package vip.housir.support.service;
 public interface QiniuService {
 
     /**
-     * 生成七牛云存储简单上传凭证
+     * 生成七牛云存储上传凭证
      *
+     * @param name
      * @return String
      */
-    String simpleToken();
+    String getToken(String name);
 }

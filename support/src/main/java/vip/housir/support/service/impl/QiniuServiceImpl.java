@@ -21,8 +21,8 @@ public class QiniuServiceImpl implements QiniuService {
     private String bucket;
 
     @Override
-    public String simpleToken() {
+    public String getToken(String name) {
 
-        return Auth.create(accessKey, secretKey).uploadToken(bucket);
+        return Auth.create(accessKey, secretKey).uploadToken(bucket, name);
     }
 }
