@@ -13,43 +13,59 @@ spring:
         service-name: ${spring.application.name}
         instance-id: ${spring.application.name}:${random.value}
         hostname: housirvipdeimac.lan
-  #        health-check-interval: 5s
+    #        health-check-interval: 5s
     gateway:
       routes:
-      - id: auth
-        uri: lb://oes-user
-        predicates:
-          - Path=/auth/**
-      - id: user
-        uri: lb://oes-user
-        predicates:
-          - Path=/user/**
-      - id: user-admin
-        uri: lb://oes-user
-        predicates:
-          - Path=/user-admin/**
-      - id: paper
-        uri: lb://oes-exam
-        predicates:
-          - Path=/paper/**
-      - id: exam
-        uri: lb://oes-exam
-        predicates:
-          - Path=/exam/**
-      - id: exam-admin
-        uri: lb://oes-exam
-        predicates:
-          - Path=/exam-admin/**
-      - id: order
-        uri: lb://oes-store
-        predicates:
-          - Path=/order/**
-      - id: store
-        uri: lb://oes-store
-        predicates:
-          - Path=/store/**
-      - id: store-admin
-        uri: lb://oes-store
-        predicates:
-          - Path=/store-admin/**
+        - id: auth
+          uri: lb://oes-user
+          predicates:
+            - Path=/auth/**
+        - id: user
+          uri: lb://oes-user
+          predicates:
+            - Path=/user/**
+        - id: user-admin
+          uri: lb://oes-user
+          predicates:
+            - Path=/user-admin/**
+        - id: paper
+          uri: lb://oes-exam
+          predicates:
+            - Path=/paper/**
+        - id: exam
+          uri: lb://oes-exam
+          predicates:
+            - Path=/exam/**
+        - id: exam-admin
+          uri: lb://oes-exam
+          predicates:
+            - Path=/exam-admin/**
+        - id: order
+          uri: lb://oes-store
+          predicates:
+            - Path=/order/**
+        - id: store
+          uri: lb://oes-store
+          predicates:
+            - Path=/store/**
+        - id: store-admin
+          uri: lb://oes-store
+          predicates:
+            - Path=/store-admin/**
+        - id: ticket
+          uri: lb://oes-support
+          predicates:
+            - Path=/ticket/**
+        - id: notice
+          uri: lb://oes-support
+          predicates:
+            - Path=/notice/**
+        - id: token
+          uri: lb://oes-support
+          predicates:
+            - Path=/token/**
+        - id: support-admin
+          uri: lb://oes-support
+          predicates:
+            - Path=/support-admin/**
 

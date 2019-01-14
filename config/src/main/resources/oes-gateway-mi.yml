@@ -52,4 +52,20 @@ spring:
           uri: lb://oes-store
           predicates:
             - Path=/store-admin/**
+        - id: ticket
+          uri: lb://oes-support
+          predicates:
+            - Path=/ticket/**
+        - id: notice
+          uri: lb://oes-support
+          predicates:
+            - Path=/notice/**
+        - id: token
+          uri: lb://oes-support
+          predicates:
+            - Path=/token/**
+        - id: support-admin
+          uri: lb://oes-support
+          predicates:
+            - Path=/support-admin/**
 
