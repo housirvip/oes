@@ -87,7 +87,7 @@ ribbon:
 qiniu:
   access-key: Lv_Xz4r_P_qEkuEir_RsZJAAtNzu1S3elvFlezTq
   secret-key: FBQ8LA1zfhZnSiKFk1sikHvNS-ppN982mLxt9Qp0
-  bucket: housirvip
+  bucket: online-exam
 
 jwt:
   secret: changeIt
