@@ -93,6 +93,9 @@ lc:
   id: jyf3gwwgkg9qwvkv8384v5relorx5ndv7i671v4f7r0xz779
   key: zmbi22c08izg9b99zcm3axlcu6u60gcjsjxofzf1lhzkseba
 
+captcha:
+  key: 983bd99c084d4e7647cea6a39873a4e8
+
 jwt:
   secret: changeIt
   expire: 21600
