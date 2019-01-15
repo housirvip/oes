@@ -229,7 +229,7 @@
     </sql>
     <sql id="search">
         <if test="stem != null and stem!=''">
-            and name like CONCAT('%',#{stem,jdbcType=VARCHAR},'%')
+            and stem like CONCAT('%',#{stem,jdbcType=VARCHAR},'%')
         </if>
     </sql>
     <sql id="order">
