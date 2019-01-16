@@ -1,4 +1,4 @@
-package vip.housir.support.service;
+package vip.housir.user.service;
 
 /**
  * @author housirvip

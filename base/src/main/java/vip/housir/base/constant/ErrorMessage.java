@@ -6,6 +6,8 @@ package vip.housir.base.constant;
 public class ErrorMessage {
 
     public static final String UNAUTHORIZED = "未认证";
+    public static final String CAPTCHA_ERROR = "验证码错误";
+    public static final String SMS_ERROR = "短信验证码错误";
     public static final String NULL_POINTER_EXCEPTION = "系统空指针异常";
     public static final String SERVICE_EXCEPTION = "系统内部服务异常";
 
@@ -37,5 +39,4 @@ public class ErrorMessage {
 
     public static final String TICKET_NOT_FOUND = "服务单未找到";
     public static final String TICKET_PERMISSION_DENY = "此服务单无权查看";
-
 }

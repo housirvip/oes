@@ -1,11 +1,12 @@
-package vip.housir.support.service.impl;
+package vip.housir.user.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import vip.housir.base.client.CaptchaClient;
-import vip.housir.support.service.CaptchaService;
+import vip.housir.base.constant.Constant;
+import vip.housir.user.service.CaptchaService;
 
 /**
  * @author: housirvip
@@ -20,11 +21,23 @@ public class CaptchaServiceImpl implements CaptchaService {
     @Value("${captcha.key}")
     private String key;
 
+    @Value("${captcha.enable}")
+    private Boolean captchaEnable;
+
+
     @Override
     public Boolean verify(String code) {
 
+        if (!captchaEnable) {
+            return true;
+        }
+
+        if (code == null) {
+            return false;
+        }
+
         String rsp = captchaClient.verify(key, code);
 
-        return "{\"error\":0,\"res\":\"success\"}".equals(rsp);
+        return Constant.CAPTCHA_OK.equals(rsp);
     }
 }

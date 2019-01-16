@@ -15,6 +15,8 @@ import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.base.dto.UserDto;
+import vip.housir.user.service.CaptchaService;
+import vip.housir.user.service.SmsService;
 import vip.housir.base.utils.JwtUtils;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.UserInfo;
@@ -40,6 +42,9 @@ public class UserServiceImpl implements UserService {
     private final UserInfoMapper userInfoMapper;
     private final WalletMapper walletMapper;
 
+    private final CaptchaService captchaService;
+    private final SmsService smsService;
+
     private final PasswordEncoder passwordEncoder;
 
     private final JwtUtils jwtUtils;
@@ -59,6 +64,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public String login(UserDto userDto) {
 
+        //验证码
+        Preconditions.checkArgument(captchaService.verify(userDto.getCaptcha()), ErrorMessage.CAPTCHA_ERROR);
+
         User user = userMapper.selectByAccount(userDto.getAccount());
         //账户未找到
         Preconditions.checkNotNull(user, ErrorMessage.ACCOUNT_NOT_FOUND);
@@ -77,6 +85,9 @@ public class UserServiceImpl implements UserService {
         // 判断账户是否已经存在
         List<String> check = this.checkExist(userDto);
         Preconditions.checkArgument(check.size() == 0, check.toString());
+
+        //手机验证码
+        Preconditions.checkArgument(smsService.verify(userDto.getCode(), userDto.getPhone()), ErrorMessage.SMS_ERROR);
 
         User user = new User();
         user.setCreateTime(new Date());

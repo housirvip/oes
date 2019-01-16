@@ -10,6 +10,7 @@ import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.PageResponse;
 import vip.housir.base.response.ResultResponse;
 import vip.housir.user.entity.User;
+import vip.housir.user.service.QiniuService;
 import vip.housir.user.service.UserService;
 import vip.housir.user.service.WalletService;
 
@@ -24,6 +25,7 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
+    private final QiniuService qiniuService;
     private final WalletService walletService;
 
     @GetMapping(value = "/user/list")
@@ -61,5 +63,12 @@ public class AdminController {
     public BaseResponse<Boolean> award(@RequestBody @Validated(value = Award.class) TradeDto tradeDto) {
 
         return new ResultResponse<>(walletService.award(tradeDto));
+    }
+
+    @GetMapping(value = "/qiniu")
+    @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
+    public BaseResponse<String> qiniu(@RequestParam String name) {
+
+        return new ResultResponse<>(qiniuService.getToken(name));
     }
 }

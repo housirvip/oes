@@ -31,6 +31,10 @@ public class UserDto implements Serializable {
 
     private Boolean remember;
 
+    private String code;
+
+    private String captcha;
+
     private Integer id;
 
     private Date createTime;

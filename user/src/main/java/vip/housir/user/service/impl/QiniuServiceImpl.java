@@ -1,9 +1,9 @@
-package vip.housir.support.service.impl;
+package vip.housir.user.service.impl;
 
 import com.qiniu.util.Auth;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import vip.housir.support.service.QiniuService;
+import vip.housir.user.service.QiniuService;
 
 /**
  * @author housirvip

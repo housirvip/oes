@@ -1,12 +1,15 @@
-package vip.housir.support.controller;
+package vip.housir.user.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.ResultResponse;
-import vip.housir.support.service.CaptchaService;
-import vip.housir.support.service.QiniuService;
-import vip.housir.support.service.SmsService;
+import vip.housir.user.service.CaptchaService;
+import vip.housir.user.service.QiniuService;
+import vip.housir.user.service.SmsService;
 
 /**
  * @author housirvip
@@ -21,9 +24,9 @@ public class TokenController {
     private final CaptchaService captchaService;
 
     @GetMapping(value = "/qiniu")
-    public BaseResponse<String> qiniu(@RequestParam String name) {
+    public BaseResponse<String> qiniu() {
 
-        return new ResultResponse<>(qiniuService.getToken(name));
+        return new ResultResponse<>(qiniuService.getToken(null));
     }
 
     @GetMapping(value = "/sms/{phone}")
