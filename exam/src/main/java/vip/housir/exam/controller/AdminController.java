@@ -54,6 +54,15 @@ public class AdminController {
         return new ResultResponse<>(paperService.createOrUpdate(paper));
     }
 
+    @GetMapping(value = "/paper/list")
+    @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
+    public BaseResponse<Page> papers(@Validated PageDto pageDto) {
+
+        Page<Paper> paperPage = paperService.pageByParam(pageDto.putDisable());
+
+        return new PageResponse<>(paperPage, paperPage.getTotal());
+    }
+
     @PostMapping(value = "/section")
     @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
     public BaseResponse<Integer> section(@RequestBody Section section) {

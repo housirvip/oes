@@ -44,6 +44,23 @@ public class AdminController {
         return new ResultResponse<>(userService.create(userDto));
     }
 
+    @PutMapping(value = "/user")
+    @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
+    public BaseResponse<Integer> user(@RequestBody User user) {
+
+        user.setGroup(null);
+        user.setRole(null);
+
+        return new ResultResponse<>(userService.update(user));
+    }
+
+    @PutMapping(value = "/admin")
+    @PreAuthorize("hasAnyRole('ROOT')")
+    public BaseResponse<Integer> admin(@RequestBody User user) {
+
+        return new ResultResponse<>(userService.update(user));
+    }
+
     @PutMapping(value = "/levelUp")
     @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
     public BaseResponse<Boolean> levelUp(@RequestBody TradeDto tradeDto) {

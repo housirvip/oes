@@ -233,7 +233,7 @@
         </if>
     </sql>
     <sql id="order">
-        <if test="orderBy != null">
+        <if test="orderBy != null and orderBy!=''">
             order by
             <if test="orderBy == 'createTime'">
                 create_time

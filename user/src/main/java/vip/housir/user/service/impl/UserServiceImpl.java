@@ -123,6 +123,8 @@ public class UserServiceImpl implements UserService {
         // 判断账户是否已经存在
         List<String> check = this.checkExist(userDto);
         Preconditions.checkArgument(check.size() == 0, check.toString());
+        // 判断用户组
+        Preconditions.checkArgument(!Constant.ADMIN.equals(userDto.getGroup()) && !Constant.ROOT.equals(userDto.getGroup()), Constant.ERROR);
 
         User user = new User();
         BeanUtils.copyProperties(userDto, user);
@@ -217,6 +219,8 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.selectByPrimaryKey(tradeDto.getUid());
         Preconditions.checkNotNull(user, ErrorMessage.USER_NOT_FOUND);
+        // 判断用户组
+        Preconditions.checkArgument(!Constant.ADMIN.equals(tradeDto.getGroupTo()) && !Constant.ROOT.equals(tradeDto.getGroupTo()), Constant.ERROR);
 
         Optional.ofNullable(tradeDto.getLevelTo())
                 .ifPresent(user::setLevel);
@@ -232,9 +236,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean update(UserInfo userInfo) {
+    public Integer update(UserInfo userInfo) {
 
-        return userInfoMapper.updateByPrimaryKeySelective(userInfo) > 0;
+        userInfoMapper.updateByPrimaryKeySelective(userInfo);
+
+        return userInfo.getId();
+    }
+
+    @Override
+    public Integer update(User user) {
+
+        userMapper.updateByPrimaryKeySelective(user);
+
+        return user.getId();
     }
 
     @Override

@@ -194,17 +194,17 @@
     <update id="updateByPrimaryKey" parameterType="vip.housir.exam.entity.Paper">
         update paper
         set name = #{name,jdbcType=VARCHAR},
-        type = #{type,jdbcType=VARCHAR},
-        `group` = #{group,jdbcType=VARCHAR},
-        enable = #{enable,jdbcType=BIT},
-        min_level = #{minLevel,jdbcType=INTEGER},
-        total_score = #{totalScore,jdbcType=REAL},
-        pass_score = #{passScore,jdbcType=REAL},
-        avg_score = #{avgScore,jdbcType=REAL},
-        duration = #{duration,jdbcType=INTEGER},
-        description = #{description,jdbcType=VARCHAR},
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-        update_time = #{updateTime,jdbcType=TIMESTAMP}
+            type = #{type,jdbcType=VARCHAR},
+            `group` = #{group,jdbcType=VARCHAR},
+              enable = #{enable,jdbcType=BIT},
+              min_level = #{minLevel,jdbcType=INTEGER},
+              total_score = #{totalScore,jdbcType=REAL},
+              pass_score = #{passScore,jdbcType=REAL},
+              avg_score = #{avgScore,jdbcType=REAL},
+              duration = #{duration,jdbcType=INTEGER},
+              description = #{description,jdbcType=VARCHAR},
+              create_time = #{createTime,jdbcType=TIMESTAMP},
+              update_time = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
     <sql id="filter">
@@ -227,13 +227,19 @@
         </if>
     </sql>
     <sql id="order">
-        <if test="orderBy != null">
+        <if test="orderBy != null and orderBy!=''">
             order by
             <if test="orderBy == 'createTime'">
                 create_time
             </if>
             <if test="orderBy == 'avgScore'">
                 avg_score
+            </if>
+            <if test="orderBy == 'minLevel'">
+                min_level
+            </if>
+            <if test="orderBy == 'enable'">
+                enable
             </if>
             <!-- order type -->
             <if test="orderType == 'desc'">

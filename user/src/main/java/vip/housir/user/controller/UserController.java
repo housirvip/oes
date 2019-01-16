@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/info")
-    public BaseResponse<Boolean> info(@RequestBody UserInfo userInfo) {
+    public BaseResponse<Integer> info(@RequestBody UserInfo userInfo) {
 
         return new ResultResponse<>(userService.update(userInfo));
     }
