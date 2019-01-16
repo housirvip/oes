@@ -85,20 +85,6 @@ ribbon:
   # 对当前实例的重试次数
   max-auto-retries: 1
 
-qiniu:
-  access-key: Lv_Xz4r_P_qEkuEir_RsZJAAtNzu1S3elvFlezTq
-  secret-key: FBQ8LA1zfhZnSiKFk1sikHvNS-ppN982mLxt9Qp0
-  bucket: online-exam
-
-sms:
-  id: jyf3gwwgkg9qwvkv8384v5relorx5ndv7i671v4f7r0xz779
-  key: zmbi22c08izg9b99zcm3axlcu6u60gcjsjxofzf1lhzkseba
-  enable: false
-
-captcha:
-  key: 983bd99c084d4e7647cea6a39873a4e8
-  enable: false
-
 jwt:
   secret: changeIt
   expire: 21600

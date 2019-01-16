@@ -108,6 +108,11 @@ user:
   level: 0
   coin: 0
 
+qiniu:
+  access-key: Lv_Xz4r_P_qEkuEir_RsZJAAtNzu1S3elvFlezTq
+  secret-key: FBQ8LA1zfhZnSiKFk1sikHvNS-ppN982mLxt9Qp0
+  bucket: online-exam
+
 sms:
   id: jyf3gwwgkg9qwvkv8384v5relorx5ndv7i671v4f7r0xz779
   key: zmbi22c08izg9b99zcm3axlcu6u60gcjsjxofzf1lhzkseba
