@@ -24,6 +24,10 @@ spring:
           uri: lb://oes-user
           predicates:
             - Path=/user/**
+        - id: token
+          uri: lb://oes-user
+          predicates:
+            - Path=/token/**
         - id: user-admin
           uri: lb://oes-user
           predicates:
@@ -60,12 +64,7 @@ spring:
           uri: lb://oes-support
           predicates:
             - Path=/notice/**
-        - id: token
-          uri: lb://oes-support
-          predicates:
-            - Path=/token/**
         - id: support-admin
           uri: lb://oes-support
           predicates:
             - Path=/support-admin/**
-
