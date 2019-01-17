@@ -84,7 +84,7 @@ public class AdminController {
 
     @GetMapping(value = "/qiniu")
     @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
-    public BaseResponse<String> qiniu(@RequestParam String name) {
+    public BaseResponse<String> qiniu(@RequestParam(required = false) String name) {
 
         return new ResultResponse<>(qiniuService.getToken(name));
     }
