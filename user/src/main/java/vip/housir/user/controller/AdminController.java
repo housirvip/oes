@@ -48,7 +48,6 @@ public class AdminController {
     @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
     public BaseResponse<Integer> user(@RequestBody User user) {
 
-        user.setGroup(null);
         user.setRole(null);
 
         return new ResultResponse<>(userService.update(user));

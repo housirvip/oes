@@ -219,11 +219,12 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.selectByPrimaryKey(tradeDto.getUid());
         Preconditions.checkNotNull(user, ErrorMessage.USER_NOT_FOUND);
-        // 判断用户组
-        Preconditions.checkArgument(!Constant.ADMIN.equals(tradeDto.getGroupTo()) && !Constant.ROOT.equals(tradeDto.getGroupTo()), Constant.ERROR);
 
         Optional.ofNullable(tradeDto.getLevelTo())
-                .ifPresent(user::setLevel);
+                .ifPresent(level -> {
+                    Preconditions.checkArgument(BooleanUtils.isTrue(tradeDto.getLevelDown()) || level >= user.getLevel(), ErrorMessage.USER_LEVEL_LIMIT);
+                    user.setLevel(level);
+                });
         Optional.ofNullable(tradeDto.getLevelUp())
                 .ifPresent(up -> user.setLevel(user.getLevel() + up));
         Optional.ofNullable(tradeDto.getGroupTo())
@@ -259,7 +260,7 @@ public class UserServiceImpl implements UserService {
         tradeDto.getPhones().forEach(phone ->
 
                 Optional.ofNullable(userMapper.selectByPhone(phone))
-                        .filter(user -> user.getLevel() < tradeDto.getLevelTo())
+                        .filter(user -> BooleanUtils.isTrue(tradeDto.getLevelDown()) || user.getLevel() < tradeDto.getLevelTo())
                         .ifPresent(user -> {
 
                             user.setGroup(tradeDto.getGroupTo());

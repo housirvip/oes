@@ -45,5 +45,7 @@ public class TradeDto implements Serializable {
 
     private String status;
 
+    private Boolean levelDown;
+
     private static final long serialVersionUID = 1L;
 }
