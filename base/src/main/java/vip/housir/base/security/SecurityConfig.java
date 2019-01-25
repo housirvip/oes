@@ -1,5 +1,6 @@
 package vip.housir.base.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author housirvip
  */
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -32,16 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JwtUtils jwtUtils() {
-        return new JwtUtils(secret, expire, delay);
-    }
 
-    @Bean
-    public FeignAuthInterceptor feignAuthInterceptor() {
-        return new FeignAuthInterceptor();
+        return new JwtUtils(secret, expire, delay);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling()

@@ -9,7 +9,7 @@ import vip.housir.base.response.BaseResponse;
 /**
  * @author housirvip
  */
-@FeignClient(name = "oes-user")
+@FeignClient(name = "oes-user", configuration = MicroServiceConfig.class)
 public interface UserClient {
 
     /**

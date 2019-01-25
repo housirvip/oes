@@ -18,10 +18,7 @@ public class CaptchaServiceImpl implements CaptchaService {
 
     private final CaptchaClient captchaClient;
 
-    @Value("${captcha.key}")
-    private String key;
-
-    @Value("${captcha.enable}")
+    @Value(value = "${captcha.enable}")
     private Boolean captchaEnable;
 
 
@@ -36,7 +33,7 @@ public class CaptchaServiceImpl implements CaptchaService {
             return false;
         }
 
-        String rsp = captchaClient.verify(key, code);
+        String rsp = captchaClient.verify(code);
 
         return Constant.CAPTCHA_OK.equals(rsp);
     }

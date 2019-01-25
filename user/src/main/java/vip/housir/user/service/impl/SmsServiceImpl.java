@@ -17,19 +17,13 @@ public class SmsServiceImpl implements SmsService {
 
     private final SmsClient smsClient;
 
-    @Value("${sms.id}")
-    private String lcId;
-
-    @Value("${sms.key}")
-    private String lcKey;
-
-    @Value("${sms.enable}")
+    @Value(value = "${sms.enable}")
     private Boolean smsEnable;
 
     @Override
     public Boolean send(String phone) {
 
-        String rsp = smsClient.send(lcId, lcKey, ImmutableMap.of("mobilePhoneNumber", phone));
+        String rsp = smsClient.send(ImmutableMap.of("mobilePhoneNumber", phone));
 
         return Constant.SMS_OK.equals(rsp);
     }
@@ -45,7 +39,7 @@ public class SmsServiceImpl implements SmsService {
             return false;
         }
 
-        String rsp = smsClient.verify(lcId, lcKey, code, ImmutableMap.of("mobilePhoneNumber", phone));
+        String rsp = smsClient.verify(code, ImmutableMap.of("mobilePhoneNumber", phone));
 
         return Constant.SMS_OK.equals(rsp);
     }

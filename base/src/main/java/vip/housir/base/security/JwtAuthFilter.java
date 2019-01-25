@@ -23,6 +23,7 @@ public class JwtAuthFilter extends BasicAuthenticationFilter {
     private final JwtUtils jwtUtils;
 
     JwtAuthFilter(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+
         super(authenticationManager);
         this.jwtUtils = jwtUtils;
     }

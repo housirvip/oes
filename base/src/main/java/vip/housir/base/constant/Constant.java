@@ -38,6 +38,10 @@ public class Constant {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String ROLE_PREFIX = "ROLE_";
 
+    public static final String SMS_ID = "X-LC-Id";
+    public static final String SMS_KEY = "X-LC-Key";
+    public static final String CAPTCHA_KEY = "api_key";
+
     public static final String SMS_OK = "{}";
     public static final String CAPTCHA_OK = "{\"error\":0,\"res\":\"success\"}";
 }
