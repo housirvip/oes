@@ -245,6 +245,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Integer updateByUid(UserInfo userInfo) {
+
+        userInfoMapper.updateByUidSelective(userInfo);
+
+        return userInfo.getId();
+    }
+
+    @Override
     public Integer update(User user) {
 
         userMapper.updateByPrimaryKeySelective(user);

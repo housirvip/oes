@@ -94,6 +94,14 @@ public interface UserService {
     Integer update(UserInfo userInfo);
 
     /**
+     * 更新 UserInfo，返回 id
+     *
+     * @param userInfo UserInfo
+     * @return Integer
+     */
+    Integer updateByUid(UserInfo userInfo);
+
+    /**
      * 更新 User，返回 id
      *
      * @param user User

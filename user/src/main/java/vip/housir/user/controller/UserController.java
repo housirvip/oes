@@ -35,9 +35,11 @@ public class UserController {
     }
 
     @PutMapping(value = "/info")
-    public BaseResponse<Integer> info(@RequestBody UserInfo userInfo) {
+    public BaseResponse<Integer> info(@RequestBody UserInfo userInfo, Authentication auth) {
 
-        return new ResultResponse<>(userService.update(userInfo));
+        userInfo.setUid((Integer) auth.getPrincipal());
+
+        return new ResultResponse<>(userService.updateByUid(userInfo));
     }
 
     @GetMapping(value = "/wallet")
