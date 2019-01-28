@@ -10,8 +10,6 @@ import vip.housir.store.entity.Order;
 import vip.housir.store.mapper.OrderMapper;
 import vip.housir.store.service.OrderService;
 
-import java.util.Optional;
-
 /**
  * @author housirvip
  */
@@ -26,9 +24,7 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = orderMapper.selectByPrimaryKey(id);
         Preconditions.checkNotNull(order, ErrorMessage.ORDER_NOT_FOUND);
-
-        Optional.ofNullable(uid)
-                .ifPresent(u -> Preconditions.checkArgument(u.equals(order.getUid()), ErrorMessage.ORDER_PERMISSION_DENY));
+        Preconditions.checkArgument(order.getUid().equals(uid), ErrorMessage.ORDER_PERMISSION_DENY);
 
         return order;
     }
