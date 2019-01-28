@@ -3,7 +3,6 @@ package vip.housir.store.service.impl;
 import com.github.pagehelper.Page;
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
@@ -50,9 +49,16 @@ public class StoreServiceImpl implements StoreService {
         orderMapper.insertSelective(order);
 
         //拷贝交易信息
-        BeanUtils.copyProperties(product, tradeDto);
-        tradeDto.setProductId(product.getId());
         tradeDto.setOrderId(order.getId());
+        tradeDto.setStatus(order.getStatus());
+        tradeDto.setMinLevel(product.getMinLevel());
+        tradeDto.setMaxLevel(product.getMaxLevel());
+        tradeDto.setLevelUp(product.getLevelUp());
+        tradeDto.setLevelTo(product.getLevelTo());
+        tradeDto.setProductId(product.getId());
+        tradeDto.setPrice(product.getPrice());
+        tradeDto.setGroupTo(product.getGroupTo());
+        tradeDto.setGroupLimit(product.getGroupLimit());
 
         storeOutput.order().send(MessageBuilder.withPayload(tradeDto).build());
 
