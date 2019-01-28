@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public String register(UserDto userDto) {
 
-        // 判断账户是否已经存在
+        //判断账户是否已经存在
         List<String> check = this.checkExist(userDto);
         Preconditions.checkArgument(check.size() == 0, check.toString());
 
@@ -96,17 +96,24 @@ public class UserServiceImpl implements UserService {
         user.setPhone(userDto.getPhone());
         user.setGroup(initGroup);
         user.setLevel(initLevel);
-        user.setRole(Lists.newArrayList(Constant.ROLE_PREFIX + initRole));
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        List<String> roles = Lists.newArrayList(Constant.ROLE_PREFIX + Constant.PRIMARY);
+        if (!Constant.PRIMARY.equals(initRole)) {
+            roles.add(Constant.ROLE_PREFIX + initRole);
+        }
+        user.setRole(roles);
 
         userMapper.insertSelective(user);
 
+        //初始化用户详情
         UserInfo userInfo = new UserInfo();
         userInfo.setUid(user.getId());
         userInfo.setNickname(user.getUsername());
 
         userInfoMapper.insertSelective(userInfo);
 
+        //初始化钱包
         Wallet wallet = new Wallet();
         wallet.setUid(user.getId());
         wallet.setCoin(initCoin);
@@ -120,28 +127,33 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public Integer create(UserDto userDto) {
 
-        // 判断账户是否已经存在
+        //判断账户是否已经存在
         List<String> check = this.checkExist(userDto);
         Preconditions.checkArgument(check.size() == 0, check.toString());
-        // 判断用户组
+        //判断用户组
         Preconditions.checkArgument(!Constant.ADMIN.equals(userDto.getGroup()) && !Constant.ROOT.equals(userDto.getGroup()), Constant.ERROR);
 
         User user = new User();
-        BeanUtils.copyProperties(userDto, user);
-
         UserInfo userInfo = new UserInfo();
-        BeanUtils.copyProperties(userDto.getUserInfo(), userInfo);
-
         Wallet wallet = new Wallet();
+
+        //拷贝用户
+        BeanUtils.copyProperties(userDto, user);
+        //拷贝用户详情
+        BeanUtils.copyProperties(userDto.getUserInfo(), userInfo);
+        //拷贝钱包
         BeanUtils.copyProperties(userDto.getWallet(), wallet);
 
-        List<String> roles = Lists.newArrayList(Constant.ROLE_PREFIX + initRole);
         if (user.getGroup() == null) {
             user.setGroup(initGroup);
-        } else if (!initGroup.equals(user.getGroup())) {
-            roles.add(Constant.ROLE_PREFIX + user.getGroup());
+        }
+
+        List<String> roles = Lists.newArrayList(Constant.ROLE_PREFIX + Constant.PRIMARY);
+        if (!Constant.PRIMARY.equals(initGroup)) {
+            roles.add(Constant.ROLE_PREFIX + Constant.VIP);
         }
         user.setRole(roles);
+
         user.setCreateTime(new Date());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
@@ -228,8 +240,8 @@ public class UserServiceImpl implements UserService {
         Optional.ofNullable(tradeDto.getLevelUp())
                 .ifPresent(up -> user.setLevel(user.getLevel() + up));
         Optional.ofNullable(tradeDto.getGroupTo())
-                .filter(group -> !user.getRole().contains(Constant.ROLE_PREFIX + group))
-                .ifPresent(group -> user.getRole().add(Constant.ROLE_PREFIX + group));
+                .filter(group -> !Constant.PRIMARY.equals(group))
+                .ifPresent(group -> user.getRole().add(Constant.ROLE_PREFIX + Constant.VIP));
 
         user.setGroup(tradeDto.getGroupTo());
 

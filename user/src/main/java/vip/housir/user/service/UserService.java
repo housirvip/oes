@@ -38,7 +38,7 @@ public interface UserService {
     Integer create(UserDto userDto);
 
     /**
-     * 更新认证，成功返回 jwt
+     * 更新认证，刷新 jwt
      *
      * @param uid Integer
      * @return String
