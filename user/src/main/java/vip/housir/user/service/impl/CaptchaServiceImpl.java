@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import vip.housir.base.client.CaptchaClient;
+import vip.housir.user.client.CaptchaClient;
 import vip.housir.base.constant.Constant;
 import vip.housir.user.service.CaptchaService;
 

@@ -3,6 +3,6 @@ spring:
     name: oes-support
   cloud:
     config:
-      uri: http://bd.nicesite.vip:8000
-      profile: mac
+      uri: http://ubuntu.lan:8000
+      profile: mi
       label: master

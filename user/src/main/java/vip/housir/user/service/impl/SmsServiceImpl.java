@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import vip.housir.base.client.SmsClient;
+import vip.housir.user.client.SmsClient;
 import vip.housir.base.constant.Constant;
 import vip.housir.user.service.SmsService;
 

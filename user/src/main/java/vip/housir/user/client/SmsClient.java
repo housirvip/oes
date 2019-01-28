@@ -1,4 +1,4 @@
-package vip.housir.base.client;
+package vip.housir.user.client;
 
 import feign.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Value;

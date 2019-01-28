@@ -3,6 +3,6 @@ spring:
     name: oes-exam
   cloud:
     config:
-      uri: http://localhost:8000
-      profile: mac
+      uri: http://ubuntu.lan:8000
+      profile: mi
       label: master

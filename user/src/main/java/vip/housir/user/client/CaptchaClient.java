@@ -1,4 +1,4 @@
-package vip.housir.base.client;
+package vip.housir.user.client;
 
 import feign.RequestInterceptor;
 import lombok.extern.slf4j.Slf4j;
