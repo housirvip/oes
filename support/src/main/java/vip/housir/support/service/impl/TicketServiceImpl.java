@@ -24,9 +24,7 @@ public class TicketServiceImpl implements TicketService {
 
         Ticket ticket = ticketMapper.selectByPrimaryKey(id);
         Preconditions.checkNotNull(ticket, ErrorMessage.TICKET_NOT_FOUND);
-
-        Optional.ofNullable(uid)
-                .ifPresent(u -> Preconditions.checkArgument(u.equals(ticket.getUid()), ErrorMessage.TICKET_PERMISSION_DENY));
+        Preconditions.checkArgument(ticket.getUid().equals(uid), ErrorMessage.TICKET_PERMISSION_DENY);
 
         return ticket;
     }
