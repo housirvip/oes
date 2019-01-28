@@ -237,13 +237,14 @@ public class UserServiceImpl implements UserService {
                     Preconditions.checkArgument(BooleanUtils.isTrue(tradeDto.getLevelDown()) || level >= user.getLevel(), ErrorMessage.USER_LEVEL_LIMIT);
                     user.setLevel(level);
                 });
+
         Optional.ofNullable(tradeDto.getLevelUp())
                 .ifPresent(up -> user.setLevel(user.getLevel() + up));
-        Optional.ofNullable(tradeDto.getGroupTo())
-                .filter(group -> !Constant.PRIMARY.equals(group))
-                .ifPresent(group -> user.getRole().add(Constant.ROLE_PREFIX + Constant.VIP));
 
         user.setGroup(tradeDto.getGroupTo());
+        if (!Constant.PRIMARY.equals(user.getGroup()) && !user.getRole().contains(Constant.ROLE_PREFIX + Constant.VIP)) {
+            user.getRole().add(Constant.ROLE_PREFIX + Constant.VIP);
+        }
 
         return userMapper.updateByPrimaryKeySelective(user) > 0;
     }
