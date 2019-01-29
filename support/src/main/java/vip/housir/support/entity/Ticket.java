@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author housirvip
@@ -25,6 +26,8 @@ public class Ticket implements Serializable {
     private Date createTime;
 
     private Date updateTime;
+
+    private List<TicketContent> ticketContents;
 
     private static final long serialVersionUID = 1L;
 }

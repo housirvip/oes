@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import vip.housir.base.client.UserClient;
 import vip.housir.base.constant.Constant;
@@ -39,6 +40,9 @@ public class PaperServiceImpl implements PaperService {
 
     private final UserClient userClient;
 
+    @Value("${exam.time-limit}")
+    private Integer timeLimit;
+
     @Override
     public Paper render(Integer id) {
 
@@ -48,7 +52,7 @@ public class PaperServiceImpl implements PaperService {
 
         //用户等级验证
         UserDto userDto = userClient.user().getResult();
-        Preconditions.checkNotNull(userDto, ErrorMessage.PAPER_NOT_FOUND);
+        Preconditions.checkNotNull(userDto, ErrorMessage.USER_NOT_FOUND);
         Preconditions.checkArgument(paper.getMinLevel() <= userDto.getLevel(), ErrorMessage.PAPER_LEVEL_LIMIT);
 
         //次数上限验证
@@ -56,7 +60,7 @@ public class PaperServiceImpl implements PaperService {
                 ImmutableMap.of(Constant.PIDS, ImmutableList.of(id), Constant.UID, userDto.getId()));
         Optional.ofNullable(countResult.get(id))
                 .map(map -> map.get(Constant.TIMES))
-                .ifPresent(times -> Preconditions.checkArgument(times < userDto.getLevel(), ErrorMessage.PAPER_TIMES_LIMIT));
+                .ifPresent(times -> Preconditions.checkArgument(times < timeLimit, ErrorMessage.PAPER_TIMES_LIMIT));
 
         //试卷中没有模块，return
         List<Section> sectionList = sectionMapper.listByPid(paper.getId());
@@ -78,7 +82,6 @@ public class PaperServiceImpl implements PaperService {
             //装载题目
             section.setQuestions(questionList);
         });
-
 
         return paper;
     }

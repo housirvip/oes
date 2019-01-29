@@ -51,9 +51,7 @@ public class ExamServiceImpl implements ExamService {
 
         Exam exam = examMapper.selectByPrimaryKey(id);
         Preconditions.checkNotNull(exam, ErrorMessage.EXAM_NOT_FOUND);
-
-        Optional.ofNullable(uid)
-                .ifPresent(u -> Preconditions.checkArgument(u.equals(exam.getUid()), ErrorMessage.EXAM_PERMISSION_DENY));
+        Preconditions.checkArgument(uid == null || uid.equals(exam.getUid()), ErrorMessage.EXAM_PERMISSION_DENY);
 
         return exam;
     }
@@ -61,14 +59,7 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public Page<Exam> pageByParam(PageDto pageDto) {
 
-        Page<Exam> examPage = examMapper.listByParam(pageDto.putParam().getParamAsMap());
-
-        examPage.forEach(item -> {
-            item.setSectionScore(null);
-            item.setUserAnswer(null);
-        });
-
-        return examPage;
+        return examMapper.listByParam(pageDto.putParam().getParamAsMap());
     }
 
     @Override

@@ -40,8 +40,6 @@
     <select id="listByParam" parameterType="map" resultMap="ResultMapWithBLOBs">
         select
         <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
         from exam
         <where>
             <include refid="filter"/>

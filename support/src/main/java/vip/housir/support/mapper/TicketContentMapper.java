@@ -3,6 +3,8 @@ package vip.housir.support.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import vip.housir.support.entity.TicketContent;
 
+import java.util.List;
+
 /**
  * @author housirvip
  */
@@ -66,4 +68,11 @@ public interface TicketContentMapper {
      * @return int
      */
     int updateByPrimaryKey(TicketContent record);
+
+    /**
+     * 根据 tid 查询所有工单内容
+     * @param tid Integer
+     * @return List
+     */
+    List<TicketContent> selectByTid(Integer tid);
 }

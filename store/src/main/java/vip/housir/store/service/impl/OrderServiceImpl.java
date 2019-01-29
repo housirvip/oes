@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = orderMapper.selectByPrimaryKey(id);
         Preconditions.checkNotNull(order, ErrorMessage.ORDER_NOT_FOUND);
-        Preconditions.checkArgument(order.getUid().equals(uid), ErrorMessage.ORDER_PERMISSION_DENY);
+        Preconditions.checkArgument(uid == null || uid.equals(order.getUid()), ErrorMessage.ORDER_PERMISSION_DENY);
 
         return order;
     }
