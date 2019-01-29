@@ -109,3 +109,4 @@ jwt:
 
 exam:
   score-async: true
+  time-limit: 2
