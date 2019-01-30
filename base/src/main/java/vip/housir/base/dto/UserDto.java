@@ -56,4 +56,28 @@ public class UserDto implements Serializable {
     private WalletDto wallet;
 
     private static final long serialVersionUID = 1L;
+
+    @Data
+    private class UserInfoDto implements Serializable {
+
+        private Integer id;
+
+        private Integer uid;
+
+        private String nickname;
+
+        private String avatar;
+
+        private String gender;
+
+        private String school;
+
+        private String major;
+
+        private String province;
+
+        private Date updateTime;
+
+        private static final long serialVersionUID = 1L;
+    }
 }

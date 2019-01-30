@@ -1,7 +1,10 @@
 package vip.housir.support.mapper;
 
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import vip.housir.support.entity.Ticket;
+
+import java.util.Map;
 
 /**
  * @author housirvip
@@ -57,4 +60,12 @@ public interface TicketMapper {
      * @return int
      */
     int updateByPrimaryKey(Ticket record);
+
+    /**
+     * 根据参数查询，支持分页
+     *
+     * @param param Map<String,Object>
+     * @return Page
+     */
+    Page<Ticket> listByParam(Map<String, Object> param);
 }

@@ -27,6 +27,16 @@
         from ticket
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="listByParam" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ticket
+        <where>
+            <include refid="filter"/>
+            <include refid="search"/>
+        </where>
+        <include refid="order"/>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from ticket
@@ -133,4 +143,47 @@
             update_time = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <sql id="filter">
+        <if test="uid != null">
+            and uid = #{uid,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status!=''">
+            and status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="module != null and module!=''">
+            and module = #{module,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    <sql id="search">
+        <if test="title != null and title!=''">
+            and title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')
+        </if>
+    </sql>
+    <sql id="order">
+        <if test="orderBy != null and orderBy!=''">
+            order by
+            <if test="orderBy == 'createTime'">
+                create_time
+            </if>
+            <if test="orderBy == 'uid'">
+                uid
+            </if>
+            <if test="orderBy == 'rate'">
+                rate
+            </if>
+            <if test="orderBy == 'module'">
+                module
+            </if>
+            <if test="orderBy == 'status'">
+                status
+            </if>
+            <!-- order type -->
+            <if test="orderType == 'desc'">
+                desc
+            </if>
+            <if test="orderType == 'asc'">
+                asc
+            </if>
+        </if>
+    </sql>
 </mapper>

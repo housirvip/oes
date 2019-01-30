@@ -4,7 +4,7 @@ package vip.housir.base.constant;
  * @author housirvip
  */
 public class Constant {
-    
+
     public static final String AUTHORIZATION = "Authorization";
 
     public static final int SUCCESS_CODE = 0;
@@ -44,4 +44,8 @@ public class Constant {
 
     public static final String SMS_OK = "{}";
     public static final String CAPTCHA_OK = "{\"error\":0,\"res\":\"success\"}";
+
+    public static final String TICKET_USER = "USER_REPLY";
+    public static final String TICKET_ADMIN = "ADMIN_REPLY";
+    public static final String TICKET_FINISH = "FINISHED";
 }
