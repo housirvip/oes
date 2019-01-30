@@ -42,9 +42,9 @@ public class AdminController {
     @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
     public BaseResponse<Page> exams(@Validated PageDto pageDto) {
 
-        Page<Exam> examPage = examService.pageByParam(pageDto);
+        Page<Exam> exams = examService.pageByParam(pageDto);
 
-        return new PageResponse<>(examPage, examPage.getTotal());
+        return new PageResponse<>(exams, exams.getTotal());
     }
 
     @PostMapping(value = "/paper")
@@ -58,9 +58,9 @@ public class AdminController {
     @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
     public BaseResponse<Page> papers(@Validated PageDto pageDto) {
 
-        Page<Paper> paperPage = paperService.pageByParam(pageDto.putDisable());
+        Page<Paper> papers = paperService.pageByParam(pageDto.putDisable());
 
-        return new PageResponse<>(paperPage, paperPage.getTotal());
+        return new PageResponse<>(papers, papers.getTotal());
     }
 
     @PostMapping(value = "/section")
@@ -74,9 +74,9 @@ public class AdminController {
     @PreAuthorize("hasAnyRole('INSPECTOR','ADMIN','ROOT')")
     public BaseResponse<Page> sections(@Validated PageDto pageDto) {
 
-        Page<Section> sectionPage = sectionService.pageByParam(pageDto);
+        Page<Section> sections = sectionService.pageByParam(pageDto);
 
-        return new PageResponse<>(sectionPage, sectionPage.getTotal());
+        return new PageResponse<>(sections, sections.getTotal());
     }
 
     @PostMapping(value = "/question")
