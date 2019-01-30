@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author housirvip
@@ -23,6 +24,8 @@ public class Notice implements Serializable {
     private Date updateTime;
 
     private String content;
+
+    private List<String> pics;
 
     private static final long serialVersionUID = 1L;
 }

@@ -17,7 +17,7 @@ public class TicketContent implements Serializable {
 
     private Boolean idAdmin;
 
-    private List pics;
+    private List<String> pics;
 
     private String content;
 
