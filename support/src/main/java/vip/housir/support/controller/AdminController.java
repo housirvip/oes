@@ -32,6 +32,6 @@ public class AdminController {
 
         ticketDto.setStatus(Constant.TICKET_ADMIN);
 
-        return new ResultResponse<>(ticketService.reply(ticketDto));
+        return new ResultResponse<>(ticketService.update(ticketDto));
     }
 }

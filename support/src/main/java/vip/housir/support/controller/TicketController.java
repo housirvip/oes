@@ -52,7 +52,7 @@ public class TicketController {
         ticketDto.setUid((Integer) auth.getPrincipal());
         ticketDto.setStatus(Constant.TICKET_USER);
 
-        return new ResultResponse<>(ticketService.reply(ticketDto));
+        return new ResultResponse<>(ticketService.update(ticketDto));
     }
 
     @PutMapping(value = "/close")
@@ -61,6 +61,6 @@ public class TicketController {
         ticketDto.setUid((Integer) auth.getPrincipal());
         ticketDto.setStatus(Constant.TICKET_FINISH);
 
-        return new ResultResponse<>(ticketService.reply(ticketDto));
+        return new ResultResponse<>(ticketService.update(ticketDto));
     }
 }

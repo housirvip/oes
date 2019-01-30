@@ -71,9 +71,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer reply(TicketDto ticketDto) {
-
-        Preconditions.checkNotNull(ticketDto.getTicketContent(), ErrorMessage.TICKET_CONTENT_NULL);
+    public Integer update(TicketDto ticketDto) {
 
         Ticket ticket = ticketMapper.selectByPrimaryKey(ticketDto.getId());
         Preconditions.checkNotNull(ticket, ErrorMessage.TICKET_NOT_FOUND);
@@ -81,6 +79,10 @@ public class TicketServiceImpl implements TicketService {
 
         ticket.setStatus(ticketDto.getStatus());
         ticketMapper.updateByPrimaryKeySelective(ticket);
+
+        if (ticketDto.getTicketContent() == null) {
+            return ticket.getId();
+        }
 
         TicketContent ticketContent = new TicketContent();
         BeanUtils.copyProperties(ticketDto.getTicketContent(), ticketContent);
@@ -88,19 +90,6 @@ public class TicketServiceImpl implements TicketService {
         ticketContent.setTid(ticket.getId());
         ticketContent.setIdAdmin(false);
         ticketContentMapper.insertSelective(ticketContent);
-
-        return ticket.getId();
-    }
-
-    @Override
-    public Integer close(TicketDto ticketDto) {
-
-        Ticket ticket = ticketMapper.selectByPrimaryKey(ticketDto.getId());
-        Preconditions.checkNotNull(ticket, ErrorMessage.TICKET_NOT_FOUND);
-        Preconditions.checkArgument(ticketDto.getUid() == null || ticketDto.getUid().equals(ticket.getUid()), ErrorMessage.TICKET_PERMISSION_DENY);
-
-        ticket.setStatus(ticketDto.getStatus());
-        ticketMapper.updateByPrimaryKeySelective(ticket);
 
         return ticket.getId();
     }

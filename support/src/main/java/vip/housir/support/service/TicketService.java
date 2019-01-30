@@ -12,8 +12,8 @@ public interface TicketService {
     /**
      * 获取 Ticket 记录，uid 验证是否有权限
      *
-     * @param id     Integer
-     * @param uid    Integer
+     * @param id  Integer
+     * @param uid Integer
      * @return Ticket
      */
     Ticket oneById(Integer id, Integer uid);
@@ -28,22 +28,17 @@ public interface TicketService {
 
     /**
      * 创建 Ticket
+     *
      * @param ticketDto TicketDto
      * @return Integer
      */
     Integer create(TicketDto ticketDto);
 
     /**
-     * 创建 Ticket
+     * 更新 Ticket, close or reply
+     *
      * @param ticketDto TicketDto
      * @return Integer
      */
-    Integer reply(TicketDto ticketDto);
-
-    /**
-     * 关闭 Ticket
-     * @param ticketDto TicketDto
-     * @return Integer
-     */
-    Integer close(TicketDto ticketDto);
+    Integer update(TicketDto ticketDto);
 }
