@@ -77,6 +77,8 @@
         <table tableName="notice" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="pics" javaType="java.util.List"
+                            typeHandler="vip.housir.base.typehandler.ListTypeHandler"/>
         </table>
 
         <table tableName="ticket" enableCountByExample="false" enableUpdateByExample="false"
