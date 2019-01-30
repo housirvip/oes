@@ -37,7 +37,7 @@
         from exam
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <select id="listByParam" parameterType="map" resultMap="ResultMapWithBLOBs">
+    <select id="listByParam" parameterType="map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from exam
