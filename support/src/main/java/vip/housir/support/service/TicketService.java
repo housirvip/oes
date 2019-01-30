@@ -7,7 +7,7 @@ import vip.housir.support.entity.Ticket;
  */
 public interface TicketService {
     /**
-     * 获取 Ticket 记录，uid 验证是否有权限，render 判断是否装载内容
+     * 获取 Ticket 记录，uid 验证是否有权限
      *
      * @param id     Integer
      * @param uid    Integer

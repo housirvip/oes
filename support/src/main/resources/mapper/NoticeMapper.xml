@@ -26,6 +26,16 @@
         from notice
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="listByParam" parameterType="map" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        from notice
+        <where>
+            <include refid="filter"/>
+            <include refid="search"/>
+        </where>
+        <include refid="order"/>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from notice
     where id = #{id,jdbcType=INTEGER}
@@ -130,4 +140,35 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <sql id="filter">
+        <if test="enable == null">
+            and enable = true
+        </if>
+    </sql>
+    <sql id="search">
+        <if test="title != null and title!=''">
+            and title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')
+        </if>
+    </sql>
+    <sql id="order">
+        <if test="orderBy != null and orderBy!=''">
+            order by
+            <if test="orderBy == 'createTime'">
+                create_time
+            </if>
+            <if test="orderBy == 'title'">
+                title
+            </if>
+            <if test="orderBy == 'enable'">
+                enable
+            </if>
+            <!-- order type -->
+            <if test="orderType == 'desc'">
+                desc
+            </if>
+            <if test="orderType == 'asc'">
+                asc
+            </if>
+        </if>
+    </sql>
 </mapper>

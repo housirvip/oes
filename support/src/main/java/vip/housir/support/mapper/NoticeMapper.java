@@ -1,7 +1,10 @@
 package vip.housir.support.mapper;
 
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import vip.housir.support.entity.Notice;
+
+import java.util.Map;
 
 /**
  * @author housirvip
@@ -66,4 +69,12 @@ public interface NoticeMapper {
      * @return int
      */
     int updateByPrimaryKey(Notice record);
+
+    /**
+     * 根据参数查询，支持分页
+     *
+     * @param param Map<String,Object>
+     * @return Page
+     */
+    Page<Notice> listByParam(Map<String, Object> param);
 }
