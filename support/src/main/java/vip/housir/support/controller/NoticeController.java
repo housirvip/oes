@@ -25,13 +25,13 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping(value = "/{id}")
-    public BaseResponse<Notice> ticket(@PathVariable Integer id) {
+    public BaseResponse<Notice> notice(@PathVariable Integer id) {
 
         return new ResultResponse<>(noticeService.oneById(id));
     }
 
     @GetMapping(value = "/list")
-    public BaseResponse<Page> papers(@Validated PageDto pageDto) {
+    public BaseResponse<Page> notices(@Validated PageDto pageDto) {
 
         Page<Notice> notices = noticeService.pageByParam(pageDto);
 

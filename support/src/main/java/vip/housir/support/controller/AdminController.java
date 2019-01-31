@@ -28,9 +28,17 @@ public class AdminController {
     }
 
     @PutMapping(value = "/ticket")
-    public BaseResponse<Integer> ticket(@RequestBody TicketDto ticketDto) {
+    public BaseResponse<Integer> reply(@RequestBody TicketDto ticketDto) {
 
         ticketDto.setStatus(Constant.TICKET_ADMIN);
+
+        return new ResultResponse<>(ticketService.update(ticketDto));
+    }
+
+    @PutMapping(value = "/ticket/close")
+    public BaseResponse<Integer> close(@RequestBody TicketDto ticketDto) {
+
+        ticketDto.setStatus(Constant.TICKET_FINISH);
 
         return new ResultResponse<>(ticketService.update(ticketDto));
     }
