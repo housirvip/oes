@@ -3,6 +3,6 @@ spring:
     name: oes-support
   cloud:
     config:
-      uri: http://ubuntu.lan:8000
-      profile: mi
+      uri: http://localhost:8000
+      profile: mac
       label: master
