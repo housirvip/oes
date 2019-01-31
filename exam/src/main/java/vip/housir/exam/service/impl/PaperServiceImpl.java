@@ -22,6 +22,7 @@ import vip.housir.exam.mapper.QuestionMapper;
 import vip.housir.exam.mapper.SectionMapper;
 import vip.housir.exam.service.PaperService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -118,6 +119,7 @@ public class PaperServiceImpl implements PaperService {
     public Integer createOrUpdate(Paper paper) {
 
         if (paper.getId() == null) {
+            paper.setCreateTime(new Date());
             paperMapper.insertSelective(paper);
         } else {
             paperMapper.updateByPrimaryKeySelective(paper);

@@ -8,6 +8,8 @@ import vip.housir.exam.entity.Question;
 import vip.housir.exam.mapper.QuestionMapper;
 import vip.housir.exam.service.QuestionService;
 
+import java.util.Date;
+
 /**
  * @author: housirvip
  */
@@ -33,6 +35,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Integer createOrUpdate(Question question) {
 
         if (question.getId() == null) {
+            question.setCreateTime(new Date());
             questionMapper.insertSelective(question);
         } else {
             questionMapper.updateByPrimaryKeySelective(question);

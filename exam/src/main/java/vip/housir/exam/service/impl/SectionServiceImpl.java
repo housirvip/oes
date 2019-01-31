@@ -8,6 +8,8 @@ import vip.housir.exam.entity.Section;
 import vip.housir.exam.mapper.SectionMapper;
 import vip.housir.exam.service.SectionService;
 
+import java.util.Date;
+
 /**
  * @author housirvip
  */
@@ -30,14 +32,15 @@ public class SectionServiceImpl implements SectionService {
     }
 
     @Override
-    public Integer createOrUpdate(Section record) {
+    public Integer createOrUpdate(Section section) {
 
-        if (record.getId() == null) {
-            sectionMapper.insertSelective(record);
+        if (section.getId() == null) {
+            section.setCreateTime(new Date());
+            sectionMapper.insertSelective(section);
         } else {
-            sectionMapper.updateByPrimaryKeySelective(record);
+            sectionMapper.updateByPrimaryKeySelective(section);
         }
 
-        return record.getId();
+        return section.getId();
     }
 }

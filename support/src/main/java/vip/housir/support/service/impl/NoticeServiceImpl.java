@@ -8,6 +8,8 @@ import vip.housir.support.entity.Notice;
 import vip.housir.support.mapper.NoticeMapper;
 import vip.housir.support.service.NoticeService;
 
+import java.util.Date;
+
 /**
  * @author housirvip
  */
@@ -30,14 +32,15 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public Integer createOrUpdate(Notice record) {
+    public Integer createOrUpdate(Notice notice) {
 
-        if (record.getId() == null) {
-            noticeMapper.insertSelective(record);
+        if (notice.getId() == null) {
+            notice.setCreateTime(new Date());
+            noticeMapper.insertSelective(notice);
         } else {
-            noticeMapper.updateByPrimaryKeySelective(record);
+            noticeMapper.updateByPrimaryKeySelective(notice);
         }
 
-        return record.getId();
+        return notice.getId();
     }
 }

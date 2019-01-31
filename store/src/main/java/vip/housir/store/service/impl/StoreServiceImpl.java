@@ -46,6 +46,7 @@ public class StoreServiceImpl implements StoreService {
         order.setProductId(product.getId());
         order.setProductName(product.getName());
         order.setStatus(Constant.PENDING);
+
         orderMapper.insertSelective(order);
 
         //拷贝交易信息
@@ -75,6 +76,7 @@ public class StoreServiceImpl implements StoreService {
     public Integer productCreateOrUpdate(Product product) {
 
         if (product.getId() == null) {
+            product.setCreateTime(new Date());
             productMapper.insertSelective(product);
         } else {
             productMapper.updateByPrimaryKeySelective(product);

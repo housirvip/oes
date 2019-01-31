@@ -279,11 +279,9 @@ public class UserServiceImpl implements UserService {
         List<String> res = Lists.newArrayList();
 
         tradeDto.getPhones().forEach(phone ->
-
                 Optional.ofNullable(userMapper.selectByPhone(phone))
                         .filter(user -> BooleanUtils.isTrue(tradeDto.getLevelDown()) || user.getLevel() < tradeDto.getLevelTo())
                         .ifPresent(user -> {
-
                             user.setGroup(tradeDto.getGroupTo());
                             user.setLevel(tradeDto.getLevelTo());
                             if (userMapper.updateByPrimaryKeySelective(user) > 0) {
