@@ -25,7 +25,6 @@ public class MicroServiceConfig {
                 return;
             }
 
-            log.info("feignAuthInterceptor");
             HttpServletRequest request = attributes.getRequest();
             requestTemplate.header(Constant.AUTHORIZATION, request.getHeader(Constant.AUTHORIZATION));
         };
