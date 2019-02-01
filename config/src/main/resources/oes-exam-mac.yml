@@ -12,7 +12,7 @@ spring:
     virtual-host: oes
   redis:
     #Redis数据库索引（缓存将使用此索引编号的数据库）
-    database: 10
+    database: 0
     #Redis服务器地址
     host: localhost
     #Redis服务器连接端口
@@ -24,7 +24,6 @@ spring:
     timeout: 2000
     #连接池最大连接数（使用负值表示没有限制）
     #建议为业务期望QPS/一个连接的QPS,例如50000/1000=50
-    #一次命令时间(borrow|return resource+Jedis执行命令+网络延迟)的平均耗时约为1ms,一个连接的QPS大约是1000
     pool:
       max-active: 50
     #连接池中的最大空闲连接
