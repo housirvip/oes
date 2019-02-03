@@ -14,13 +14,10 @@ import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.UserDto;
 import vip.housir.exam.entity.Paper;
-import vip.housir.exam.entity.Question;
-import vip.housir.exam.entity.Section;
 import vip.housir.exam.mapper.ExamMapper;
 import vip.housir.exam.mapper.PaperMapper;
-import vip.housir.exam.mapper.QuestionMapper;
-import vip.housir.exam.mapper.SectionMapper;
 import vip.housir.exam.service.PaperService;
+import vip.housir.exam.utils.CacheUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -34,12 +31,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PaperServiceImpl implements PaperService {
 
+    private final UserClient userClient;
+
     private final ExamMapper examMapper;
     private final PaperMapper paperMapper;
-    private final SectionMapper sectionMapper;
-    private final QuestionMapper questionMapper;
 
-    private final UserClient userClient;
+    private final CacheUtils cacheUtils;
 
     @Value("${exam.time-limit}")
     private Integer timeLimit;
@@ -48,7 +45,7 @@ public class PaperServiceImpl implements PaperService {
     public Paper render(Integer id) {
 
         //查找试卷
-        Paper paper = paperMapper.selectByPrimaryKey(id);
+        Paper paper = cacheUtils.getPaper(id);
         Preconditions.checkNotNull(paper, ErrorMessage.PAPER_NOT_FOUND);
 
         //用户等级验证
@@ -63,28 +60,7 @@ public class PaperServiceImpl implements PaperService {
                 .map(map -> map.get(Constant.TIMES))
                 .ifPresent(times -> Preconditions.checkArgument(times < timeLimit, ErrorMessage.PAPER_TIMES_LIMIT));
 
-        //试卷中没有模块，return
-        List<Section> sectionList = sectionMapper.listByPid(paper.getId());
-        if (sectionList.isEmpty()) {
-            return paper;
-        }
-
-        //装载模块
-        paper.setSections(sectionList);
-
-        sectionList.forEach(section -> {
-
-            //模块中没有题目，continue
-            List<Question> questionList = questionMapper.listBySid(section.getId());
-            if (questionList.isEmpty()) {
-                return;
-            }
-
-            //装载题目
-            section.setQuestions(questionList);
-        });
-
-        return paper;
+        return cacheUtils.loadPaper(paper);
     }
 
     @Override
@@ -112,7 +88,7 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public Paper oneById(Integer id) {
 
-        return paperMapper.selectByPrimaryKey(id);
+        return cacheUtils.getPaper(id);
     }
 
     @Override
