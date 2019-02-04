@@ -11,7 +11,7 @@
  Target Server Version : 100312
  File Encoding         : 65001
 
- Date: 13/01/2019 21:03:19
+ Date: 05/02/2019 00:43:28
 */
 
 SET NAMES utf8mb4;
@@ -36,14 +36,14 @@ CREATE TABLE `paper` (
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of paper
 -- ----------------------------
 BEGIN;
-INSERT INTO `paper` VALUES (1, '2010年4月25日公务员考试（十二省联考）行测真题（山东与天津、重庆、内蒙、海南、辽宁、云南、湖南、陕西、广西、宁夏、西藏）', 'PastPaper', 'ChengGong', 1, 3, 100.00, 60.00, 0.00, 120, '', '2018-08-27 15:30:38', '2018-08-27 15:30:38');
-INSERT INTO `paper` VALUES (2, '2011年4月24日公务员联考《行测》试卷（贵州、四川、福建、黑龙江、湖北、山西、重庆、辽宁、海南、江西、天津、陕西、云南、广西、山东、湖南、江苏）十七省', 'PastPaper', 'ChengGong', 1, 3, 100.00, 60.00, 0.00, 120, '', '2018-08-27 15:30:38', '2018-08-27 15:30:38');
+INSERT INTO `paper` VALUES (1, '2010年4月25日公务员考试（十二省联考）行测真题（山东与天津、重庆、内蒙、海南、辽宁、云南、湖南、陕西、广西、宁夏、西藏）', 'PastPaper', 'ChengGong', 1, 3, 100.00, 60.00, 0.00, 120, '', '2018-08-27 15:30:38', '2019-02-04 16:42:32');
+INSERT INTO `paper` VALUES (2, '2011年4月24日公务员联考《行测》试卷（贵州、四川、福建、黑龙江、湖北、山西、重庆、辽宁、海南、江西、天津、陕西、云南、广西、山东、湖南、江苏）十七省', 'PastPaper', 'ChengGong', 1, 3, 100.00, 60.00, 0.00, 120, '', '2018-08-27 15:30:38', '2019-02-04 16:42:49');
 INSERT INTO `paper` VALUES (3, '2014年412联考真题及解析', 'PastPaper', 'ChengGong', 1, 3, 100.00, 60.00, 0.00, 120, '', '2018-08-27 15:30:38', '2018-08-27 15:30:38');
 INSERT INTO `paper` VALUES (4, '2015年公务员考试联考《行测》真题', 'PastPaper', 'ChengGong', 1, 3, 100.00, 60.00, 0.00, 120, '', '2018-08-27 15:30:38', '2018-08-27 15:30:38');
 INSERT INTO `paper` VALUES (5, '2016年公务员录用考试（不同省份题目顺序可能不一致）《行政职业能力测验》真题卷', 'PastPaper', 'ChengGong', 1, 3, 100.00, 60.00, 0.00, 120, '', '2018-08-27 15:30:38', '2018-08-27 15:30:38');

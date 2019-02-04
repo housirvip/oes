@@ -11,7 +11,7 @@
  Target Server Version : 100312
  File Encoding         : 65001
 
- Date: 13/01/2019 21:03:40
+ Date: 05/02/2019 00:43:50
 */
 
 SET NAMES utf8mb4;
@@ -33,8 +33,9 @@ CREATE TABLE `section` (
   `group` int(4) DEFAULT NULL COMMENT '每组显示数量',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=729 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  KEY `pid` (`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of section
