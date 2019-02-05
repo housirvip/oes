@@ -13,7 +13,7 @@ function docker_rm(){
 
 if [[ ! $1 ]]
 then
-    array=(config user exam store support)
+    array=(gateway user exam store support config)
     for((i=0;i<${#array[@]};i++))
     do
         docker_rm ${array[i]}
