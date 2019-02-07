@@ -19,7 +19,7 @@ then
         docker_run $1 ${array[i]}
     done
 else
-    if [[ $2 -eq gateway ]]; then
+    if [[ $2 == "gateway" ]]; then
         docker run -d --name oes-$2 --network oes -p 8080:8080 registry.cn-shanghai.aliyuncs.com/housirvip/oes-$2:$1
     else
         docker_run $1 $2
