@@ -84,6 +84,10 @@ ribbon:
   # 对当前实例的重试次数
   max-auto-retries: 1
 
+ding:
+  url: https://oapi.dingtalk.com
+  key: d378a51a81bb7012af000130d080224e83317b24281d73bde2aaf12ae2fcd0c8
+
 jwt:
   secret: changeIt
   expire: 21600
