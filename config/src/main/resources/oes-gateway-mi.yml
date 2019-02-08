@@ -5,6 +5,11 @@ server:
 spring:
   application:
     name: oes-gateway
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    virtual-host: oes
   cloud:
     consul:
       host: ubuntu.lan
