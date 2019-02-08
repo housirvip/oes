@@ -34,6 +34,8 @@ spring:
           group: average
         score-output:
           destination: exam-score
+        log-output:
+          destination: ding-log
       binders:
         defaultRabbit:
           type: rabbit
