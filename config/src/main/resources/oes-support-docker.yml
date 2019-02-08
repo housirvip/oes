@@ -18,6 +18,23 @@ spring:
         service-name: ${spring.application.name}
         instance-id: ${spring.application.name}:${random.value}
   #        health-check-interval: 5s
+    stream:
+      bindings:
+        order-input:
+          destination: ding-log
+          group: average
+        order-output:
+          destination: ding-log
+      binders:
+        defaultRabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: ${spring.rabbitmq.host}
+                username: ${spring.rabbitmq.username}
+                password: ${spring.rabbitmq.password}
+                virtual-host: ${spring.rabbitmq.virtual-host}
   datasource:
     url: jdbc:mysql://mariadb:3306/oes?characterEncoding=utf8&autoReconnect=true&useSSL=false
     druid:
