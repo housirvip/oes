@@ -21,10 +21,10 @@ spring:
   #        health-check-interval: 5s
     stream:
       bindings:
-        order-input:
+        log-input:
           destination: ding-log
           group: average
-        order-output:
+        log-output:
           destination: ding-log
       binders:
         defaultRabbit:
