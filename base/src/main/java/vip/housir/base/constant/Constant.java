@@ -41,9 +41,12 @@ public class Constant {
     public static final String SMS_ID = "X-LC-Id";
     public static final String SMS_KEY = "X-LC-Key";
     public static final String CAPTCHA_KEY = "api_key";
+    public static final String DING_KEY = "access_token";
 
     public static final String SMS_OK = "{}";
     public static final String CAPTCHA_OK = "{\"error\":0,\"res\":\"success\"}";
+    public static final String DING_OK = "{\"errmsg\":\"ok\",\"errcode\":0}";
+
 
     public static final String TICKET_USER = "USER_REPLY";
     public static final String TICKET_ADMIN = "ADMIN_REPLY";
