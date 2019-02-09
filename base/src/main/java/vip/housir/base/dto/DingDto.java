@@ -66,14 +66,4 @@ public class DingDto {
 
         return this;
     }
-
-    public DingDto javaException(String title, String content) {
-
-        this.setMsgtype("markdown");
-        this.markdown = new Markdown();
-        this.markdown.setTitle("JavaException");
-        this.markdown.setText("### " + title + "\n```\n" + content + "```");
-
-        return this;
-    }
 }

@@ -15,6 +15,7 @@ import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.base.dto.UserDto;
+import vip.housir.base.utils.LogUtils;
 import vip.housir.user.service.CaptchaService;
 import vip.housir.user.service.SmsService;
 import vip.housir.base.utils.JwtUtils;
@@ -48,6 +49,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtUtils jwtUtils;
+    private final LogUtils logUtils;
 
     @Value("${user.role}")
     private String initRole;
@@ -119,6 +121,8 @@ public class UserServiceImpl implements UserService {
         wallet.setCoin(initCoin);
 
         walletMapper.insertSelective(wallet);
+
+        logUtils.signup(user.getId(), user.getPhone(), user.getUsername());
 
         return jwtUtils.encode(user.getId(), user.getRole());
     }

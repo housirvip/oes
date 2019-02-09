@@ -1,4 +1,4 @@
-package vip.housir.base.handler;
+package vip.housir.base.utils;
 
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
