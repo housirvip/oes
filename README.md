@@ -26,12 +26,12 @@
 除 config 和 gateway，其他服务需要依赖此模块
 
 - 公共依赖，pom 文件
+- 公共常量，错误代码
+- 全局异常拦截
 - 公共 aop，分页
 - 公共 dto 文件
 - 公共 mq，logSender
 - 公共 feign 客户端
-- 公共常量，错误代码
-- 全局异常拦截
 - 公共 security 配置，jwt 拦截器
 - 公共 typeHandler，list、map
 - 公共 utils，json、jwt
