@@ -55,7 +55,7 @@
 
 ## exam
 
-考试微服务
+> 考试微服务
 
 1. 需要 consul 注册自身服务
 2. 需要 mysql/mariadb 作为数据库
@@ -72,7 +72,7 @@
 
 ## store
 
-商城微服务
+> 商城微服务
 
 1. 需要 consul 注册自身服务
 2. 需要 mysql/mariadb 作为数据库
@@ -86,7 +86,7 @@
 
 ## support
 
-辅助微服务
+> 辅助微服务
 
 1. 需要 consul 注册自身服务
 2. 需要 mysql/mariadb 作为数据库
