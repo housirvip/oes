@@ -5,8 +5,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
@@ -18,21 +16,20 @@ import vip.housir.exam.mapper.ExamMapper;
 import vip.housir.exam.mapper.PaperMapper;
 import vip.housir.exam.mapper.QuestionMapper;
 import vip.housir.exam.mapper.SectionMapper;
-import vip.housir.exam.mqhandler.ExamOutput;
+import vip.housir.exam.mq.ExamSender;
 import vip.housir.exam.service.ExamService;
+import vip.housir.exam.utils.CacheUtils;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author housirvip
  */
 @Service
-@EnableBinding(ExamOutput.class)
 @RequiredArgsConstructor
 public class ExamServiceImpl implements ExamService {
 
@@ -41,7 +38,9 @@ public class ExamServiceImpl implements ExamService {
     private final SectionMapper sectionMapper;
     private final QuestionMapper questionMapper;
 
-    private final ExamOutput examOutput;
+    private final CacheUtils cacheUtils;
+
+    private final ExamSender examSender;
 
     @Value("${exam.score-async}")
     private Boolean scoreAsync;
@@ -70,7 +69,7 @@ public class ExamServiceImpl implements ExamService {
 
         if (scoreAsync) {
             //异步后端打分
-            examOutput.score().send(MessageBuilder.withPayload(exam.getId()).build());
+            examSender.sendExamId(exam.getId());
         }
 
         return exam.getId();
@@ -82,7 +81,7 @@ public class ExamServiceImpl implements ExamService {
         Exam exam = examMapper.selectByPrimaryKey(id);
         Preconditions.checkNotNull(exam, ErrorMessage.EXAM_NOT_FOUND);
 
-        Paper paper = paperMapper.selectByPrimaryKey(exam.getPid());
+        Paper paper = cacheUtils.getPaper(exam.getPid());
         Preconditions.checkNotNull(paper, ErrorMessage.PAPER_NOT_FOUND);
 
         Map<String, Double> sectionScore = Maps.newHashMap();

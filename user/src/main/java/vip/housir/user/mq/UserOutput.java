@@ -1,4 +1,4 @@
-package vip.housir.store.mqhandler;
+package vip.housir.user.mq;
 
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
@@ -6,7 +6,7 @@ import org.springframework.messaging.MessageChannel;
 /**
  * @author: housirvip
  */
-public interface StoreOutput {
+public interface UserOutput {
 
     String ORDER = "order-output";
 

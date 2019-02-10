@@ -1,4 +1,4 @@
-package vip.housir.store.mqhandler;
+package vip.housir.support.mq;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.messaging.SubscribableChannel;
@@ -6,15 +6,15 @@ import org.springframework.messaging.SubscribableChannel;
 /**
  * @author: housirvip
  */
-public interface StoreInput {
+public interface LogInput {
 
-    String ORDER = "order-input";
+    String LOG = "log-input";
 
     /**
-     * 交易
+     * 日志
      *
      * @return SubscribableChannel
      */
-    @Input(ORDER)
-    SubscribableChannel order();
+    @Input(LOG)
+    SubscribableChannel log();
 }

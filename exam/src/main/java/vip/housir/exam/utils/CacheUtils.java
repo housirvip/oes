@@ -28,7 +28,7 @@ public class CacheUtils {
     @Cacheable(value = "paper", key = "#p0")
     public Paper getPaper(Integer id) {
 
-        log.warn("getPaper: " + id);
+        log.warn("From Database, getPaper: " + id);
 
         return paperMapper.selectByPrimaryKey(id);
     }
@@ -36,7 +36,7 @@ public class CacheUtils {
     @Cacheable(value = "paper-full", key = "#p0.id")
     public Paper loadPaper(Paper paper) {
 
-        log.warn("loadPaper: " + paper.getId());
+        log.warn("From Database, loadPaper: " + paper.getId());
 
         //试卷中没有模块，return
         List<Section> sectionList = sectionMapper.listByPid(paper.getId());

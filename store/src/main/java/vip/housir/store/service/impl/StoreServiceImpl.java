@@ -3,8 +3,6 @@ package vip.housir.store.service.impl;
 import com.github.pagehelper.Page;
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import vip.housir.base.constant.Constant;
 import vip.housir.base.constant.ErrorMessage;
@@ -14,7 +12,7 @@ import vip.housir.store.entity.Order;
 import vip.housir.store.entity.Product;
 import vip.housir.store.mapper.OrderMapper;
 import vip.housir.store.mapper.ProductMapper;
-import vip.housir.store.mqhandler.StoreOutput;
+import vip.housir.store.mq.StoreSender;
 import vip.housir.store.service.StoreService;
 
 import java.util.Date;
@@ -23,14 +21,13 @@ import java.util.Date;
  * @author housirvip
  */
 @Service
-@EnableBinding(StoreOutput.class)
 @RequiredArgsConstructor
 public class StoreServiceImpl implements StoreService {
 
     private final OrderMapper orderMapper;
     private final ProductMapper productMapper;
 
-    private final StoreOutput storeOutput;
+    private final StoreSender storeSender;
 
     @Override
     public Integer trade(TradeDto tradeDto) {
@@ -61,7 +58,7 @@ public class StoreServiceImpl implements StoreService {
         tradeDto.setGroupTo(product.getGroupTo());
         tradeDto.setGroupLimit(product.getGroupLimit());
 
-        storeOutput.order().send(MessageBuilder.withPayload(tradeDto).build());
+        storeSender.sendTradeDto(tradeDto);
 
         return order.getId();
     }

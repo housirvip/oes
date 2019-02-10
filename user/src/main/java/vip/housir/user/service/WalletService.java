@@ -29,11 +29,4 @@ public interface WalletService {
      * @return Boolean
      */
     Boolean award(TradeDto tradeDto);
-
-    /**
-     * 消息队列发 TradeDto 消息
-     *
-     * @param tradeDto TradeDto
-     */
-    void sendTradeDto(TradeDto tradeDto);
 }

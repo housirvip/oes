@@ -1,4 +1,4 @@
-package vip.housir.base.utils;
+package vip.housir.store.mq;
 
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
@@ -6,15 +6,15 @@ import org.springframework.messaging.MessageChannel;
 /**
  * @author: housirvip
  */
-public interface LogOutput {
+public interface StoreOutput {
 
-    String LOG = "log-output";
+    String ORDER = "order-output";
 
     /**
-     * 日志
+     * 交易
      *
      * @return MessageChannel
      */
-    @Output(LOG)
-    MessageChannel log();
+    @Output(ORDER)
+    MessageChannel order();
 }

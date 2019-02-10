@@ -1,4 +1,4 @@
-package vip.housir.exam.mqhandler;
+package vip.housir.exam.mq;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.messaging.SubscribableChannel;

@@ -1,36 +1,36 @@
-package vip.housir.store.mqhandler;
+package vip.housir.user.mq;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.Message;
+import vip.housir.base.constant.Constant;
 import vip.housir.base.dto.TradeDto;
-import vip.housir.store.entity.Order;
-import vip.housir.store.service.OrderService;
+import vip.housir.user.service.WalletService;
 
 /**
  * @author: housirvip
  */
 @Slf4j
-@EnableBinding(StoreInput.class)
+@EnableBinding(UserInput.class)
 @RequiredArgsConstructor
-public class StoreHandler {
+public class UserHandler {
 
-    private final OrderService orderService;
+    private final WalletService walletService;
 
-    @StreamListener(StoreInput.ORDER)
+    private final UserSender userSender;
+
+    @StreamListener(UserInput.ORDER)
     public void processOrder(Message<TradeDto> msg) {
 
         TradeDto tradeDto = msg.getPayload();
 
-        Order order = new Order();
-        order.setStatus(tradeDto.getStatus());
-        order.setId(tradeDto.getOrderId());
-
         try {
-            orderService.update(order);
+            walletService.payForLevel(tradeDto);
         } catch (Exception e) {
+            tradeDto.setStatus(Constant.ERROR);
+            userSender.sendTradeDto(tradeDto);
             log.error("订单处理失败:" + e.getMessage() + tradeDto.toString());
         }
     }

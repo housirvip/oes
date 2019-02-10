@@ -15,9 +15,7 @@ import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.base.dto.UserDto;
-import vip.housir.base.utils.LogUtils;
-import vip.housir.user.service.CaptchaService;
-import vip.housir.user.service.SmsService;
+import vip.housir.base.mq.LogSender;
 import vip.housir.base.utils.JwtUtils;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.UserInfo;
@@ -25,6 +23,8 @@ import vip.housir.user.entity.Wallet;
 import vip.housir.user.mapper.UserInfoMapper;
 import vip.housir.user.mapper.UserMapper;
 import vip.housir.user.mapper.WalletMapper;
+import vip.housir.user.service.CaptchaService;
+import vip.housir.user.service.SmsService;
 import vip.housir.user.service.UserService;
 
 import java.util.Date;
@@ -49,7 +49,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtUtils jwtUtils;
-    private final LogUtils logUtils;
+
+    private final LogSender logSender;
 
     @Value("${user.role}")
     private String initRole;
@@ -122,7 +123,7 @@ public class UserServiceImpl implements UserService {
 
         walletMapper.insertSelective(wallet);
 
-        logUtils.signup(user.getId(), user.getPhone(), user.getUsername());
+        logSender.signup(user.getId(), user.getPhone(), user.getUsername());
 
         return jwtUtils.encode(user.getId(), user.getRole());
     }

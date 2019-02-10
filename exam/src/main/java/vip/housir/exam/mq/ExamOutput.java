@@ -1,4 +1,4 @@
-package vip.housir.user.mqhandler;
+package vip.housir.exam.mq;
 
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
@@ -6,15 +6,15 @@ import org.springframework.messaging.MessageChannel;
 /**
  * @author: housirvip
  */
-public interface UserOutput {
+public interface ExamOutput {
 
-    String ORDER = "order-output";
+    String SCORE = "score-output";
 
     /**
-     * 交易
+     * 考试打分
      *
      * @return MessageChannel
      */
-    @Output(ORDER)
-    MessageChannel order();
+    @Output(SCORE)
+    MessageChannel score();
 }

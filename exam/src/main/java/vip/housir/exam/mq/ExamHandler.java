@@ -1,4 +1,4 @@
-package vip.housir.exam.mqhandler;
+package vip.housir.exam.mq;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
