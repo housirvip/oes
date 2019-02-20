@@ -12,13 +12,13 @@ import vip.housir.support.client.DingClient;
  * @author: housirvip
  */
 @Slf4j
-@EnableBinding(LogInput.class)
+@EnableBinding(DingInput.class)
 @RequiredArgsConstructor
 public class LogHandler {
 
     private final DingClient dingClient;
 
-    @StreamListener(LogInput.LOG)
+    @StreamListener(DingInput.DING)
     public void processLog(Message<DingDto> msg) {
 
         dingClient.send(msg.getPayload());

@@ -15,7 +15,7 @@ import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.base.dto.UserDto;
-import vip.housir.base.mq.LogSender;
+import vip.housir.base.mq.DingSender;
 import vip.housir.base.utils.JwtUtils;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.UserInfo;
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
     private final JwtUtils jwtUtils;
 
-    private final LogSender logSender;
+    private final DingSender dingSender;
 
     @Value("${user.role}")
     private String initRole;
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
 
         walletMapper.insertSelective(wallet);
 
-        logSender.signup(user.getId(), user.getPhone(), user.getUsername());
+        dingSender.signup(user.getId(), user.getPhone(), user.getUsername());
 
         return jwtUtils.encode(user.getId(), user.getRole());
     }

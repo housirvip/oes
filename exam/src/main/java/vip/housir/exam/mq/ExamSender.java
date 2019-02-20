@@ -3,6 +3,7 @@ package vip.housir.exam.mq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.support.MessageBuilder;
+import vip.housir.exam.entity.Exam;
 
 /**
  * @author housirvip
@@ -13,8 +14,8 @@ public class ExamSender {
 
     private final ExamOutput examOutput;
 
-    public void sendExamId(Integer examId) {
+    public void sendExam(Exam exam) {
 
-        examOutput.score().send(MessageBuilder.withPayload(examId).build());
+        examOutput.score().send(MessageBuilder.withPayload(exam).build());
     }
 }

@@ -26,7 +26,7 @@ public interface ExamService {
     Page<Exam> pageByParam(PageDto pageDto);
 
     /**
-     * 插入考试记录，返回主键 id
+     * 提交考试记录，返回主键 id
      *
      * @param exam Exam
      * @return Integer
@@ -34,9 +34,9 @@ public interface ExamService {
     Integer submit(Exam exam);
 
     /**
-     * 将存入数据库中的考试记录打分
+     * 存入数据库，考试记录打分
      *
-     * @param id Integer
+     * @param exam Exam
      */
-    void score(Integer id);
+    void saveAndScore(Exam exam);
 }

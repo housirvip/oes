@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.Message;
+import vip.housir.exam.entity.Exam;
 import vip.housir.exam.service.ExamService;
 
 /**
@@ -18,13 +19,13 @@ public class ExamHandler {
     private final ExamService examService;
 
     @StreamListener(ExamInput.SCORE)
-    public void scoreByExamId(Message<Integer> msg) {
+    public void scoreByExamId(Message<Exam> msg) {
 
-        Integer examId = msg.getPayload();
+        Exam exam = msg.getPayload();
         try {
-            examService.score(examId);
+            examService.saveAndScore(exam);
         } catch (Exception e) {
-            log.error("考试打分失败:" + e.getMessage() + examId.toString());
+            log.error("考试保存或打分失败:" + e.getMessage() + exam.getId());
         }
     }
 }

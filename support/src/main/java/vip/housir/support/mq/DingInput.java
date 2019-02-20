@@ -6,15 +6,15 @@ import org.springframework.messaging.SubscribableChannel;
 /**
  * @author: housirvip
  */
-public interface LogInput {
+public interface DingInput {
 
-    String LOG = "log-input";
+    String DING = "ding-input";
 
     /**
      * 日志
      *
      * @return SubscribableChannel
      */
-    @Input(LOG)
-    SubscribableChannel log();
+    @Input(DING)
+    SubscribableChannel pull();
 }

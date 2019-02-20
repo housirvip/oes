@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import vip.housir.base.constant.ErrorMessage;
-import vip.housir.base.mq.LogSender;
+import vip.housir.base.mq.DingSender;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.ErrorResponse;
 
@@ -19,7 +19,7 @@ import vip.housir.base.response.ErrorResponse;
 @RequiredArgsConstructor
 public class MyExceptionHandler {
 
-    private final LogSender logSender;
+    private final DingSender dingSender;
 
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(RuntimeException.class)
@@ -27,7 +27,7 @@ public class MyExceptionHandler {
 
         if (ex.getMessage() == null || ex.getMessage().isEmpty()) {
 
-            logSender.exception(ex);
+            dingSender.exception(ex);
             return new ErrorResponse(ErrorMessage.SERVICE_EXCEPTION);
         }
 

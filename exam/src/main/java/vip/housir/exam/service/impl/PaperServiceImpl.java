@@ -2,11 +2,8 @@ package vip.housir.exam.service.impl;
 
 import com.github.pagehelper.Page;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import vip.housir.base.client.UserClient;
 import vip.housir.base.constant.Constant;
@@ -38,9 +35,6 @@ public class PaperServiceImpl implements PaperService {
 
     private final CacheUtils cacheUtils;
 
-    @Value("${exam.time-limit}")
-    private Integer timeLimit;
-
     @Override
     public Paper render(Integer id) {
 
@@ -52,13 +46,6 @@ public class PaperServiceImpl implements PaperService {
         UserDto userDto = userClient.user().getResult();
         Preconditions.checkNotNull(userDto, ErrorMessage.USER_NOT_FOUND);
         Preconditions.checkArgument(paper.getMinLevel() <= userDto.getLevel(), ErrorMessage.PAPER_LEVEL_LIMIT);
-
-        //次数上限验证
-        Map<Integer, Map<String, Long>> countResult = examMapper.countTimesByPids(
-                ImmutableMap.of(Constant.PIDS, ImmutableList.of(id), Constant.UID, userDto.getId()));
-        Optional.ofNullable(countResult.get(id))
-                .map(map -> map.get(Constant.TIMES))
-                .ifPresent(times -> Preconditions.checkArgument(times < timeLimit, ErrorMessage.PAPER_TIMES_LIMIT));
 
         return cacheUtils.loadPaper(paper);
     }

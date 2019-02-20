@@ -6,15 +6,15 @@ import org.springframework.messaging.MessageChannel;
 /**
  * @author: housirvip
  */
-public interface LogOutput {
+public interface DingOutput {
 
-    String LOG = "log-output";
+    String DING = "ding-output";
 
     /**
      * 日志
      *
      * @return MessageChannel
      */
-    @Output(LOG)
-    MessageChannel log();
+    @Output(DING)
+    MessageChannel push();
 }
