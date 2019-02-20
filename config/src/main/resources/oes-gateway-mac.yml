@@ -70,9 +70,9 @@ spring:
           predicates:
             - Path=/notice/**
         - id: ding
-            uri: lb://oes-support
-            predicates:
-              - Path=/ding/**
+          uri: lb://oes-support
+          predicates:
+            - Path=/ding/**
         - id: support-admin
           uri: lb://oes-support
           predicates:
