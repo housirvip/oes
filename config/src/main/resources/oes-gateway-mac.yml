@@ -69,10 +69,10 @@ spring:
           uri: lb://oes-support
           predicates:
             - Path=/notice/**
-        - id: ding
+        - id: noauth
           uri: lb://oes-support
           predicates:
-            - Path=/ding/**
+            - Path=/noauth/**
         - id: support-admin
           uri: lb://oes-support
           predicates:
