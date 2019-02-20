@@ -25,7 +25,7 @@ spring:
           group: average
         order-output:
           destination: store-order
-        log-output:
+        ding-output:
           destination: ding-log
       binders:
         defaultRabbit:
