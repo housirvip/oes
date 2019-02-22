@@ -17,7 +17,7 @@ spring:
       discovery:
         service-name: ${spring.application.name}
         instance-id: ${spring.application.name}:${random.value}
-        hostname: housirvipdeimac.lan
+#        hostname: housirvipdeimac.lan
   #        health-check-interval: 5s
     stream:
       bindings:
