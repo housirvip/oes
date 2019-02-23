@@ -2,6 +2,10 @@ server:
   port: 8540
   address:
 
+logging:
+  level:
+    root: warn
+
 spring:
   application:
     name: oes-support
