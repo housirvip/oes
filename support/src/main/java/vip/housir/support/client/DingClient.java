@@ -17,7 +17,7 @@ import vip.housir.base.dto.DingDto;
 public interface DingClient {
 
     /**
-     * 验证验证码
+     * 钉钉推送通知
      *
      * @param dingDto DingDto
      * @return String
