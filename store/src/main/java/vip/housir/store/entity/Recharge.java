@@ -16,25 +16,21 @@ public class Recharge implements Serializable {
 
     private Integer coin;
 
+    private Float totalAmount;
+
+    private String discountAmount;
+
     private String name;
 
     private String status;
-
-    private String qrId;
-
-    private String qrPayId;
 
     private String tid;
 
     private String payType;
 
-    private Integer payTypeCode;
-
     private Date createTime;
 
     private Date updateTime;
 
-    private String yzMsg;
-
-    private static final long serialVersionUID = 1L;
+    private String notifyMsg;
 }
