@@ -3,15 +3,15 @@
 
  Source Server         : mariadb
  Source Server Type    : MariaDB
- Source Server Version : 100312
+ Source Server Version : 100313
  Source Host           : localhost:3306
  Source Schema         : oes
 
  Target Server Type    : MariaDB
- Target Server Version : 100312
+ Target Server Version : 100313
  File Encoding         : 65001
 
- Date: 04/02/2019 23:42:01
+ Date: 10/03/2019 16:05:17
 */
 
 SET NAMES utf8mb4;
@@ -68,7 +68,7 @@ CREATE TABLE `order` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `uid` (`uid`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for paper
@@ -89,7 +89,7 @@ CREATE TABLE `paper` (
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for product
@@ -110,7 +110,7 @@ CREATE TABLE `product` (
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for question
@@ -131,7 +131,7 @@ CREATE TABLE `question` (
   `update_time` timestamp NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `sid` (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19537 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for recharge
@@ -140,20 +140,20 @@ DROP TABLE IF EXISTS `recharge`;
 CREATE TABLE `recharge` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '记录id',
   `uid` int(11) DEFAULT NULL COMMENT '用户id',
-  `coin` int(11) NOT NULL DEFAULT 0 COMMENT '充值数量',
+  `coin` int(11) NOT NULL DEFAULT 0 COMMENT '充值(分)',
+  `total_amount` float(9,2) NOT NULL COMMENT '充值(元)',
+  `discount_amount` float(9,2) DEFAULT NULL COMMENT '折扣(元)',
   `name` varchar(255) DEFAULT NULL COMMENT '充值名称',
   `status` varchar(255) DEFAULT NULL COMMENT '状态',
-  `qr_id` varchar(255) DEFAULT NULL COMMENT '二维码id',
-  `qr_pay_id` varchar(255) DEFAULT NULL COMMENT '二维码付款id',
   `tid` varchar(255) DEFAULT NULL COMMENT '交易id',
   `pay_type` varchar(255) DEFAULT NULL COMMENT '付款类型',
-  `pay_type_code` int(8) DEFAULT NULL COMMENT '付款类型代码',
-  `yz_msg` longtext DEFAULT NULL COMMENT '有赞存根',
+  `notify_msg` text DEFAULT NULL COMMENT '回调消息',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` timestamp NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  KEY `uid` (`uid`),
+  KEY `tid` (`tid`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for section
@@ -173,7 +173,7 @@ CREATE TABLE `section` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=729 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for ticket
@@ -229,7 +229,7 @@ CREATE TABLE `user` (
   KEY `email` (`email`),
   KEY `phone` (`phone`),
   KEY `login` (`username`,`email`,`phone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for user_info
@@ -247,7 +247,7 @@ CREATE TABLE `user_info` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for wallet
@@ -261,6 +261,6 @@ CREATE TABLE `wallet` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 SET FOREIGN_KEY_CHECKS = 1;
