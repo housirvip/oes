@@ -15,7 +15,7 @@ public class Paper implements Serializable {
 
     private String name;
 
-    private String type;
+    private PaperType type;
 
     private String group;
 

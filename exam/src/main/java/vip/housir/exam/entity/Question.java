@@ -15,7 +15,7 @@ public class Question implements Serializable {
 
     private Integer sid;
 
-    private String type;
+    private QuestionType type;
 
     private String pic;
 

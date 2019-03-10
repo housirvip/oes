@@ -11,23 +11,27 @@ import lombok.Getter;
 public enum UserGroup {
 
     /**
-     * Award 奖励
+     * Primary
      */
     Primary("primary"),
     /**
-     * Order 订购
+     * User
      */
     User("user"),
     /**
-     * Profit 返利
+     * ChengGong
+     */
+    ChengGong("cheng_gong"),
+    /**
+     * Vip
      */
     Vip("vip"),
     /**
-     * Purchase 购买
+     * Admin
      */
     Admin("admin"),
     /**
-     * Recharge 充值
+     * Root
      */
     Root("root");
 

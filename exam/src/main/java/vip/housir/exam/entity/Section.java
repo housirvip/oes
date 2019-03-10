@@ -25,7 +25,7 @@ public class Section implements Serializable {
 
     private Boolean deduct;
 
-    private String type;
+    private SectionType type;
 
     private Integer group;
 
