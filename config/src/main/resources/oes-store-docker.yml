@@ -29,6 +29,11 @@ spring:
           group: average
         order-output:
           destination: store-order
+        recharge-input:
+          destination: user-recharge
+          group: average
+        recharge-output:
+          destination: store-recharge
         ding-output:
           destination: ding-log
       binders:
