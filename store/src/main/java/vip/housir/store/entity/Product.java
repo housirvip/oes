@@ -1,6 +1,7 @@
 package vip.housir.store.entity;
 
 import lombok.Data;
+import vip.housir.base.constant.UserGroup;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -28,9 +29,9 @@ public class Product implements Serializable {
 
     private Integer levelTo;
 
-    private String groupTo;
+    private UserGroup groupTo;
 
-    private String groupLimit;
+    private UserGroup groupLimit;
 
     private Date createTime;
 

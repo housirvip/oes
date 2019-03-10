@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vip.housir.base.constant.Constant;
 import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.TicketDto;
@@ -52,7 +51,7 @@ public class TicketServiceImpl implements TicketService {
 
         Ticket ticket = new Ticket();
         ticket.setUid(ticketDto.getUid());
-        ticket.setStatus(Constant.TICKET_USER);
+        ticket.setStatus(ticketDto.getStatus());
         ticket.setModule(ticketDto.getModule());
         ticket.setTitle(ticketDto.getTitle());
         ticket.setCreateTime(new Date());

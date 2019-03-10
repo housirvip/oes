@@ -2,6 +2,7 @@ package vip.housir.base.dto;
 
 
 import lombok.Data;
+import vip.housir.base.constant.UserGroup;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -49,7 +50,7 @@ public class UserDto implements Serializable {
 
     private Integer coin;
 
-    private String group;
+    private UserGroup group;
 
     private UserInfoDto userInfo;
 

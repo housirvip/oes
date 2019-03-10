@@ -1,6 +1,8 @@
 package vip.housir.base.dto;
 
 import lombok.Data;
+import vip.housir.base.constant.TicketModule;
+import vip.housir.base.constant.TicketStatus;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,11 +16,11 @@ public class TicketDto implements Serializable {
 
     private Integer uid;
 
-    private String status;
-
     private Integer rate;
 
-    private String module;
+    private TicketStatus status;
+
+    private TicketModule module;
 
     private String title;
 

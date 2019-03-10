@@ -3,6 +3,7 @@ package vip.housir.base.dto;
 import lombok.Data;
 import vip.housir.base.constant.TradeStatus;
 import vip.housir.base.constant.TradeType;
+import vip.housir.base.constant.UserGroup;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -41,9 +42,9 @@ public class TradeDto implements Serializable {
 
     private Integer toUid;
 
-    private String groupTo;
+    private UserGroup groupTo;
 
-    private String groupLimit;
+    private UserGroup groupLimit;
 
     private TradeStatus status;
 

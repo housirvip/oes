@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vip.housir.base.constant.Constant;
 import vip.housir.base.constant.ErrorMessage;
+import vip.housir.base.constant.UserGroup;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.base.dto.UserDto;
@@ -56,7 +57,7 @@ public class UserServiceImpl implements UserService {
     private String initRole;
 
     @Value("${user.group}")
-    private String initGroup;
+    private UserGroup initGroup;
 
     @Value("${user.level}")
     private Integer initLevel;
@@ -136,7 +137,7 @@ public class UserServiceImpl implements UserService {
         List<String> check = this.checkExist(userDto);
         Preconditions.checkArgument(check.size() == 0, check.toString());
         //判断用户组
-        Preconditions.checkArgument(!Constant.ADMIN.equals(userDto.getGroup()) && !Constant.ROOT.equals(userDto.getGroup()), Constant.ERROR);
+        Preconditions.checkArgument(userDto.getGroup() != UserGroup.Admin && userDto.getGroup() != UserGroup.Root, Constant.ERROR);
 
         User user = new User();
         UserInfo userInfo = new UserInfo();
@@ -154,7 +155,7 @@ public class UserServiceImpl implements UserService {
         }
 
         List<String> roles = Lists.newArrayList(Constant.ROLE_PREFIX + Constant.PRIMARY);
-        if (!Constant.PRIMARY.equals(initGroup)) {
+        if (!Constant.PRIMARY.equals(initRole)) {
             roles.add(Constant.ROLE_PREFIX + Constant.VIP);
         }
         user.setRole(roles);
@@ -247,7 +248,7 @@ public class UserServiceImpl implements UserService {
                 .ifPresent(up -> user.setLevel(user.getLevel() + up));
 
         user.setGroup(tradeDto.getGroupTo());
-        if (!Constant.PRIMARY.equals(user.getGroup()) && !user.getRole().contains(Constant.ROLE_PREFIX + Constant.VIP)) {
+        if (user.getGroup() != UserGroup.Primary && !user.getRole().contains(Constant.ROLE_PREFIX + Constant.VIP)) {
             user.getRole().add(Constant.ROLE_PREFIX + Constant.VIP);
         }
 

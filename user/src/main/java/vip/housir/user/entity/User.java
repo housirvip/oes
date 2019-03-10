@@ -1,6 +1,7 @@
 package vip.housir.user.entity;
 
 import lombok.Data;
+import vip.housir.base.constant.UserGroup;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -31,7 +32,7 @@ public class User implements Serializable {
 
     private Integer level;
 
-    private String group;
+    private UserGroup group;
 
     private UserInfo userInfo;
 

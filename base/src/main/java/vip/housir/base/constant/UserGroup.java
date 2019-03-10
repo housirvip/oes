@@ -8,28 +8,28 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum TradeType {
+public enum UserGroup {
 
     /**
      * Award 奖励
      */
-    Award("award"),
+    Primary("primary"),
     /**
      * Order 订购
      */
-    Order("order"),
+    User("user"),
     /**
      * Profit 返利
      */
-    Profit("profit"),
+    Vip("vip"),
     /**
      * Purchase 购买
      */
-    Purchase("purchase"),
+    Admin("admin"),
     /**
      * Recharge 充值
      */
-    Recharge("recharge");
+    Root("root");
 
     private String value;
 }

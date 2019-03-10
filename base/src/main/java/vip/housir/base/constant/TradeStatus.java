@@ -1,11 +1,13 @@
 package vip.housir.base.constant;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * @author housirvip
  */
 @Getter
+@AllArgsConstructor
 public enum TradeStatus {
 
     /**
@@ -30,8 +32,4 @@ public enum TradeStatus {
     Success("success");
 
     private String value;
-
-    TradeStatus(String value) {
-        this.value = value;
-    }
 }

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vip.housir.base.constant.Constant;
 import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.constant.TradeStatus;
+import vip.housir.base.constant.UserGroup;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.Wallet;
@@ -51,10 +52,10 @@ public class WalletServiceImpl implements WalletService {
                 .ifPresent(min -> Preconditions.checkArgument(user.getLevel() >= min, ErrorMessage.USER_LEVEL_LIMIT));
 
         Optional.ofNullable(tradeDto.getGroupLimit())
-                .ifPresent(group -> Preconditions.checkArgument(group.equals(user.getGroup()), ErrorMessage.USER_GROUP_LIMIT));
+                .ifPresent(group -> Preconditions.checkArgument(user.getGroup() == group, ErrorMessage.USER_GROUP_LIMIT));
 
         user.setGroup(tradeDto.getGroupTo());
-        if (!Constant.PRIMARY.equals(user.getGroup()) && !user.getRole().contains(Constant.ROLE_PREFIX + Constant.VIP)) {
+        if (user.getGroup() != UserGroup.Primary && !user.getRole().contains(Constant.ROLE_PREFIX + Constant.VIP)) {
             user.getRole().add(Constant.ROLE_PREFIX + Constant.VIP);
         }
 
