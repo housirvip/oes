@@ -96,7 +96,7 @@ ribbon:
 
 user:
   role: PRIMARY
-  group: PRIMARY
+  group: Primary
   level: 0
   coin: 0
 
