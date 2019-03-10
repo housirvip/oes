@@ -39,6 +39,16 @@
         where tid = #{tid,jdbcType=VARCHAR}
         limit 1
     </select>
+    <select id="listByParam" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from recharge
+        <where>
+            <include refid="filter"/>
+            <include refid="search"/>
+        </where>
+        <include refid="order"/>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from recharge
     where id = #{id,jdbcType=INTEGER}
@@ -200,4 +210,41 @@
           update_time = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <sql id="filter">
+        <if test="uid != null">
+            and uid = #{uid,jdbcType=INTEGER}
+        </if>
+        <if test="tid != null">
+            and tid = #{tid,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+            and status = #{status,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    <sql id="search">
+        <if test="name != null and name!=''">
+            and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+    </sql>
+    <sql id="order">
+        <if test="orderBy != null">
+            order by
+            <if test="orderBy == 'createTime'">
+                create_time
+            </if>
+            <if test="orderBy == 'coin'">
+                coin
+            </if>
+            <if test="orderBy == 'status'">
+                status
+            </if>
+            <!-- order type -->
+            <if test="orderType == 'desc'">
+                desc
+            </if>
+            <if test="orderType == 'asc'">
+                asc
+            </if>
+        </if>
+    </sql>
 </mapper>

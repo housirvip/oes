@@ -209,7 +209,7 @@
     </update>
     <sql id="filter">
         <if test="minLevel != null">
-            and min_level = #{minLevel,jdbcType=VARCHAR}
+            and min_level = #{minLevel,jdbcType=INTEGER}
         </if>
         <if test="group != null and group!=''">
             and `group` = #{group,jdbcType=VARCHAR}

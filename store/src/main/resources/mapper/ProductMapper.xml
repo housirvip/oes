@@ -209,7 +209,7 @@
     </update>
     <sql id="filter">
         <if test="price != null">
-            and price = #{price,jdbcType=VARCHAR}
+            and price = #{price,jdbcType=INTEGER}
         </if>
     </sql>
     <sql id="search">

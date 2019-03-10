@@ -190,10 +190,10 @@
     </update>
     <sql id="filter">
         <if test="uid != null">
-            and uid = #{uid,jdbcType=VARCHAR}
+            and uid = #{uid,jdbcType=INTEGER}
         </if>
         <if test="pid != null">
-            and pid = #{pid,jdbcType=VARCHAR}
+            and pid = #{pid,jdbcType=INTEGER}
         </if>
     </sql>
     <sql id="search">

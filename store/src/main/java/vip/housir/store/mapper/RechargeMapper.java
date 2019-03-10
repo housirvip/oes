@@ -1,7 +1,10 @@
 package vip.housir.store.mapper;
 
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import vip.housir.store.entity.Recharge;
+
+import java.util.Map;
 
 /**
  * @author housirvip
@@ -74,4 +77,12 @@ public interface RechargeMapper {
      * @return Recharge
      */
     Recharge selectByTid(String tid);
+
+    /**
+     * 根据参数查询，支持分页
+     *
+     * @param param Map<String,Object>
+     * @return Page
+     */
+    Page<Recharge> listByParam(Map<String, Object> param);
 }

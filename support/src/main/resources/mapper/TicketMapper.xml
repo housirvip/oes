@@ -145,7 +145,7 @@
     </update>
     <sql id="filter">
         <if test="uid != null">
-            and uid = #{uid,jdbcType=VARCHAR}
+            and uid = #{uid,jdbcType=INTEGER}
         </if>
         <if test="status != null and status!=''">
             and status = #{status,jdbcType=VARCHAR}
