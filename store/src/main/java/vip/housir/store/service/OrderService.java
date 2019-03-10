@@ -2,6 +2,7 @@ package vip.housir.store.service;
 
 import com.github.pagehelper.Page;
 import vip.housir.base.dto.PageDto;
+import vip.housir.base.dto.TradeDto;
 import vip.housir.store.entity.Order;
 
 /**
@@ -32,4 +33,12 @@ public interface OrderService {
      * @param order Order
      */
     void update(Order order);
+
+    /**
+     * 开始交易，生成订单，返回主键 id
+     *
+     * @param tradeDto TradeDto
+     * @return Integer
+     */
+    Integer start(TradeDto tradeDto);
 }

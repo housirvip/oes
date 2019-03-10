@@ -66,4 +66,12 @@ public interface RechargeMapper {
      * @return int
      */
     int updateByPrimaryKey(Recharge record);
+
+    /**
+     * 根据 tid 查询充值记录
+     *
+     * @param tid String
+     * @return Recharge
+     */
+    Recharge selectByTid(String tid);
 }

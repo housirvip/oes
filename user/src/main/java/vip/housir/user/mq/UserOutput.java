@@ -10,6 +10,8 @@ public interface UserOutput {
 
     String ORDER = "order-output";
 
+    String RECHARGE = "recharge-output";
+
     /**
      * 交易
      *
@@ -17,4 +19,12 @@ public interface UserOutput {
      */
     @Output(ORDER)
     MessageChannel order();
+
+    /**
+     * 充值
+     *
+     * @return MessageChannel
+     */
+    @Output(RECHARGE)
+    MessageChannel recharge();
 }

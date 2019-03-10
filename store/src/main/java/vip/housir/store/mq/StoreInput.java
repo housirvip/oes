@@ -10,6 +10,8 @@ public interface StoreInput {
 
     String ORDER = "order-input";
 
+    String RECHARGE = "recharge-input";
+
     /**
      * 交易
      *
@@ -17,4 +19,12 @@ public interface StoreInput {
      */
     @Input(ORDER)
     SubscribableChannel order();
+
+    /**
+     * 充值
+     *
+     * @return SubscribableChannel
+     */
+    @Input(RECHARGE)
+    SubscribableChannel recharge();
 }

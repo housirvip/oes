@@ -61,6 +61,14 @@ public interface UserInfoMapper {
     int updateByPrimaryKey(UserInfo record);
 
     /**
+     * 根据主键更新记录，返回受影响的记录数，对象中属性值为 null，则不赋值
+     *
+     * @param record UserInfo
+     * @return int
+     */
+    int updateByUidSelective(UserInfo record);
+
+    /**
      * 根据 uid 查询 UserInfo
      *
      * @param uid Integer
@@ -77,12 +85,4 @@ public interface UserInfoMapper {
      */
     @MapKey("uid")
     Map<Integer, UserInfo> listInUids(List<Integer> uids);
-
-    /**
-     * 根据主键更新记录，返回受影响的记录数，对象中属性值为 null，则不赋值
-     *
-     * @param record UserInfo
-     * @return int
-     */
-    int updateByUidSelective(UserInfo record);
 }

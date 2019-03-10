@@ -1,6 +1,7 @@
 package vip.housir.store.entity;
 
 import lombok.Data;
+import vip.housir.base.constant.TradeStatus;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class Order implements Serializable {
 
     private Integer price;
 
-    private String status;
+    private TradeStatus status;
 
     private Date createTime;
 

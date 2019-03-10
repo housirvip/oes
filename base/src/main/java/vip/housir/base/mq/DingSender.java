@@ -44,7 +44,7 @@ public class DingSender {
         dingOutput.push().send(MessageBuilder.withPayload(dingDto).build());
     }
 
-    public void recharge(Integer uid, Integer money) {
+    public void recharge(Integer uid, Float money) {
 
         String title = "用户充值";
         String content = "### " + title + "\n\n> 用户ID：`" + uid + "`\n\n> 成功充值：`" + money + "`";

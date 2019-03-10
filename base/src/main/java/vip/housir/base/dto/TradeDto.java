@@ -1,6 +1,8 @@
 package vip.housir.base.dto;
 
 import lombok.Data;
+import vip.housir.base.constant.TradeStatus;
+import vip.housir.base.constant.TradeType;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -24,7 +26,7 @@ public class TradeDto implements Serializable {
     @NotNull(groups = Shopping.class)
     private Integer productId;
 
-    private Integer orderId;
+    private Integer referId;
 
     @NotNull(groups = Award.class)
     private Integer price;
@@ -43,9 +45,13 @@ public class TradeDto implements Serializable {
 
     private String groupLimit;
 
-    private String status;
+    private TradeStatus status;
+
+    private TradeType type;
 
     private Boolean levelDown;
+
+    private Float totalAmount;
 
     private static final long serialVersionUID = 1L;
 }

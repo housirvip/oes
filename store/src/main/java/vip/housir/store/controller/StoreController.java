@@ -1,18 +1,27 @@
 package vip.housir.store.controller;
 
+import com.alipay.api.AlipayApiException;
 import com.github.pagehelper.Page;
+import com.google.common.collect.ImmutableMap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import vip.housir.base.constant.TradeStatus;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.Shopping;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.PageResponse;
 import vip.housir.base.response.ResultResponse;
+import vip.housir.store.alipay.AlipayManager;
+import vip.housir.store.alipay.BizContent;
 import vip.housir.store.entity.Product;
-import vip.housir.store.service.StoreService;
+import vip.housir.store.service.OrderService;
+import vip.housir.store.service.ProductService;
+import vip.housir.store.service.RechargeService;
+
+import java.util.Map;
 
 /**
  * @author housirvip
@@ -22,12 +31,16 @@ import vip.housir.store.service.StoreService;
 @RequiredArgsConstructor
 public class StoreController {
 
-    private final StoreService storeService;
+    private final OrderService orderService;
+    private final ProductService productService;
+    private final RechargeService rechargeService;
+
+    private final AlipayManager alipayManager;
 
     @GetMapping(value = "/product/list")
     public BaseResponse<Page> products(@Validated PageDto pageDto) {
 
-        Page<Product> productPage = storeService.pageProductByParam(pageDto);
+        Page<Product> productPage = productService.pageByParam(pageDto);
 
         return new PageResponse<>(productPage, productPage.getTotal());
     }
@@ -37,6 +50,26 @@ public class StoreController {
 
         tradeDto.setUid((Integer) auth.getPrincipal());
 
-        return new ResultResponse<>(storeService.trade(tradeDto));
+        return new ResultResponse<>(orderService.start(tradeDto));
+    }
+
+    @PostMapping(value = "/recharge")
+    public BaseResponse<Map> recharge(@RequestBody BizContent bizContent, Authentication auth) throws AlipayApiException {
+
+        Integer rechargeId = rechargeService.start(bizContent, (Integer) auth.getPrincipal());
+        String payUrl = alipayManager.payUrl(bizContent);
+
+        return new ResultResponse<>(ImmutableMap.of("rechargeId", rechargeId, "payUrl", payUrl));
+    }
+
+    @PostMapping(value = "/noauth/notify")
+    public String alipay(@RequestParam Map<String, String> param) throws AlipayApiException {
+
+        if (!alipayManager.verify(param)) {
+            return TradeStatus.Failure.getValue();
+        }
+
+        rechargeService.finish(param);
+        return TradeStatus.Success.getValue();
     }
 }

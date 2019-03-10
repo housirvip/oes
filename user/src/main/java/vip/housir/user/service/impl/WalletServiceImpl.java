@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vip.housir.base.constant.Constant;
 import vip.housir.base.constant.ErrorMessage;
+import vip.housir.base.constant.TradeStatus;
 import vip.housir.base.dto.TradeDto;
 import vip.housir.user.entity.User;
 import vip.housir.user.entity.Wallet;
 import vip.housir.user.mapper.UserMapper;
 import vip.housir.user.mapper.WalletMapper;
-import vip.housir.user.mq.UserSender;
 import vip.housir.user.service.WalletService;
 
 import java.util.Optional;
@@ -26,8 +26,6 @@ public class WalletServiceImpl implements WalletService {
     private final UserMapper userMapper;
     private final WalletMapper walletMapper;
 
-    private final UserSender userSender;
-
     @Override
     public Wallet oneById(Integer uid) {
 
@@ -38,7 +36,7 @@ public class WalletServiceImpl implements WalletService {
     @Transactional(rollbackFor = Exception.class)
     public void payForLevel(TradeDto tradeDto) {
 
-        Preconditions.checkArgument(Constant.PENDING.equals(tradeDto.getStatus()), ErrorMessage.ORDER_NOT_PENDING);
+        Preconditions.checkArgument(tradeDto.getStatus() == TradeStatus.Pending, ErrorMessage.ORDER_NOT_PENDING);
 
         User user = userMapper.selectByPrimaryKey(tradeDto.getUid());
         Wallet wallet = walletMapper.selectByUid(tradeDto.getUid());
@@ -73,14 +71,10 @@ public class WalletServiceImpl implements WalletService {
 
         wallet.setCoin(wallet.getCoin() - tradeDto.getPrice());
         walletMapper.updateByPrimaryKeySelective(wallet);
-
-        tradeDto.setStatus(Constant.SUCCESS);
-
-        userSender.sendTradeDto(tradeDto);
     }
 
     @Override
-    public Boolean award(TradeDto tradeDto) {
+    public Boolean changeCoin(TradeDto tradeDto) {
 
         Wallet wallet = walletMapper.selectByUid(tradeDto.getUid());
         wallet.setCoin(wallet.getCoin() + tradeDto.getPrice());

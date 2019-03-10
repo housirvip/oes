@@ -1,6 +1,7 @@
 package vip.housir.store.entity;
 
 import lombok.Data;
+import vip.housir.base.constant.TradeStatus;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,11 +19,11 @@ public class Recharge implements Serializable {
 
     private Float totalAmount;
 
-    private String discountAmount;
+    private Float discountAmount;
 
     private String name;
 
-    private String status;
+    private TradeStatus status;
 
     private String tid;
 

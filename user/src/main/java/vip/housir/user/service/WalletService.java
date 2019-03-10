@@ -28,5 +28,5 @@ public interface WalletService {
      * @param tradeDto TradeDto
      * @return Boolean
      */
-    Boolean award(TradeDto tradeDto);
+    Boolean changeCoin(TradeDto tradeDto);
 }

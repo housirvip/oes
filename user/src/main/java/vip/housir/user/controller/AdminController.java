@@ -78,7 +78,7 @@ public class AdminController {
     @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
     public BaseResponse<Boolean> award(@RequestBody @Validated(value = Award.class) TradeDto tradeDto) {
 
-        return new ResultResponse<>(walletService.award(tradeDto));
+        return new ResultResponse<>(walletService.changeCoin(tradeDto));
     }
 
     @GetMapping(value = "/qiniu")

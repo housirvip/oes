@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.ResultResponse;
 import vip.housir.store.entity.Product;
-import vip.housir.store.service.StoreService;
+import vip.housir.store.service.ProductService;
 
 /**
  * @author housirvip
@@ -19,12 +19,12 @@ import vip.housir.store.service.StoreService;
 @RequiredArgsConstructor
 public class AdminController {
 
-    private final StoreService storeService;
+    private final ProductService productService;
 
     @PostMapping(value = "/product")
     @PreAuthorize("hasAnyRole('ADMIN','ROOT')")
     public BaseResponse<Integer> product(@RequestBody Product product) {
 
-        return new ResultResponse<>(storeService.productCreateOrUpdate(product));
+        return new ResultResponse<>(productService.createOrUpdate(product));
     }
 }
