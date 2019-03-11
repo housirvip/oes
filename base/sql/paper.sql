@@ -3,15 +3,15 @@
 
  Source Server         : mariadb
  Source Server Type    : MariaDB
- Source Server Version : 100312
+ Source Server Version : 100313
  Source Host           : localhost:3306
  Source Schema         : oes
 
  Target Server Type    : MariaDB
- Target Server Version : 100312
+ Target Server Version : 100313
  File Encoding         : 65001
 
- Date: 05/02/2019 00:43:28
+ Date: 11/03/2019 18:43:12
 */
 
 SET NAMES utf8mb4;
@@ -36,7 +36,7 @@ CREATE TABLE `paper` (
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of paper
