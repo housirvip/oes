@@ -45,9 +45,15 @@ public class AlipayManager {
         return alipayClient.execute(alipayRequest).getQrCode();
     }
 
-    public Boolean verify(Map<String, String> param) throws AlipayApiException {
+    public Boolean verify(Map<String, String> param) {
 
-        param.remove("sign_type");
-        return AlipaySignature.rsaCheckV2(param, alipayPublicKey, charset, signType);
+        param.remove(AlipayConst.SIGN_TYPE);
+
+        try {
+            return AlipaySignature.rsaCheckV2(param, alipayPublicKey, charset, signType);
+        } catch (Exception ex) {
+            log.error("支付宝签名错误", ex);
+            return false;
+        }
     }
 }

@@ -59,7 +59,7 @@ spring:
         - id: noauth-store
           uri: lb://oes-store
           predicates:
-            - Path=/noauth/store/*
+            - Path=/noauth/store/**
         - id: store-admin
           uri: lb://oes-store
           predicates:
@@ -75,7 +75,7 @@ spring:
         - id: noauth-support
           uri: lb://oes-support
           predicates:
-            - Path=/noauth/support/*
+            - Path=/noauth/support/**
         - id: support-admin
           uri: lb://oes-support
           predicates:

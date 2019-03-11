@@ -12,7 +12,7 @@ import vip.housir.support.entity.Sentry;
  * @author housirvip
  */
 @RestController
-@RequestMapping(value = "/noauth")
+@RequestMapping(value = "/noauth/support")
 @RequiredArgsConstructor
 public class NoAuthController {
 

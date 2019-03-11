@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import vip.housir.base.constant.TradeStatus;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.Shopping;
 import vip.housir.base.dto.TradeDto;
@@ -17,6 +16,7 @@ import vip.housir.base.response.ResultResponse;
 import vip.housir.store.alipay.AlipayManager;
 import vip.housir.store.alipay.BizContent;
 import vip.housir.store.entity.Product;
+import vip.housir.store.entity.Recharge;
 import vip.housir.store.service.OrderService;
 import vip.housir.store.service.ProductService;
 import vip.housir.store.service.RechargeService;
@@ -57,19 +57,16 @@ public class StoreController {
     public BaseResponse<Map> recharge(@RequestBody BizContent bizContent, Authentication auth) throws AlipayApiException {
 
         Integer rechargeId = rechargeService.start(bizContent, (Integer) auth.getPrincipal());
-        String payUrl = alipayManager.payUrl(bizContent);
+        String rechargeUrl = alipayManager.payUrl(bizContent);
 
-        return new ResultResponse<>(ImmutableMap.of("rechargeId", rechargeId, "payUrl", payUrl));
+        return new ResultResponse<>(ImmutableMap.of("rechargeId", rechargeId, "rechargeUrl", rechargeUrl));
     }
 
-    @PostMapping(value = "/noauth/notify")
-    public String alipay(@RequestParam Map<String, String> param) throws AlipayApiException {
+    @GetMapping(value = "/recharge")
+    public BaseResponse<Recharge> rechargeCheck(@RequestParam Integer rechargeId, Authentication auth) {
 
-        if (!alipayManager.verify(param)) {
-            return TradeStatus.Failure.getValue();
-        }
+        Recharge recharge = rechargeService.oneById(rechargeId, (Integer) auth.getPrincipal());
 
-        rechargeService.finish(param);
-        return TradeStatus.Success.getValue();
+        return new ResultResponse<>(recharge);
     }
 }

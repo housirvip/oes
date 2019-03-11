@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import vip.housir.base.constant.Constant;
+import vip.housir.base.constant.TicketStatus;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.TicketDto;
 import vip.housir.base.response.BaseResponse;
@@ -50,7 +50,7 @@ public class TicketController {
     public BaseResponse<Integer> reply(@RequestBody TicketDto ticketDto, Authentication auth) {
 
         ticketDto.setUid((Integer) auth.getPrincipal());
-        ticketDto.setStatus(Constant.TICKET_USER);
+        ticketDto.setStatus(TicketStatus.UserReply);
 
         return new ResultResponse<>(ticketService.update(ticketDto));
     }
@@ -59,7 +59,7 @@ public class TicketController {
     public BaseResponse<Integer> close(@RequestBody TicketDto ticketDto, Authentication auth) {
 
         ticketDto.setUid((Integer) auth.getPrincipal());
-        ticketDto.setStatus(Constant.TICKET_FINISH);
+        ticketDto.setStatus(TicketStatus.Finished);
 
         return new ResultResponse<>(ticketService.update(ticketDto));
     }

@@ -38,6 +38,10 @@ public class ErrorMessage {
     public static final String ORDER_PERMISSION_DENY = "此订单无权查看";
     public static final String ORDER_NOT_PENDING = "此订单非待支付状态";
 
+    public static final String RECHARGE_NOT_FOUND = "充值未找到";
+    public static final String RECHARGE_PERMISSION_DENY = "此充值无权查看";
+    public static final String RECHARGE_PENDING = "此充值待支付";
+
     public static final String TICKET_NOT_FOUND = "服务单未找到";
     public static final String TICKET_CONTENT_NULL = "服务单内容为空";
     public static final String TICKET_PERMISSION_DENY = "此服务单无权查看";

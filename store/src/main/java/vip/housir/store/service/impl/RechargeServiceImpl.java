@@ -1,9 +1,11 @@
 package vip.housir.store.service.impl;
 
 import com.github.pagehelper.Page;
+import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import vip.housir.base.constant.ErrorMessage;
 import vip.housir.base.constant.TradeStatus;
 import vip.housir.base.dto.PageDto;
 import vip.housir.base.dto.TradeDto;
@@ -32,6 +34,10 @@ public class RechargeServiceImpl implements RechargeService {
 
     @Override
     public Recharge oneById(Integer id, Integer uid) {
+
+        Recharge recharge = rechargeMapper.selectByPrimaryKey(id);
+        Preconditions.checkNotNull(recharge, ErrorMessage.RECHARGE_NOT_FOUND);
+        Preconditions.checkArgument(uid == null || uid.equals(recharge.getUid()), ErrorMessage.RECHARGE_PERMISSION_DENY);
 
         return rechargeMapper.selectByPrimaryKey(id);
     }

@@ -2,7 +2,7 @@ package vip.housir.support.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import vip.housir.base.constant.Constant;
+import vip.housir.base.constant.TicketStatus;
 import vip.housir.base.dto.TicketDto;
 import vip.housir.base.response.BaseResponse;
 import vip.housir.base.response.ResultResponse;
@@ -30,7 +30,7 @@ public class AdminController {
     @PutMapping(value = "/ticket")
     public BaseResponse<Integer> reply(@RequestBody TicketDto ticketDto) {
 
-        ticketDto.setStatus(Constant.TICKET_ADMIN);
+        ticketDto.setStatus(TicketStatus.AdminReply);
 
         return new ResultResponse<>(ticketService.update(ticketDto));
     }
@@ -38,7 +38,7 @@ public class AdminController {
     @PutMapping(value = "/ticket/close")
     public BaseResponse<Integer> close(@RequestBody TicketDto ticketDto) {
 
-        ticketDto.setStatus(Constant.TICKET_FINISH);
+        ticketDto.setStatus(TicketStatus.Finished);
 
         return new ResultResponse<>(ticketService.update(ticketDto));
     }
