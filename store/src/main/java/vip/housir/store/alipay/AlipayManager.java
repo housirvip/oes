@@ -36,6 +36,8 @@ public class AlipayManager {
 
     public String payUrl(BizContent bizContent) throws AlipayApiException {
 
+        bizContent.setDiscountAmount(null);
+
         //创建API对应的request
         AlipayTradePrecreateRequest alipayRequest = new AlipayTradePrecreateRequest();
         //在公共参数中设置回跳和通知地址
