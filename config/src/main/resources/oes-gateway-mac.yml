@@ -56,6 +56,10 @@ spring:
           uri: lb://oes-store
           predicates:
             - Path=/store/**
+        - id: noauth-store
+          uri: lb://oes-store
+          predicates:
+            - Path=/noauth/store/*
         - id: store-admin
           uri: lb://oes-store
           predicates:
@@ -68,10 +72,10 @@ spring:
           uri: lb://oes-support
           predicates:
             - Path=/notice/**
-        - id: noauth
+        - id: noauth-support
           uri: lb://oes-support
           predicates:
-            - Path=/noauth/**
+            - Path=/noauth/support/*
         - id: support-admin
           uri: lb://oes-support
           predicates:
