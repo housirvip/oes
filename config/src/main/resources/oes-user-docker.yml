@@ -29,10 +29,10 @@ spring:
         order-output:
           destination: user-order
         recharge-input:
-          destination: user-recharge
+          destination: store-recharge
           group: average
         recharge-output:
-          destination: store-recharge
+          destination: user-recharge
         ding-output:
           destination: ding-log
       binders:
