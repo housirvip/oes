@@ -116,7 +116,7 @@ alipay:
   format: json
   charset: utf-8
   sign-type: RSA2
-  notify-url: http://oes.us.housir.vip/store/noauth/notify
+  notify-url: http://oes.us.housir.vip/noauth/store/notify
 
 jwt:
   secret: changeIt
