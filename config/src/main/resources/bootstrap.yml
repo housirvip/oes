@@ -2,6 +2,10 @@ server:
   port: 8000
   address:
 
+logging:
+  level:
+    root: warn
+
 spring:
   application:
     name: oes-config
