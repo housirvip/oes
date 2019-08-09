@@ -84,8 +84,11 @@
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>1.0.2</version>
+                <version>1.4.0</version>
                 <configuration>
+                    <allowInsecureRegistries>
+                        true
+                    </allowInsecureRegistries>
                     <from>
                         <image>
                             registry.cn-shanghai.aliyuncs.com/housirvip/openjdk:8-jdk-alpine
