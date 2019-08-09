@@ -1,0 +1,31 @@
+server:
+  port: 8000
+  address:
+
+logging:
+  level:
+    root: warn
+
+spring:
+  application:
+    name: oes-config
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    virtual-host: oes
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}:${random.value}
+    config:
+      label: master
+      server:
+        git:
+          uri: https://gitee.com/housirvip/oes-config
+#          search-paths: config/src/main/resources
+          username: housirvip@outlook.com
+          password: hUTsxwXE5Yjg
