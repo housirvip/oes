@@ -124,6 +124,7 @@ public class ExamServiceImpl implements ExamService {
             exam.setSectionScore(sectionScore);
         }
 
+        exam.setName(paper.getName());
         exam.setCreateTime(new Date());
         examMapper.insertSelective(exam);
     }
