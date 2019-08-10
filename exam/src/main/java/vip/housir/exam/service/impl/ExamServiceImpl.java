@@ -120,7 +120,11 @@ public class ExamServiceImpl implements ExamService {
                 thisScore.set(finalScore.floatValue());
                 sectionScore.put(section.getId().toString(), finalScore.doubleValue());
             });
+
+            //计算总成绩
+            exam.setScore(0f);
             sectionScore.forEach((k, v) -> exam.setScore(exam.getScore() + v.floatValue()));
+
             exam.setSectionScore(sectionScore);
         }
 
