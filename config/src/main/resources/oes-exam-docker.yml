@@ -107,3 +107,4 @@ jwt:
 exam:
   score-async: true
   time-limit: 2
+  cache-expire: 3600
