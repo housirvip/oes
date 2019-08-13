@@ -11,8 +11,7 @@ function docker_run(){
     fi
 }
 
-if [[ ! $2 ]]
-then
+if [[ ! $2 ]]; then
     array=(user exam store support)
     for((i=0;i<${#array[@]};i++))
     do
@@ -20,7 +19,7 @@ then
     done
 else
     if [[ $2 == "gateway" ]]; then
-        docker run -d --name oes-$2 --network oes -p 8080:8080 registry.cn-shanghai.aliyuncs.com/housirvip/oes-$2:$1
+        docker run -d --name oes-gateway --network oes -p 8080:8080 registry.cn-shanghai.aliyuncs.com/housirvip/oes-gateway:$1
     else
         docker_run $1 $2
     fi
