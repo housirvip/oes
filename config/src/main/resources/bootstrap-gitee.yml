@@ -27,5 +27,5 @@ spring:
         git:
           uri: https://gitee.com/housirvip/oes-config
 #          search-paths: config/src/main/resources
-          username: housirvip@outlook.com
-          password: hUTsxwXE5Yjg
+          username: asd@asd.asd
+          password: asd
