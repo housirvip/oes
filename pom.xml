@@ -31,7 +31,7 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <docker.user>housirvip@outlook.com</docker.user>
-        <docker.pass>housir@370481</docker.pass>
+        <docker.pass>password</docker.pass>
     </properties>
 
     <dependencies>
